@@ -34,7 +34,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed"
-                       href="#"
+                       href="{{$itemChild['url']}}"
                        @if(count($itemChild['children']) > 0)
 
                        data-toggle="collapse"

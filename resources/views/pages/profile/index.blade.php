@@ -20,7 +20,7 @@
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.input name="nomor_hp" label="Nomor HP" isGroup/>
+                <x-form.input name="nomor_hp" label="Nomor HP" placeholder="Masukan Nomor Hp" isGroup />
             </x-wrapper.column>
             <x-wrapper.column>
             </x-wrapper.column>

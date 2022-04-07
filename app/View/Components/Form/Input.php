@@ -7,6 +7,8 @@ use App\View\Components\Wrapper\FormGroup;
 class Input extends FormGroup
 {
     public string $type;
+    public ?string $placeholder;
+
     /**
      * Create a new component instance.
      *
@@ -16,11 +18,13 @@ class Input extends FormGroup
      * @param string $error
      * @param string $helper
      * @param bool $isGroup
+     * @param string|null $placeholder
      */
-    public function __construct(string $name="", string $type="", string $label="", string $error="", string $helper="",bool $isGroup=false)
+    public function __construct(string $name="", string $type="", string $label="", string $error="", string $helper="",bool $isGroup=false,string $placeholder=null)
     {
         $this->type = $type;
         parent::__construct($name,$label,$error,$helper,$isGroup);
+        $this->placeholder = $placeholder;
     }
 
     /**

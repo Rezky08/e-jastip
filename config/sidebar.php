@@ -4,8 +4,14 @@ return [
         [
             'code' => 'PRL',
             'title' => 'Layanan',
-            'url' => '/profil',
             'children' => [
+                [
+                    'code' => 'PRL',
+                    'title' => 'Profile',
+                    'url' => '/profile',
+                    'childrenTitle' => 'Daftar Layanan',
+                    'children' => []
+                ],
                 [
                     'code' => 'LAI',
                     'title' => 'Layanan Pengajuan',
