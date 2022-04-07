@@ -2,17 +2,12 @@
 
 namespace App\View\Components\Form;
 
+use App\View\Components\Wrapper\FormGroup;
 use Illuminate\View\Component;
 
-class Input extends Component
+class Input extends FormGroup
 {
-    public string $name;
-    public string $label;
-    public string $error;
-    public string $helper;
     public string $type;
-    public bool $isGroup;
-
     /**
      * Create a new component instance.
      *
@@ -25,12 +20,8 @@ class Input extends Component
      */
     public function __construct(string $name="", string $type="", string $label="", string $error="", string $helper="",bool $isGroup=false)
     {
-        $this->name = $name;
-        $this->label = $label;
-        $this->error = $error;
-        $this->helper = $helper;
         $this->type = $type;
-        $this->isGroup = $isGroup;
+        parent::__construct($name,$label,$error,$helper,$isGroup);
     }
 
     /**
