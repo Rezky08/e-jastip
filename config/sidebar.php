@@ -40,23 +40,5 @@ return [
                 ],
             ]
         ],
-        [
-            'code' => 'LAI',
-            'title' => 'Layanan Pengajuan',
-            'url' => '/layanan',
-            'children' => []
-        ],
-        [
-            'code' => 'CKS',
-            'title' => 'Cek Status',
-            'url' => '/cek-status',
-            'children' => []
-        ],
-        [
-            'code' => 'RPJ',
-            'title' => 'Riwayat Pengajuan',
-            'url' => '/riwayat',
-            'children' => []
-        ],
     ]
 ];
