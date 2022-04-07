@@ -30,3 +30,10 @@
         </x-form.button>
     </form>
 @endsection
+@push("stack-script")
+    <script>
+        API.get(window.location.pathname).then((data)=>{
+            console.log(data)
+        })
+    </script>
+@endpush

@@ -609,7 +609,9 @@
     </div>
 </div>
 
-@yield("script")
+@section("script")
+@show
+@stack("stack-script")
 </body>
 
 </html>

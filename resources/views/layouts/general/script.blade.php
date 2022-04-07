@@ -16,5 +16,14 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const API = axios.create({
+            baseURL: window.location.base,
+            headers: {"Content-Type" : "application/json"}
+        });
+    </script>
+    <script>
+        const phpJsonVar = "<?=json_encode($json??[])?>"
+    </script>
 @endsection

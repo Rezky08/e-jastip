@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12524947d8c752f84bc21aaaede06bfa",
+    "content-hash": "796185d2b8d82c369d7f8186f14438ba",
     "packages": [
         {
             "name": "brick/math",
@@ -2723,6 +2723,46 @@
                 }
             ],
             "time": "2022-03-27T21:42:02+00:00"
+        },
+        {
+            "name": "rezky/laravel-response-formatter",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Rezky08/laravel-response-formatter.git",
+                "reference": "5f7344e404861d6a91b0033384bd7ea73692bc39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/5f7344e404861d6a91b0033384bd7ea73692bc39",
+                "reference": "5f7344e404861d6a91b0033384bd7ea73692bc39",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=v7.1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rezky\\LaravelResponseFormatter\\": "src",
+                    "Rezky\\LaravelResponseFormatter\\Http\\": "Http/",
+                    "Rezky\\LaravelResponseFormatter\\Command\\": "Command/",
+                    "Rezky\\LaravelResponseFormatter\\Exception\\": "Exception/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "rezky08",
+                    "email": "rezky.setiawan85@gmail.com"
+                }
+            ],
+            "description": "result api formatter",
+            "support": {
+                "issues": "https://github.com/Rezky08/laravel-response-formatter/issues",
+                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.1.0"
+            },
+            "time": "2021-12-28T01:49:20+00:00"
         },
         {
             "name": "symfony/console",
