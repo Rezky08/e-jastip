@@ -3,7 +3,6 @@
 namespace App\View\Components\Form;
 
 use App\View\Components\Wrapper\FormGroup;
-use Illuminate\View\Component;
 
 class Input extends FormGroup
 {
