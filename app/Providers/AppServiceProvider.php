@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*',function ($view){
             $view->with('appName','E-Jastip');
             $view->with('sidebar',Config::get('sidebar')['user']);
+            $view->with('ApiRajaOngkir',Config::get('api')['raja_ongkir']);
         });
     }
 

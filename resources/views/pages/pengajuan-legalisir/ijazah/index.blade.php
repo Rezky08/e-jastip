@@ -1,26 +1,30 @@
 @extends("layouts.user.template")
+@push("stack-script")
+    <x-api.raja-ongkir/>
+@endpush
 @section("main")
     <form>
         @csrf
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.select name="provinsi" label="Provinsi" isGroup />
+                <x-api.raja-ongkir.geo.province/>
             </x-wrapper.column>
             <x-wrapper.column>
-                <x-form.select name="kota" label="Kota" isGroup />
-            </x-wrapper.column>
-        </x-wrapper.form>
-        <x-wrapper.form isRow>
-            <x-wrapper.column>
-                <x-form.select name="kecamatan" label="Kecamatan" isGroup />
-            </x-wrapper.column>
-            <x-wrapper.column>
-                <x-form.select name="kode_pos" label="Kode Pos" isGroup />
+                <x-api.raja-ongkir.geo.city/>
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.text-area name="alamat" label="Alamat Lengkap" placeholder="Masukan Alamat Lengkap" isGroup noResize/>
+                <x-api.raja-ongkir.geo.district/>
+            </x-wrapper.column>
+            <x-wrapper.column>
+                <x-form.select name="kode_pos" label="Kode Pos" isGroup/>
+            </x-wrapper.column>
+        </x-wrapper.form>
+        <x-wrapper.form isRow>
+            <x-wrapper.column>
+                <x-form.text-area name="alamat" label="Alamat Lengkap" placeholder="Masukan Alamat Lengkap" isGroup
+                                  noResize/>
             </x-wrapper.column>
             <x-wrapper.column>
             </x-wrapper.column>
@@ -38,10 +42,3 @@
         </x-form.button>
     </form>
 @endsection
-@push("stack-script")
-    <script>
-        API.get(window.location.pathname).then((data)=>{
-            console.log(data)
-        })
-    </script>
-@endpush
