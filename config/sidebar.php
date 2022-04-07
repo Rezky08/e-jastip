@@ -13,21 +13,15 @@ return [
                     'children' => []
                 ],
                 [
-                    'code' => 'LAI',
-                    'title' => 'Layanan Pengajuan',
-                    'url' => '/layanan',
-                    'childrenTitle' => 'Daftar Layanan',
+                    'code' => 'PAL',
+                    'title' => 'Pengajuan Legalisir',
+                    'url' => '/pengajuan-legalisir',
+                    'childrenTitle' => 'Pengajuan Legalisir',
                     'children' => [
                         [
-                            'code' => 'CKS',
-                            'title' => 'Cek Status',
-                            'url' => '/cek-status',
-                            'children' => []
-                        ],
-                        [
-                            'code' => 'RPJ',
-                            'title' => 'Riwayat Pengajuan',
-                            'url' => '/riwayat',
+                            'code' => 'IJZ',
+                            'title' => 'Ijazah',
+                            'url' => '/pengajuan-legalisir/ijazah',
                             'children' => []
                         ],
                     ]

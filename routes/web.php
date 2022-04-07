@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::group(['prefix' => '/profile'],function (){
    Route::get("/",[\App\Http\Controllers\ProfileController::class,"index"]);
 });
+
+Route::group(['prefix' => '/pengajuan-legalisir'],function (){
+   Route::get("/ijazah",[\App\Http\Controllers\PengajuaLegalisir\IjazahController::class,"index"]);
+});
