@@ -17,6 +17,9 @@
 
         <!-- Custom styles for this template-->
         <link href="{{asset("css/sb-admin-2.min.css")}}" rel="stylesheet">
+        <script src="/js/manifest.js"></script>
+        <script src="/js/vendor.js"></script>
+        <script src="/js/app.js"></script>
 
     </head>
 @endsection

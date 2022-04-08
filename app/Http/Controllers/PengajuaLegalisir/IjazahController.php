@@ -4,6 +4,8 @@ namespace App\Http\Controllers\PengajuaLegalisir;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
+use Kavist\RajaOngkir\Resources\Provinsi;
 
 class IjazahController extends Controller
 {

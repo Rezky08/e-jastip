@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "796185d2b8d82c369d7f8186f14438ba",
+    "content-hash": "3681d75364f5dbd8b320ec5d08a62a47",
     "packages": [
         {
             "name": "brick/math",
@@ -2763,6 +2763,81 @@
                 "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.1.0"
             },
             "time": "2021-12-28T01:49:20+00:00"
+        },
+        {
+            "name": "rezky/rajaongkir",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Rezky08/rajaongkir.git",
+                "reference": "b3787ad0dcf90b5a807a3ca5396e24ab422c06c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Rezky08/rajaongkir/zipball/b3787ad0dcf90b5a807a3ca5396e24ab422c06c3",
+                "reference": "b3787ad0dcf90b5a807a3ca5396e24ab422c06c3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.26.2",
+                "fzaninotto/faker": "^1.8",
+                "mockery/mockery": "^1.2",
+                "orchestra/testbench": "^4.1",
+                "phpunit/phpunit": "^8.0",
+                "spatie/phpunit-watcher": "^1.12"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kavist\\RajaOngkir\\Providers\\LaravelServiceProvider"
+                    ],
+                    "aliases": {
+                        "RajaOngkir": "Kavist\\RajaOngkir\\Facades\\RajaOngkir"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kavist\\RajaOngkir\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Kavist\\RajaOngkir\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "watch": [
+                    "vendor/bin/phpunit-watcher"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Mustafa",
+                    "email": "mail@ianmustafa.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Klien API PHP untuk RajaOngkir",
+            "homepage": "https://github.com/kavist/rajaongkir",
+            "keywords": [
+                "laravel",
+                "rajaongkir"
+            ],
+            "support": {
+                "source": "https://github.com/Rezky08/rajaongkir/tree/v1.1.1"
+            },
+            "time": "2022-04-08T01:11:26+00:00"
         },
         {
             "name": "symfony/console",
