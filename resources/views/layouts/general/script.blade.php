@@ -20,10 +20,10 @@
     <script>
         const API = axios.create({
             baseURL: window.location.base,
-            headers: {"Content-Type" : "application/json"}
+            headers: {"Content-Type": "application/json"}
         });
     </script>
     <script>
-        const phpJsonVar = "<?=json_encode($json??[])?>"
+        const phpJsonVar = "<?=json_encode($json ?? [])?>"
     </script>
 @endsection

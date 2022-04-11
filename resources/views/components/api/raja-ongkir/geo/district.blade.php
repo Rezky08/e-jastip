@@ -2,20 +2,18 @@
 @push("stack-script")
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const getSubdistrict = ({subdistrictId, cityId}) => {
-                API_RAJA_ONGKIR.subdistrict(subdistrictId,cityId).then(({rajaongkir}) => {
+            const getDistrict = ({cityId, districtId}) => {
+                raja_ongkir.getDistrict({id:districtId, city_id:cityId}).then(({data}) => {
                     const kecamatanSelector = document.querySelector("select[name='kecamatan']");
-                    const optionElement = (item) => `<option value="${item['subdistrict_id']}">${item['subdistrict_name']}</option>`;
-                    const data = rajaongkir?.results ?? []
-                    let optionElementHtml = ""
-                    data?.map((item) => optionElementHtml += `${optionElement(item)}\n`)
+                    let optionElementHtml = `${form.select.optionElement({label:"Pilih Kecamatan",disabled:"disabled",selected:true})}\n`
+                    data?.map((item) => optionElementHtml += `${form.select.optionElement({value:item?.district_id,label:item?.district_name})}\n`)
                     kecamatanSelector.innerHTML = optionElementHtml
                 })
             }
             const kotaSelector = document.querySelector("select[name='kota']")
             kotaSelector?.addEventListener("change",(e)=>{
                 const cityId = e.target.value
-                getSubdistrict({cityId})
+                getDistrict({cityId})
             })
         })
     </script>

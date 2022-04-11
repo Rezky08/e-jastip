@@ -2156,6 +2156,62 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/api/raja-ongkir.js":
+/*!*****************************************!*\
+  !*** ./resources/js/api/raja-ongkir.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "api_raja_ongkir": () => (/* binding */ api_raja_ongkir),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getCity": () => (/* binding */ getCity),
+/* harmony export */   "getDistrict": () => (/* binding */ getDistrict),
+/* harmony export */   "getProvince": () => (/* binding */ getProvince)
+/* harmony export */ });
+var api_raja_ongkir = axios.create({
+  baseURL: window.location.origin + "/api/raja-ongkir",
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+var getProvince = function getProvince() {
+  var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return api_raja_ongkir.get("geo/provinsi", {
+    params: filter
+  }).then(function (_ref) {
+    var data = _ref.data;
+    return data;
+  });
+};
+var getCity = function getCity() {
+  var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return api_raja_ongkir.get("geo/kota", {
+    params: filter
+  }).then(function (_ref2) {
+    var data = _ref2.data;
+    return data;
+  });
+};
+var getDistrict = function getDistrict() {
+  var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return api_raja_ongkir.get("geo/kecamatan", {
+    params: filter
+  }).then(function (_ref3) {
+    var data = _ref3.data;
+    return data;
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  getProvince: getProvince,
+  getCity: getCity,
+  getDistrict: getDistrict
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2163,6 +2219,15 @@ module.exports = {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+var rajaOngkir = __webpack_require__(/*! ./api/raja-ongkir */ "./resources/js/api/raja-ongkir.js");
+
+var selectOption = __webpack_require__(/*! ./form/select-option */ "./resources/js/form/select-option.js");
+
+window.raja_ongkir = rajaOngkir;
+window.form = {
+  select: selectOption
+};
 
 /***/ }),
 
@@ -2194,6 +2259,29 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/form/select-option.js":
+/*!********************************************!*\
+  !*** ./resources/js/form/select-option.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "optionElement": () => (/* binding */ optionElement)
+/* harmony export */ });
+var optionElement = function optionElement(item) {
+  var _item$value, _item$label;
+
+  return "<option value=\"".concat((_item$value = item['value']) !== null && _item$value !== void 0 ? _item$value : '', "\" ").concat(item['disabled'] && 'disabled', " ").concat(item['selected'] && 'selected', ">").concat((_item$label = item['label']) !== null && _item$label !== void 0 ? _item$label : '', "</option>");
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  optionElement: optionElement
+});
 
 /***/ }),
 
@@ -19678,6 +19766,18 @@ process.umask = function() { return 0; };
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
 /******/ 		};
 /******/ 	})();
 /******/ 	

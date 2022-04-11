@@ -2,15 +2,12 @@
 @push("stack-script")
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // API_RAJA_ONGKIR.getProvince().then((data) => {
-            //     console.log(data)
-            //     // const provinsiSelector = document.querySelector("select[name='provinsi']");
-            //     // const optionElement = (item) => `<option value="${item['province_id']}">${item['province']}</option>`;
-            //     // const data = rajaongkir?.results ?? []
-            //     // let optionElementHtml = ""
-            //     // data?.map((item) => optionElementHtml += `${optionElement(item)}\n`)
-            //     // provinsiSelector.innerHTML = optionElementHtml
-            // })
+            raja_ongkir.getProvince().then(({data}) => {
+                const provinsiSelector = document.querySelector("select[name='provinsi']");
+                let optionElementHtml = `${form.select.optionElement({label:"Pilih Provinsi",disabled:"disabled",selected:true})}\n`
+                data?.map((item) => optionElementHtml += `${form.select.optionElement({label:item?.province,value:item?.province_id})}\n`)
+                provinsiSelector.innerHTML = optionElementHtml
+            })
         })
     </script>
 @endpush

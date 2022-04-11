@@ -2726,16 +2726,16 @@
         },
         {
             "name": "rezky/laravel-response-formatter",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rezky08/laravel-response-formatter.git",
-                "reference": "5f7344e404861d6a91b0033384bd7ea73692bc39"
+                "reference": "d5f2096b473f19fd82a3078251cd02ef15a81b55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/5f7344e404861d6a91b0033384bd7ea73692bc39",
-                "reference": "5f7344e404861d6a91b0033384bd7ea73692bc39",
+                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/d5f2096b473f19fd82a3078251cd02ef15a81b55",
+                "reference": "d5f2096b473f19fd82a3078251cd02ef15a81b55",
                 "shasum": ""
             },
             "require": {
@@ -2760,9 +2760,9 @@
             "description": "result api formatter",
             "support": {
                 "issues": "https://github.com/Rezky08/laravel-response-formatter/issues",
-                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.1.0"
+                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.1.1"
             },
-            "time": "2021-12-28T01:49:20+00:00"
+            "time": "2022-04-11T08:09:00+00:00"
         },
         {
             "name": "rezky/rajaongkir",

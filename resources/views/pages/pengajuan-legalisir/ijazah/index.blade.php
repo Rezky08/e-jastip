@@ -1,7 +1,4 @@
 @extends("layouts.user.template")
-@push("stack-script")
-    <x-api.raja-ongkir/>
-@endpush
 @section("main")
     <form>
         @csrf
@@ -18,7 +15,7 @@
                 <x-api.raja-ongkir.geo.district/>
             </x-wrapper.column>
             <x-wrapper.column>
-                <x-form.select name="kode_pos" label="Kode Pos" isGroup/>
+                <x-form.input name="kode_pos" label="Kode Pos" isGroup/>
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>

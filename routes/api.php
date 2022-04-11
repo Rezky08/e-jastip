@@ -22,5 +22,6 @@ Route::group(["prefix"=>"raja-ongkir"],function (){
     Route::group(["prefix"=>"geo"],function (){
         Route::get("/provinsi",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"provinsi"]);
         Route::get("/kota",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"kota"]);
+        Route::get("/kecamatan",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"kecamatan"]);
     });
 });

@@ -3,12 +3,10 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const getCity = ({cityId, provinceId}) => {
-                API_RAJA_ONGKIR.city(cityId,provinceId).then(({rajaongkir}) => {
+                raja_ongkir.getCity({id:cityId, province_id:provinceId}).then(({data}) => {
                     const kotaSelector = document.querySelector("select[name='kota']");
-                    const optionElement = (item) => `<option value="${item['city_id']}">${item['city_name']}</option>`;
-                    const data = rajaongkir?.results ?? []
-                    let optionElementHtml = ""
-                    data?.map((item) => optionElementHtml += `${optionElement(item)}\n`)
+                    let optionElementHtml = `${form.select.optionElement({label:"Pilih Kota",disabled:"disabled",selected:true})}\n`
+                    data?.map((item) => optionElementHtml += `${form.select.optionElement({value:item?.city_id,label:item?.city_name})}\n`)
                     kotaSelector.innerHTML = optionElementHtml
                 })
             }
