@@ -11,5 +11,8 @@ export const getCity = (filter={})=>{
 export const getDistrict = (filter={})=>{
     return api_raja_ongkir.get("geo/kecamatan",{params:filter}).then(({data})=>data)
 }
+export const getCost = (filter={})=>{
+    return api_raja_ongkir.get("cost",{params:filter}).then(({data})=>data)
+}
 
-export default {getProvince,getCity,getDistrict}
+export default {getProvince,getCity,getDistrict,getCost}

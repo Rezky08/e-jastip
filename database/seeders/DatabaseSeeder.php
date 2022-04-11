@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Geo\GeoSeeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Partner\ShipmentSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(GeoSeeder::class);
+        $this->call(ShipmentSeeder::class);
     }
 }

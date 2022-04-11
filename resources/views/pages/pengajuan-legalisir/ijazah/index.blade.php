@@ -24,6 +24,7 @@
                                   noResize/>
             </x-wrapper.column>
             <x-wrapper.column>
+                <x-api.raja-ongkir.cost.select destination="kota"/>
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>

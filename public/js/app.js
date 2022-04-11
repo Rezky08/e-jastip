@@ -2168,6 +2168,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "api_raja_ongkir": () => (/* binding */ api_raja_ongkir),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "getCity": () => (/* binding */ getCity),
+/* harmony export */   "getCost": () => (/* binding */ getCost),
 /* harmony export */   "getDistrict": () => (/* binding */ getDistrict),
 /* harmony export */   "getProvince": () => (/* binding */ getProvince)
 /* harmony export */ });
@@ -2204,10 +2205,20 @@ var getDistrict = function getDistrict() {
     return data;
   });
 };
+var getCost = function getCost() {
+  var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return api_raja_ongkir.get("cost", {
+    params: filter
+  }).then(function (_ref4) {
+    var data = _ref4.data;
+    return data;
+  });
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getProvince: getProvince,
   getCity: getCity,
-  getDistrict: getDistrict
+  getDistrict: getDistrict,
+  getCost: getCost
 });
 
 /***/ }),

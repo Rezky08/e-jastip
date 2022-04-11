@@ -2,7 +2,7 @@
 
 return [
     'handler' => [
-      'override' => false
+      'override' => true
     ],
 
     'code' => [

@@ -19,6 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(["prefix"=>"raja-ongkir"],function (){
+    Route::group(["prefix"=>"cost"],function () {
+        Route::get("/",[\App\Http\Controllers\Api\RajaOngkir\CostController::class,"index"]);
+
+    });
     Route::group(["prefix"=>"geo"],function (){
         Route::get("/provinsi",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"provinsi"]);
         Route::get("/kota",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"kota"]);
