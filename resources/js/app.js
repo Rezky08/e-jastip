@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('./form/wrapper');
 const rajaOngkir = require("./api/raja-ongkir");
 const selectOption = require("./form/select-option");
 

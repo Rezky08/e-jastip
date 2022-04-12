@@ -6,20 +6,18 @@ use Illuminate\View\Component;
 
 class Form extends Component
 {
-    /**
-     * @var false
-     */
     public bool $isRow;
+    public bool $isResponsive;
 
     /**
      * Create a new component instance.
      *
      * @param bool $isRow
      */
-    public function __construct(bool $isRow = false)
+    public function __construct(bool $isRow = false,bool $isResponsive = true)
     {
-        //
         $this->isRow = $isRow;
+        $this->isResponsive = $isResponsive;
     }
 
     /**
