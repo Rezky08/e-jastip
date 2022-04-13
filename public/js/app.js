@@ -2231,6 +2231,8 @@ var getCost = function getCost() {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./form/wrapper */ "./resources/js/form/wrapper.js");
+
 var rajaOngkir = __webpack_require__(/*! ./api/raja-ongkir */ "./resources/js/api/raja-ongkir.js");
 
 var selectOption = __webpack_require__(/*! ./form/select-option */ "./resources/js/form/select-option.js");
@@ -2293,6 +2295,41 @@ var optionElement = function optionElement(item) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   optionElement: optionElement
 });
+
+/***/ }),
+
+/***/ "./resources/js/form/wrapper.js":
+/*!**************************************!*\
+  !*** ./resources/js/form/wrapper.js ***!
+  \**************************************/
+/***/ (() => {
+
+var breakPoints = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400
+};
+
+var getBreakPoint = function getBreakPoint() {
+  var result = "xs";
+
+  if (window.innerWidth < breakPoints.sm) {
+    return result;
+  } else {
+    Object.values(breakPoints).slice(1).some(function (value, index) {
+      if (window.innerWidth >= value) {
+        result = Object.keys(breakPoints).slice(1)[index];
+      }
+    });
+  }
+
+  return result;
+};
+
+window.getBreakPoint = getBreakPoint;
 
 /***/ }),
 

@@ -26,4 +26,30 @@
     <script>
         const phpJsonVar = "<?=json_encode($json ?? [])?>"
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded",function (){
+            const formWrapperResponsive = ()=>{
+                document.querySelectorAll("#wrapper-form.is-responsive.is-row").forEach(function (item) {
+                    const breakpoint = window.getBreakPoint()
+                    if (["xs","sm"].includes(breakpoint)){
+                        if (item.classList.contains("form-row")){
+                            item.classList.remove("form-row")
+                            item.classList.add("form")
+                        }
+                    }else{
+                        if (!item.classList.contains("form-row")){
+                            item.classList.remove("form")
+                            item.classList.add("form-row")
+                        }
+                    }
+                })
+            }
+
+            formWrapperResponsive()
+            window.addEventListener("resize",function (){
+                formWrapperResponsive()
+            })
+        })
+    </script>
 @endsection
