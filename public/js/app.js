@@ -2287,9 +2287,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "optionElement": () => (/* binding */ optionElement)
 /* harmony export */ });
-var optionElement = function optionElement(item) {
+var optionElement = function optionElement() {
   var _item$value, _item$label;
 
+  var item = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return "<option value=\"".concat((_item$value = item['value']) !== null && _item$value !== void 0 ? _item$value : '', "\" ").concat(item['disabled'] && 'disabled', " ").concat(item['selected'] && 'selected', ">").concat((_item$label = item['label']) !== null && _item$label !== void 0 ? _item$label : '', "</option>");
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
