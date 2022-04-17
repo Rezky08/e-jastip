@@ -76,7 +76,7 @@ class ListItem extends Component
                 ]
             ],
             'other' => [
-                'label' => 'QRIS',
+                'label' => 'Lainya',
                 'paymentMethod' => [
                     [
                         'value' => 'indomaret',

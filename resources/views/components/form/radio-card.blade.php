@@ -1,5 +1,5 @@
 <div class="input-group">
-    <label for="{{"$name-$value"}}" {{$attributes->class(['w-100'=>$fullWidth])}}>
+    <label role="button" for="{{"$name-$value"}}" {{$attributes->class(['w-100'=>$fullWidth])}}>
         <x-wrapper.card>
             {{$slot}}
         </x-wrapper.card>
