@@ -17,6 +17,7 @@ class Button extends Component implements SizeInterface,TypeInterface
     public string $size;
     public bool $outline;
     public bool $fullWidth;
+    public bool $isSubmit;
 
     /**
      * Create a new component instance.
@@ -27,7 +28,7 @@ class Button extends Component implements SizeInterface,TypeInterface
      * @param bool $outline
      * @param bool $fullWidth
      */
-    public function __construct(string $variant = "", string $type = null, string $size = null, bool $outline = false, bool $fullWidth = false)
+    public function __construct(string $variant = "", string $type = null, string $size = null, bool $outline = false, bool $fullWidth = false,bool $isSubmit=false)
     {
         //
         $this->variant = $variant;
@@ -35,6 +36,7 @@ class Button extends Component implements SizeInterface,TypeInterface
         $this->fullWidth = $fullWidth;
         $this->size = $this->getType()[$size] ?? "";
         $this->type = $this->getType()[$type ?? self::TYPE_PRIMARY];
+        $this->isSubmit = $isSubmit;
     }
 
     /**

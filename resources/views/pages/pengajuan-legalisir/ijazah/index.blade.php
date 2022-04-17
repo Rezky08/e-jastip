@@ -1,6 +1,7 @@
 @extends("layouts.user.template")
 @section("main")
-    <form>
+    <form method="POST">
+
         @csrf
         <x-wrapper.form isRow>
             <x-wrapper.column>
@@ -35,7 +36,7 @@
             </x-wrapper.column>
         </x-wrapper.form>
 
-        <x-form.button>
+        <x-form.button isSubmit>
             Ajukan
         </x-form.button>
     </form>

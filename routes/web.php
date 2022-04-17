@@ -17,13 +17,22 @@ Route::get('/', function () {
     return view('index2');
 });
 
-Route::group(['prefix' => '/profile'],function (){
-   Route::get("/",[\App\Http\Controllers\ProfileController::class,"index"]);
+Route::group(['prefix' => '/profile'], function () {
+    Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"]);
 });
 
-Route::group(['prefix' => '/pengajuan-legalisir'],function (){
-    Route::group(['prefix' => '/ijazah'],function (){
-        Route::get("/",[\App\Http\Controllers\PengajuanLegalisir\IjazahController::class,"index"]);
-        Route::get("/invoice/{id}",[\App\Http\Controllers\PengajuanLegalisir\Ijazah\InvoiceController::class,"show"]);
+
+Route::group(['prefix' => '/invoice'], function () {
+    Route::group(['prefix' => '{id}'], function () {
+        Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"]);
+        Route::post("/", [\App\Http\Controllers\InvoiceController::class, "store"]);
+        Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"]);
+    });
+});
+
+Route::group(['prefix' => '/pengajuan-legalisir'], function () {
+    Route::group(['prefix' => '/ijazah'], function () {
+        Route::get("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "index"]);
+        Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
     });
 });

@@ -1,0 +1,38 @@
+@extends("layouts.user.template")
+@section("main")
+    <form method="POST">
+        @csrf
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-6 col-12">
+                <x-wrapper.card>
+                    <h3>
+                        Detail Biaya
+                    </h3>
+                    <hr/>
+                    {{-- Detail Biaya yang harus dibayar--}}
+                    <x-invoice.price-item name="Biaya Operasional" :price="10000"/>
+                    <x-invoice.price-item name="Biaya Kirim" :price="10000000000"/>
+                    <hr/>
+                    {{-- Total Biaya yang harus dibayar--}}
+                    <x-invoice.price-item name="Potongan Biaya Kirim" :price="1000" isDiscount/>
+                    <x-invoice.price-item name="Total" :price="10000"/>
+
+                    <div class="pt-3">
+                        <h6 class="font-weight-bold">
+                            Pilih Metode Pembayaran
+                        </h6>
+                        <x-wrapper.card>
+                            <x-payment-method.list-item/>
+                        </x-wrapper.card>
+                    </div>
+
+                    <div class="pt-3">
+                        <x-form.button fullWidth isSubmit>
+                            Lanjutkan Pembayaran
+                        </x-form.button>
+                    </div>
+                </x-wrapper.card>
+            </div>
+        </div>
+    </form>
+@endsection

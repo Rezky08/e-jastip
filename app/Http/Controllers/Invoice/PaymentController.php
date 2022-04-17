@@ -1,15 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\PengajuanLegalisir;
+namespace App\Http\Controllers\Invoice;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class IjazahController extends Controller
+class PaymentController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return view("pages.pengajuan-legalisir.ijazah.index");
+        //
     }
 
     /**
@@ -30,7 +35,7 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->to("/invoice/1");
+        //
     }
 
     /**
@@ -41,7 +46,13 @@ class IjazahController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [
+            'qrPath' => 'img/qr.webp',
+            'methodName' => 'Shopee',
+            'holderName' => 'Bambang',
+            'invoiceNumber'=> 'AB123-3-3'
+        ];
+        return view('pages.invoice.payment.qris',$data);
     }
 
     /**
