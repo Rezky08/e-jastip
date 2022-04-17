@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentMethod\Type;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -45,7 +47,11 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return view("pages.invoice.index");
+        $paymentMethods = Type::query()->whereHas('paymentMethods')->get();
+        $data = [
+            'paymentMethods' => $paymentMethods->load('paymentMethods')->toArray()
+        ];
+        return view("pages.invoice.index",$data);
     }
 
     /**

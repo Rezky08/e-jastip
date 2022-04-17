@@ -22,7 +22,7 @@
                             Pilih Metode Pembayaran
                         </h6>
                         <x-wrapper.card>
-                            <x-payment-method.list-item/>
+                            <x-payment-method.list-item :paymentMethods="$paymentMethods"/>
                         </x-wrapper.card>
                     </div>
 
