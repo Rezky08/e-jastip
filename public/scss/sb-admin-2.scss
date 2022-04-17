@@ -1,5 +1,6 @@
 // Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
 @import "variables.scss";
+@import "resources/scss/variable";
 
 // Import Bootstrap
 @import "../vendor/bootstrap/scss/bootstrap.scss";
@@ -18,3 +19,4 @@
 @import "login.scss";
 @import "error.scss";
 @import "footer.scss";
+@import "resources/scss/app";

@@ -15,6 +15,10 @@
                <x-invoice.price-item name="Potongan Biaya Kirim" :price="1000" isDiscount/>
                <x-invoice.price-item name="Total" :price="10000"/>
 
+               <x-wrapper.card>
+                   <x-payment-method.list-item/>
+               </x-wrapper.card>
+
                <div class="pt-3">
                    <x-form.button fullWidth>
                        Lanjutkan Pembayaran

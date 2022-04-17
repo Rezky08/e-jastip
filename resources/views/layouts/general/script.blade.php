@@ -45,7 +45,6 @@
                     }
                 })
             }
-
             formWrapperResponsive()
             window.addEventListener("resize",function (){
                 formWrapperResponsive()

@@ -12,10 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/scss/app.scss', 'public/css/custom', [
-        //
-    ])
-    .sass('resources/scss/variable.scss', 'public/css/custom', [
+    // .sass('resources/scss/app.scss', 'public/css/custom', [
+    //     //
+    // ])
+    .sass('public/scss/sb-admin-2.scss', 'public/css', [
         //
     ])
     .postCss('resources/css/app.css', 'public/css', [
