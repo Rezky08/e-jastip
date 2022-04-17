@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\PengajuaLegalisir;
+namespace App\Http\Controllers\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

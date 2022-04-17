@@ -22,5 +22,8 @@ Route::group(['prefix' => '/profile'],function (){
 });
 
 Route::group(['prefix' => '/pengajuan-legalisir'],function (){
-   Route::get("/ijazah",[\App\Http\Controllers\PengajuaLegalisir\IjazahController::class,"index"]);
+    Route::group(['prefix' => '/ijazah'],function (){
+        Route::get("/",[\App\Http\Controllers\PengajuanLegalisir\IjazahController::class,"index"]);
+        Route::get("/invoice/{id}",[\App\Http\Controllers\PengajuanLegalisir\Ijazah\InvoiceController::class,"show"]);
+    });
 });

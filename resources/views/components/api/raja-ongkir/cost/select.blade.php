@@ -1,4 +1,4 @@
-<x-form.select id="cost" name="{{$name}}" label="{{$label}}" isGroup/>
+<x-form.select id="cost" name="{{$name}}" label="{{$label}}" :isGroup="$isGroup"/>
 @push("stack-script")
     <script>
         document.addEventListener("DOMContentLoaded", () => {
