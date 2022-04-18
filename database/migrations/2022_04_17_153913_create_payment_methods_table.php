@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payment_methods', function (Blueprint $table) {
+        Schema::create('m_payment_methods', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('payment_method_type_id');
             $table->string('code');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table
                 ->foreign('payment_method_type_id')
                 ->references('id')
-                ->on('payment_method_types')
+                ->on('m_payment_method_types')
                 ->cascadeOnDelete();
         });
     }
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_methods');
+        Schema::dropIfExists('m_payment_methods');
     }
 };

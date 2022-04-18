@@ -1,6 +1,6 @@
 @extends("layouts.user.template")
 @section("main")
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         @csrf
         <x-wrapper.form isRow>

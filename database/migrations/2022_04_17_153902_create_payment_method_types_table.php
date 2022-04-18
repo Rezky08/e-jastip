@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payment_method_types', function (Blueprint $table) {
+        Schema::create('m_payment_method_types', function (Blueprint $table) {
             $table->id();
             $table->string("type");
             $table->string("label");
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_method_types');
+        Schema::dropIfExists('m_payment_method_types');
     }
 };

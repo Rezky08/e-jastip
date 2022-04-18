@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3681d75364f5dbd8b320ec5d08a62a47",
+    "content-hash": "851b2d6914e7fa4c2b14e4abcc0d8f47",
     "packages": [
         {
             "name": "brick/math",
@@ -892,6 +892,61 @@
                 }
             ],
             "time": "2022-03-20T21:55:58+00:00"
+        },
+        {
+            "name": "jalameta/jps-attachments",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Rezky08/jps-attachments.git",
+                "reference": "84dc8e65d7d03a6b39e037b467c238ceb37cecb4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Rezky08/jps-attachments/zipball/84dc8e65d7d03a6b39e037b467c238ceb37cecb4",
+                "reference": "84dc8e65d7d03a6b39e037b467c238ceb37cecb4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": ">=5.6",
+                "illuminate/database": ">=5.6",
+                "illuminate/filesystem": ">=5.6",
+                "illuminate/support": ">=5.6",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0"
+            },
+            "suggest": {
+                "moontoast/math": "^1.2"
+            },
+            "type": "laravel-plugin",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jalameta\\Attachments\\AttachmentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jalameta\\Attachments\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rifki Alhuraibi",
+                    "email": "veelasky@gmail.com"
+                }
+            ],
+            "description": "Easy attachment library to attach your media files into something attachable.",
+            "support": {
+                "source": "https://github.com/Rezky08/jps-attachments/tree/v2.0.3"
+            },
+            "time": "2022-04-18T04:23:26+00:00"
         },
         {
             "name": "laravel/framework",

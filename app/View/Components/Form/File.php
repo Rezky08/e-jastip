@@ -16,7 +16,7 @@ class File extends FormGroup
      * @param bool $isGroup
      * @param string|null $placeholder
      */
-    public function __construct(string $name = "", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $placeholder=null)
+    public function __construct(string $name = "file", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $placeholder=null)
     {
         parent::__construct($name, $label, $error, $helper, $isGroup);
         $this->placeholder = $placeholder;

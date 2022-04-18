@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payment_method_accounts', function (Blueprint $table) {
+        Schema::create('m_payment_method_accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("payment_method_id");
             $table->string("account");
@@ -24,7 +24,7 @@ return new class extends Migration
             $table
                 ->foreign('payment_method_id')
                 ->references('id')
-                ->on('payment_methods')
+                ->on('m_payment_methods')
                 ->cascadeOnDelete();
 
         });
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_method_accounts');
+        Schema::dropIfExists('m_payment_method_accounts');
     }
 };

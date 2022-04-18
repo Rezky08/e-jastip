@@ -22,7 +22,7 @@ class PaymentMethod extends Model
 {
     use HasFactory;
 
-    protected $table = 'payment_methods';
+    protected $table = 'm_payment_methods';
 
     const TYPE_QRIS = "qris";
     const TYPE_TRANSFER = "transfer";

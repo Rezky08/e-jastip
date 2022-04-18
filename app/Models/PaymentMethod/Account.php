@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     use HasFactory;
-    protected $table = 'payment_method_accounts';
+    protected $table = 'm_payment_method_accounts';
 }

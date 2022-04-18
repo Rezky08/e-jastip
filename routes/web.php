@@ -30,9 +30,14 @@ Route::group(['prefix' => '/invoice'], function () {
     });
 });
 
+Route::group(['prefix' => '/attachment'], function () {
+    Route::get("/{attachment}",[\Jalameta\Attachments\Controllers\AttachmentController::class,"file"]);
+});
+
 Route::group(['prefix' => '/pengajuan-legalisir'], function () {
     Route::group(['prefix' => '/ijazah'], function () {
         Route::get("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "index"]);
         Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
     });
 });
+

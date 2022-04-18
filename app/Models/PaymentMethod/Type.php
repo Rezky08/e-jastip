@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     use HasFactory;
-    protected $table = 'payment_method_types';
+    protected $table = 'm_payment_method_types';
 
     public function paymentMethods(){
         return $this->hasMany(PaymentMethod::class,"payment_method_type_id","id");

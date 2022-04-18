@@ -3,24 +3,31 @@
 namespace App\Http\Controllers\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Temporary\Order\CreateOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Jalameta\Attachments\Concerns\AttachmentCreator;
 
 class IjazahController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    use AttachmentCreator;
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
+        if (Session::has('errors')){
+            dd(Session::get('errors'));
+        }
         return view("pages.pengajuan-legalisir.ijazah.index");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+//    /**
+//     * Show the form for creating a new resource.
+//     *
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function create()
+//    {
+//        //
+//    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,7 +37,21 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->to("/invoice/1");
+        $service = explode('-',($request->get('cost-selector')??''));
+        $data = [
+            'province_id'=>$request->provinsi,
+            'city_id'=>$request->kota,
+            'district_id'=>$request->kecamatan,
+            'zip_code'=>$request->kode_pos,
+            'address'=>$request->alamat,
+            'partner_shipment_code' => $service[0] ?? null,
+            'partner_shipment_service' => $service[1] ?? null,
+        ];
+        $job = new CreateOrder($data);
+        $this->dispatch($job);
+        if ($job->order->exists){
+            return redirect()->to("/invoice/1");
+        }
     }
 
     /**
