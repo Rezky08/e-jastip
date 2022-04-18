@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_invoiceable', function (Blueprint $table) {
+        Schema::create('t_invoiceables', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_id');
             $table->unsignedBigInteger('invoiceable_id');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_invoiceable');
+        Schema::dropIfExists('t_invoiceables');
     }
 };
