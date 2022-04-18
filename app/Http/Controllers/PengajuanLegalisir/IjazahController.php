@@ -37,15 +37,16 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
-        $service = explode('-',($request->get('cost-selector')??''));
         $data = [
             'province_id'=>$request->provinsi,
             'city_id'=>$request->kota,
             'district_id'=>$request->kecamatan,
             'zip_code'=>$request->kode_pos,
             'address'=>$request->alamat,
-            'partner_shipment_code' => $service[0] ?? null,
-            'partner_shipment_service' => $service[1] ?? null,
+            'partner_shipment_code' => $request->get('cost-selector_code'),
+            'partner_shipment_service' => $request->get('cost-selector_service'),
+            'partner_shipment_price' => $request->get('cost-selector_price'),
+            'partner_shipment_etd' => $request->get('cost-selector_etd'),
         ];
         $job = new CreateOrder($data);
         $this->dispatch($job);
