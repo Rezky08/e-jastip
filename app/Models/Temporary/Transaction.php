@@ -5,10 +5,10 @@ namespace App\Models\Temporary;
 use App\Traits\Invoiceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-class Order extends Model
+class Transaction extends Model
 {
     use HasFactory,Invoiceable;
-    protected $table = "temp_orders";
+    protected $table = "temp_transactions";
     protected $fillable = [
         'user_id',
         'province_id',

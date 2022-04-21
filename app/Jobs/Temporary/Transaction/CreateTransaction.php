@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Jobs\Temporary\Order;
+namespace App\Jobs\Temporary\Transaction;
 
-use App\Events\Temporary\Order\OrderCreated;
-use App\Models\Master\Order;
+use App\Events\Temporary\Transaction\TransactionCreated;
+use App\Models\Master\Transaction;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class CreateOrder
+class CreateTransaction
 {
     use Dispatchable, SerializesModels;
 
     protected array $attributes;
-    public \App\Models\Temporary\Order $order;
+    public \App\Models\Temporary\Transaction $transaction;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($attributes = [],$status = Order::ORDER_STATUS_CREATED)
+    public function __construct($attributes = [],$status = Transaction::TRANSACTION_STATUS_CREATED)
     {
         $attributes = array_merge(['status'=>$status],$attributes);
         $this->attributes = Validator::make($attributes, [
@@ -34,7 +34,7 @@ class CreateOrder
             'partner_shipment_service' => ['nullable'],
             'partner_shipment_price' => ['nullable'],
             'partner_shipment_etd' => ['nullable'],
-            'status' => ['required',Rule::in(Order::getAvailableStatus())]
+            'status' => ['required',Rule::in(Transaction::getAvailableStatus())]
         ])->validate();
     }
 
@@ -47,11 +47,11 @@ class CreateOrder
     {
         // TODO: Assign Into Existing User
         $this->attributes['user_id'] = 1;
-        $this->order = new \App\Models\Temporary\Order($this->attributes);
-        $this->order->save();
+        $this->transaction = new \App\Models\Temporary\Transaction($this->attributes);
+        $this->transaction->save();
 
-        if ($this->order->exists){
-            \event(new OrderCreated($this->order));
+        if ($this->transaction->exists){
+            \event(new TransactionCreated($this->transaction));
         }
     }
 }

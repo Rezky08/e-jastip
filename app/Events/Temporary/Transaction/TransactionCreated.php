@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events\Temporary\Order;
+namespace App\Events\Temporary\Transaction;
 
-use App\Models\Temporary\Order;
+use App\Models\Temporary\Transaction;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,21 +11,21 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCreated
+class TransactionCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Order $order;
+    public Transaction $transaction;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct(Transaction $transaction)
     {
         //
-        $this->order = $order;
+        $this->transaction = $transaction;
     }
 
     /**

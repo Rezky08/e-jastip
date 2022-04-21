@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('temp_orders', function (Blueprint $table) {
+        Schema::create('t_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('token');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('city_id');
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->string('partner_shipment_price')->nullable();
             $table->string('partner_shipment_etd')->nullable();
             $table->string('file')->nullable();
-            $table->integer('status')->default(\App\Models\Master\Order::ORDER_STATUS_CREATED);
+            $table->integer('status')->default(\App\Models\Master\Transaction::TRANSACTION_STATUS_CREATED);
             $table->timestamps();
         });
     }
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temp_orders');
+        Schema::dropIfExists('t_transactions');
     }
 };

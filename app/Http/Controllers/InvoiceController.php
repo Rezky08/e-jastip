@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentMethod\Type;
-use App\Models\Temporary\Order;
+use App\Models\Temporary\Transaction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -43,10 +43,10 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Order $order
+     * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Transaction $transaction)
     {
         $paymentMethods = Type::query()->whereHas('paymentMethods')->get();
         $data = [

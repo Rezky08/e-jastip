@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Temporary\Order\CreateOrder;
+use App\Jobs\Temporary\Transaction\CreateTransaction;
 use App\Jobs\Transaction\Invoice\CreateInvoice;
-use App\Models\Temporary\Order;
+use App\Models\Temporary\Transaction;
 use App\Models\Transaction\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -51,20 +51,9 @@ class IjazahController extends Controller
             'partner_shipment_price' => $request->get('cost-selector_price'),
             'partner_shipment_etd' => $request->get('cost-selector_etd'),
         ];
-        $job = new CreateOrder($data);
+        $job = new CreateTransaction($data);
         $this->dispatch($job);
-        /** @var Order $order */
-        $order = $job->order;
 
-        $invoiceJob = new CreateInvoice();
-        $this->dispatch($invoiceJob);
-
-        /** @var Invoice $invoice */
-        $invoice = $invoiceJob->invoice;
-        $order->invoices()->attach($invoice);
-        $order->invoices()->detach($invoice);
-
-        dd($order);
 //        if ($job->order->exists){
 //            return redirect()->to("/invoice/1");
 //        }
