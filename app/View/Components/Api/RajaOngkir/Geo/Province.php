@@ -2,18 +2,14 @@
 
 namespace App\View\Components\Api\RajaOngkir\Geo;
 
-use Illuminate\View\Component;
+use App\View\Components\Form\Select;
 
-class Province extends Component
+class Province extends Select
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+
+    public function __construct(array $options = [], string $selected = null, string $name = "province_id", string $label = "Provinsi", string $error = "", string $helper = "", bool $isGroup = false, string $id = "")
     {
-        //
+        parent::__construct($options, $selected, $name, $label, $error, $helper, $isGroup, $id);
     }
 
     /**

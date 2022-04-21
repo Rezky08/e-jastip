@@ -16,21 +16,17 @@ class IjazahController extends Controller
     use AttachmentCreator;
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        if (Session::has('errors')){
-            dd(Session::get('errors'));
-        }
-        return view("pages.pengajuan-legalisir.ijazah.index");
     }
 
-//    /**
-//     * Show the form for creating a new resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function create()
-//    {
-//        //
-//    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view("pages.pengajuan-legalisir.ijazah.index");
+    }
 
     /**
      * Store a newly created resource in storage.
