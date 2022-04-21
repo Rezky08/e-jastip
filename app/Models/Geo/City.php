@@ -2,6 +2,7 @@
 
 namespace App\Models\Geo;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                                                                      $city_name
  * @property \Carbon\Carbon                                                              $created_at
  * @property \Carbon\Carbon                                                              $updated_at
- *
+ * @property Province                                                                    $province
+ * @property Collection                                                                  $districts
  */
 class City extends Model
 {
@@ -22,4 +24,13 @@ class City extends Model
     protected $primaryKey = "city_id";
     protected $hidden =['created_at','updated_at'];
 
+    public function province(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Province::class,'province_id','province_id');
+    }
+
+    public function districts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(District::class,'city_id','city_id');
+    }
 }

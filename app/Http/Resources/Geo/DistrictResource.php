@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Geo;
 
-use App\Models\Geo\City;
+use App\Models\Geo\Province;
 use App\Models\Geo\District;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +22,7 @@ class DistrictResource extends JsonResource
             $resource->load("city");
         }
 
-        /** @var City $city */
+        /** @var Province $city */
         $city = $resource->city;
         $resource->unsetRelation('city');
         return array_merge(

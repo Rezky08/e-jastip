@@ -6,6 +6,7 @@ use Database\Seeders\Geo\GeoSeeder;
 use Database\Seeders\Partner\ShipmentSeeder;
 use Database\Seeders\PaymentMethod\PaymentMethodSeeder;
 use Database\Seeders\PaymentMethod\TypeSeeder;
+use Database\Seeders\Setting\SettingSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call(SettingSeeder::class);
         $this->call(GeoSeeder::class);
         $this->call(ShipmentSeeder::class);
         $this->call(TypeSeeder::class);

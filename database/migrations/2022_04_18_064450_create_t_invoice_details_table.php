@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->double('price');
+            $table->text('note')->nullable();
             $table->timestamps();
 
             $table->foreign('invoice_id')

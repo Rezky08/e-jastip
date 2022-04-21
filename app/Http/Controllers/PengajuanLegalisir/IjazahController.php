@@ -4,11 +4,9 @@ namespace App\Http\Controllers\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\Temporary\Transaction\CreateTransaction;
-use App\Jobs\Transaction\Invoice\CreateInvoice;
 use App\Models\Temporary\Transaction;
-use App\Models\Transaction\Invoice;
+use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Jalameta\Attachments\Concerns\AttachmentCreator;
 
 class IjazahController extends Controller
@@ -36,23 +34,19 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'province_id'=>$request->provinsi,
-            'city_id'=>$request->kota,
-            'district_id'=>$request->kecamatan,
-            'zip_code'=>$request->kode_pos,
-            'address'=>$request->alamat,
-            'partner_shipment_code' => $request->get('cost-selector_code'),
-            'partner_shipment_service' => $request->get('cost-selector_service'),
-            'partner_shipment_price' => $request->get('cost-selector_price'),
-            'partner_shipment_etd' => $request->get('cost-selector_etd'),
-        ];
-        $job = new CreateTransaction($data);
+        $job = new CreateTransaction($request->all());
         $this->dispatch($job);
 
-//        if ($job->order->exists){
-//            return redirect()->to("/invoice/1");
-//        }
+        /** @var Transaction $transaction */
+        $transaction = $job->transaction;
+        $transaction->refresh();
+
+        /** @var Invoice $invoice */
+        $invoice = $transaction->invoices->first();
+
+        if ($invoice->exists){
+            return redirect()->to("/invoice/{$invoice->id}");
+        }
     }
 
     /**

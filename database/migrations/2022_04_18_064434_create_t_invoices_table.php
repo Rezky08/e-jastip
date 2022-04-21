@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('t_invoices', function (Blueprint $table) {
             $table->string("id",24);
-            $table->integer('status')->default(\App\Models\Transaction\Invoice::INVOICE_STATUS_CREATED);
+            $table->integer('status')->default(\App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_CREATED);
             $table->timestamps();
             $table->primary("id");
         });

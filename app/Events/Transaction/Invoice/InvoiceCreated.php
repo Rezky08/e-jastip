@@ -2,12 +2,9 @@
 
 namespace App\Events\Transaction\Invoice;
 
-use App\Models\Transaction\Invoice;
-use Illuminate\Broadcasting\Channel;
+use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

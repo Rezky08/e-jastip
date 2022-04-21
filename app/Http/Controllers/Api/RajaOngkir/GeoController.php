@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\RajaOngkir;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Geo\DistrictResource;
-use App\Models\Geo\City;
+use App\Models\Geo\Province;
 use App\Models\Geo\District;
 use App\Traits\usePagination;
 use Illuminate\Database\Eloquent\Builder;

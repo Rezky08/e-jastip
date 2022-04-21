@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Models\Transaction;
+namespace App\Models\Transaction\Invoice;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * @property string $id
+ * @property int $status
+ */
 class Invoice extends Model
 {
     use HasFactory;
@@ -36,5 +40,10 @@ class Invoice extends Model
             $dateFormat = (Carbon::now())->format("ymd-His");
             $invoice->setAttribute($invoice->getKeyName(), $randomString . "-" . $dateFormat);
         });
+    }
+
+    public function details(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Detail::class,'invoice_id','id');
     }
 }

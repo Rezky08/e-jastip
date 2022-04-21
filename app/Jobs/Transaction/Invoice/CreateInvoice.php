@@ -3,7 +3,7 @@
 namespace App\Jobs\Transaction\Invoice;
 
 use App\Events\Transaction\Invoice\InvoiceCreated;
-use App\Models\Transaction\Invoice;
+use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
