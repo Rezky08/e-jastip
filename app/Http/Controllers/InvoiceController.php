@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentMethod\Type;
 use App\Models\Temporary\Transaction;
+use App\Models\Transaction\Invoice\Detail;
+use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class InvoiceController extends Controller
 {
@@ -32,7 +35,7 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,19 +49,30 @@ class InvoiceController extends Controller
      * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show(Invoice $invoice)
     {
+        /** @var Collection $items */
+        $items = $invoice->details->where('type','!=',Detail::INVOICE_DETAIL_TYPE_DISCOUNT);
+        /** @var Collection $discounts */
+        $discounts = $invoice->details->where('type',Detail::INVOICE_DETAIL_TYPE_DISCOUNT);
+        $invoiceDetails = [
+            'items' => $items,
+            'discounts' => $discounts,
+            'total' => bcsub($items->pluck('price')->sum(),$discounts->pluck('price')->sum())
+        ];
         $paymentMethods = Type::query()->whereHas('paymentMethods')->get();
         $data = [
-            'paymentMethods' => $paymentMethods->load('paymentMethods')->toArray()
+            'paymentMethods' => $paymentMethods->load('paymentMethods')->toArray(),
+            'invoice' => $invoice,
+            'invoiceDetails' => $invoiceDetails
         ];
-        return view("pages.invoice.index",$data);
+        return view("pages.invoice.index", $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -69,8 +83,8 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -81,7 +95,7 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

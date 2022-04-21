@@ -23,7 +23,7 @@ Route::group(['prefix' => '/profile'], function () {
 
 
 Route::group(['prefix' => '/invoice'], function () {
-    Route::group(['prefix' => '{id}'], function () {
+    Route::group(['prefix' => '{invoice}'], function () {
         Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"]);
         Route::post("/", [\App\Http\Controllers\InvoiceController::class, "store"]);
         Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"]);

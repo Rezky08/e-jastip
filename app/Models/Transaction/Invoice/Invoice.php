@@ -3,6 +3,7 @@
 namespace App\Models\Transaction\Invoice;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -10,6 +11,7 @@ use Illuminate\Support\Str;
 /**
  * @property string $id
  * @property int $status
+ * @property Collection $details
  */
 class Invoice extends Model
 {
@@ -37,6 +39,7 @@ class Invoice extends Model
 
         static::creating(function (self $invoice) {
             $randomString = Str::random(5);
+            $randomString = strtoupper($randomString);
             $dateFormat = (Carbon::now())->format("ymd-His");
             $invoice->setAttribute($invoice->getKeyName(), $randomString . "-" . $dateFormat);
         });

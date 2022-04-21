@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Temporary\Transaction;
+use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -29,6 +30,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::bind('temp_transaction', function ($value) {
             return Transaction::query()->findOrFail($value);
+        });
+        Route::bind('invoice', function ($value) {
+            return Invoice::query()->findOrFail($value);
         });
         $this->configureRateLimiting();
 

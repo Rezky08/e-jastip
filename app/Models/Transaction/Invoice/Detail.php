@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @property string $type
+ * @property string $name
+ * @property double $price
+ * @property string $note
+ */
 class Detail extends Model
 {
     use HasFactory;

@@ -10,12 +10,24 @@
                     </h3>
                     <hr/>
                     {{-- Detail Biaya yang harus dibayar--}}
-                    <x-invoice.price-item name="Biaya Operasional" :price="10000"/>
-                    <x-invoice.price-item name="Biaya Kirim" :price="10000000000"/>
+                    @forelse($invoiceDetails['items'] as $item)
+                        @php
+                        /** @var \App\Models\Transaction\Invoice\Detail $item */
+                        @endphp
+                        <x-invoice.price-item name="{{$item->name}}" :price="$item->price"/>
+                    @empty
+                    @endforelse
+                    {{-- Detail Biaya yang harus dibayar--}}
+                    @forelse($invoiceDetails['discounts'] as $item)
+                        @php
+                            /** @var \App\Models\Transaction\Invoice\Detail $item */
+                        @endphp
+                        <x-invoice.price-item name="{{$item->name}}" :price="$item->price" isDiscount/>
+                    @empty
+                    @endforelse
                     <hr/>
                     {{-- Total Biaya yang harus dibayar--}}
-                    <x-invoice.price-item name="Potongan Biaya Kirim" :price="1000" isDiscount/>
-                    <x-invoice.price-item name="Total" :price="10000"/>
+                    <x-invoice.price-item name="Total" :price="$invoiceDetails['total']"/>
 
                     <div class="pt-3">
                         <h6 class="font-weight-bold">
