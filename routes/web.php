@@ -32,7 +32,7 @@ Route::group(['prefix' => '/invoice'], function () {
 
 Route::group(['prefix' => '/pengajuan-legalisir'], function () {
     Route::group(['prefix' => '/ijazah'], function () {
-        Route::get("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "index"]);
+        Route::get("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "create"]);
         Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
     });
 });

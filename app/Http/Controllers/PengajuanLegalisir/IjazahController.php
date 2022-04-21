@@ -9,7 +9,6 @@ class IjazahController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view("pages.pengajuan-legalisir.ijazah.index");
     }
 
     /**
@@ -19,7 +18,7 @@ class IjazahController extends Controller
      */
     public function create()
     {
-        //
+        return view("pages.pengajuan-legalisir.ijazah.index");
     }
 
     /**
@@ -30,7 +29,8 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->to("/invoice/1");
+        dd($request->all());
+//        return redirect()->to("/invoice/1");
     }
 
     /**

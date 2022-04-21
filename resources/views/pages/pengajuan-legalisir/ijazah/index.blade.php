@@ -16,16 +16,16 @@
                 <x-api.raja-ongkir.geo.district/>
             </x-wrapper.column>
             <x-wrapper.column>
-                <x-form.input name="kode_pos" label="Kode Pos" isGroup/>
+                <x-form.input name="zip_code" label="Kode Pos" isGroup/>
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.text-area name="alamat" label="Alamat Lengkap" placeholder="Masukan Alamat Lengkap" isGroup
+                <x-form.text-area name="address" label="Alamat Lengkap" placeholder="Masukan Alamat Lengkap" isGroup
                                   noResize/>
             </x-wrapper.column>
             <x-wrapper.column>
-                <x-api.raja-ongkir.cost.select destination="kota" isGroup/>
+                <x-api.raja-ongkir.cost.select destination="city_id" isGroup/>
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>

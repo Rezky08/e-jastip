@@ -18,7 +18,7 @@ class Select extends FormGroup
      * @param string $helper
      * @param bool $isGroup
      */
-    public function __construct($origin="",$destination="",$weight="",string $name = "cost-selector", string $label = "Kurir", string $error = "", string $helper = "", bool $isGroup = false)
+    public function __construct($origin="",$destination="",$weight="",string $name = "partner_shipment", string $label = "Kurir", string $error = "", string $helper = "", bool $isGroup = false)
     {
         parent::__construct($name, $label, $error, $helper, $isGroup);
         $this->origin = $origin;
