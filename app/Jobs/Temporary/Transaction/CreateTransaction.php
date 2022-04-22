@@ -29,13 +29,16 @@ class CreateTransaction
             'city_id' => ['required', 'filled', 'exists:cities,city_id'],
             'district_id' => ['required', 'filled', 'exists:districts,district_id'],
             'zip_code' => ['required', 'filled'],
-            'address' => ['nullable'],
+            'address' => ['required', 'filled'],
+            'partner_shipment' => ['filled'],
+            'file' => ['required','filled'],
             'partner_shipment_code' => ['nullable'],
             'partner_shipment_service' => ['nullable'],
             'partner_shipment_price' => ['nullable'],
             'partner_shipment_etd' => ['nullable'],
             'status' => ['required',Rule::in(Transaction::getAvailableStatus())]
         ])->validate();
+        unset($this->attributes['partner_shipment'],$this->attributes['file']);
     }
 
     /**

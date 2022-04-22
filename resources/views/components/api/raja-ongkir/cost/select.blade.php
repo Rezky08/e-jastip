@@ -1,4 +1,4 @@
-<x-form.select id="cost" name="{{$name}}" label="{{$label}}" :isGroup="$isGroup"/>
+<x-form.select id="cost" name="{{$name}}" label="{{$label}}" :isGroup="$isGroup" error="{{$name}}_code"/>
 <input type="hidden" name="{{$name}}_code" value="">
 <input type="hidden" name="{{$name}}_service" value="">
 <input type="hidden" name="{{$name}}_price" value="">

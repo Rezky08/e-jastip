@@ -36,6 +36,7 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
+
         $job = new CreateTransaction($request->all());
         $this->dispatch($job);
 
