@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Master\Faculty;
+use App\Models\PaymentMethod\Account;
 use App\Models\PaymentMethod\Type;
 use App\Models\Temporary\Transaction;
 use App\Models\Transaction\Invoice\Detail;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Supports\PaymentMethodSupport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -40,6 +43,7 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         return redirect()->to("/invoice/1/payment");
     }
 
@@ -60,9 +64,11 @@ class InvoiceController extends Controller
             'discounts' => $discounts,
             'total' => bcsub($items->pluck('price')->sum(),$discounts->pluck('price')->sum())
         ];
-        $paymentMethods = Type::query()->whereHas('paymentMethods')->get();
+        /** @var Faculty $faculty */
+        $faculty = Faculty::query()->inRandomOrder()->firstOrFail();
+        $paymentMethodAccounts = PaymentMethodSupport::getPaymentMethodListByFaculty($faculty);
         $data = [
-            'paymentMethods' => $paymentMethods->load('paymentMethods')->toArray(),
+            'paymentMethods' => $paymentMethodAccounts->toArray(),
             'invoice' => $invoice,
             'invoiceDetails' => $invoiceDetails
         ];

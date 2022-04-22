@@ -4,6 +4,7 @@ namespace App\Models\PaymentMethod;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Collection\Collection;
 
 
 /**
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                                                                      $label
  * @property \Carbon\Carbon                                                              $created_at
  * @property \Carbon\Carbon                                                              $updated_at
- * @property-read PaymentMethod|null                                                     $paymentMethods
+ * @property-read Collection|null                                                     $paymentMethods
  */
 class Type extends Model
 {

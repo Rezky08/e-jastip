@@ -5,7 +5,10 @@
         </x-slot>
 
         @forelse($paymentMethod['payment_methods'] as $item)
-            <x-payment-method.item name="{{$name}}" value="{{$item['code']}}" icon="{{$item['icon']}}" :isActive="$item['isActive']??false">
+            @php
+                $account = $item['accounts'][0]??[];
+            @endphp
+            <x-payment-method.item name="{{$name}}" value="{{$account['id']}}" icon="{{$item['icon']}}" :isActive="$item['isActive']??false">
                 {!! $item['label'] !!}
             </x-payment-method.item>
         @empty

@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Geo\GeoSeeder;
+use Database\Seeders\Master\FacultySeeder;
 use Database\Seeders\Partner\ShipmentSeeder;
+use Database\Seeders\PaymentMethod\PaymentMethodAccountSeeder;
 use Database\Seeders\PaymentMethod\PaymentMethodSeeder;
 use Database\Seeders\PaymentMethod\TypeSeeder;
 use Database\Seeders\Setting\SettingSeeder;
@@ -24,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ShipmentSeeder::class);
         $this->call(TypeSeeder::class);
         $this->call(PaymentMethodSeeder::class);
+        $this->call(FacultySeeder::class);
+        $this->call(PaymentMethodAccountSeeder::class);
     }
 }

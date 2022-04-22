@@ -4,6 +4,7 @@ namespace App\Models\PaymentMethod;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Collection\Collection;
 
 
 /**
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon                                                              $created_at
  * @property \Carbon\Carbon                                                              $updated_at
  * @property-read Type|null                                                              $type
+ * @property-read Collection|null                                                        $accounts
  */
 class PaymentMethod extends Model
 {
@@ -135,6 +137,9 @@ class PaymentMethod extends Model
 
     public function type(){
         return $this->belongsTo(Type::class,"payment_method_type_id","id");
+    }
+    public function accounts(){
+        return $this->hasMany(Account::class,"payment_method_id","id");
     }
 
 }

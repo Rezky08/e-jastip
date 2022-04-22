@@ -15,18 +15,22 @@ return new class extends Migration
     {
         Schema::create('m_payment_method_accounts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("faculty_id");
             $table->unsignedBigInteger("payment_method_id");
             $table->string("account");
-            $table->string("qr");
+            $table->string("qr")->nullable();
             $table->boolean("isActive")->default(true);
             $table->timestamps();
 
-            $table
-                ->foreign('payment_method_id')
+            $table->foreign('payment_method_id')
                 ->references('id')
                 ->on('m_payment_methods')
-                ->cascadeOnDelete();
-
+                ->onDelete('cascade');
+            $table->foreign('faculty_id')
+                ->references('id')
+                ->on('m_faculties')
+                ->onDelete('cascade');
+            $table->unique(['payment_method_id','faculty_id']);
         });
     }
 

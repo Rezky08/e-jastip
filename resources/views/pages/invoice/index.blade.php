@@ -2,6 +2,7 @@
 @section("main")
     <form method="POST">
         @csrf
+        <input type="hidden" name="invoice_id" value="{{$invoice->id}}">
         <div class="d-flex justify-content-center row">
             <div class="col-md-6 col-12">
                 <x-wrapper.card>
@@ -34,7 +35,7 @@
                             Pilih Metode Pembayaran
                         </h6>
                         <x-wrapper.card>
-                            <x-payment-method.list-item :paymentMethods="$paymentMethods"/>
+                            <x-payment-method.list-item name="payment_method_account_id" :paymentMethods="$paymentMethods"/>
                         </x-wrapper.card>
                     </div>
 

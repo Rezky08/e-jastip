@@ -3,6 +3,7 @@
 namespace App\View\Components\PaymentMethod;
 
 use App\Models\PaymentMethod\PaymentMethod;
+use App\Supports\PaymentMethodSupport;
 use Illuminate\View\Component;
 
 class ListItem extends Component
