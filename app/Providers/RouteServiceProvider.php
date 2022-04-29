@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Temporary\Transaction;
+use App\Models\Transaction\Transaction;
 use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;

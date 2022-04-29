@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Master\Faculty;
 use App\Models\PaymentMethod\Account;
 use App\Models\PaymentMethod\Type;
-use App\Models\Temporary\Transaction;
+use App\Models\Transaction\Transaction;
 use App\Models\Transaction\Invoice\Detail;
 use App\Models\Transaction\Invoice\Invoice;
 use App\Supports\PaymentMethodSupport;

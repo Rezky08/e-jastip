@@ -3,7 +3,7 @@
 namespace App\Listeners\Invoice;
 
 use App\Jobs\Transaction\Invoice\CreateInvoiceFromTransaction;
-use App\Models\Temporary\Transaction;
+use App\Models\Transaction\Transaction;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Rezky\LaravelResponseFormatter\Exception\Error;

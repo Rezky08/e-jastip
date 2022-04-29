@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('t_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('token');
+            $table->string('token')->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('city_id');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('partner_shipment_price')->nullable();
             $table->string('partner_shipment_etd')->nullable();
             $table->string('file')->nullable();
-            $table->integer('status')->default(\App\Models\Master\Transaction::TRANSACTION_STATUS_CREATED);
+            $table->integer('status')->default(\App\Models\Transaction\Transaction::TRANSACTION_STATUS_CREATED);
             $table->timestamps();
         });
     }

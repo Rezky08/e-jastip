@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Jobs\Temporary\Transaction;
+namespace App\Jobs\Transaction\Transaction;
 
-use App\Events\Temporary\Transaction\TransactionCreated;
-use App\Models\Master\Transaction;
+use App\Events\Transaction\Transaction\TransactionCreated;
+use App\Models\Transaction\Transaction;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +14,7 @@ class CreateTransaction
     use Dispatchable, SerializesModels;
 
     protected array $attributes;
-    public \App\Models\Temporary\Transaction $transaction;
+    public \App\Models\Transaction\Transaction $transaction;
 
     /**
      * Create a new job instance.
@@ -50,7 +50,7 @@ class CreateTransaction
     {
         // TODO: Assign Into Existing User
         $this->attributes['user_id'] = 1;
-        $this->transaction = new \App\Models\Temporary\Transaction($this->attributes);
+        $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);
         $this->transaction->save();
 
         if ($this->transaction->exists){
