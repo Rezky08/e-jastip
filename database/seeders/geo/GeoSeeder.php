@@ -15,7 +15,7 @@ class GeoSeeder extends Seeder
      */
     public function run()
     {
-        $base = __DIR__."../data";
+        $base = __DIR__."/../data";
         $path = $base.'/province.sql';
         DB::unprepared(file_get_contents($path));
         $this->command->info('Province seeded!');

@@ -27,19 +27,10 @@ class StudyProgramSeeder extends Seeder
         foreach ((new Statement())->process($csv) as $value) {
 
             $code = StudyProgram::generateCodeFromName($value['name']);
-            if ($data->where('code',$code)->first()){
-                while (true){
-                    $randInt = random_int(1,999);
-                    if (!$data->where('code',$code.$randInt)->first()){
-                        $code = $code.$randInt;
-                        break;
-                    }
-                }
-            }
             $value['code'] = $code;
-
-            $data->add($value);
+            $studyProgram = new StudyProgram($value);
+            $studyProgram->save();
+            $data->add($studyProgram);
         }
-        dd($data->unique('code')->count(),$data->count());
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('m_study_programs', function (Blueprint $table) {
             $table->id();
+            $table->string('faculty_code');
             $table->string('code');
             $table->string('name');
             $table->timestamps();
