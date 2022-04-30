@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('m_user_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('faculty_id');
-            $table->unsignedBigInteger('study_program_id');
-            $table->unsignedBigInteger('phone');
+            $table->string('name');
+            $table->string('student_id')->nullable();
+            $table->unsignedBigInteger('faculty_id')->nullable();
+            $table->unsignedBigInteger('study_program_id')->nullable();
+            $table->unsignedBigInteger('phone')->nullable();
             $table->timestamps();
         });
     }

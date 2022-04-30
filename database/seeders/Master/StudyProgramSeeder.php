@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Master;
 
+use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,9 +26,11 @@ class StudyProgramSeeder extends Seeder
 
         $data = new Collection();
         foreach ((new Statement())->process($csv) as $value) {
-
+            $faculty = Faculty::query()->where('code',$value['faculty_code'])->first();
+            $value['faculty_id'] = $faculty->id;
             $code = StudyProgram::generateCodeFromName($value['name']);
             $value['code'] = $code;
+            unset($value['faculty_code']);
             $studyProgram = new StudyProgram($value);
             $studyProgram->save();
             $data->add($studyProgram);
