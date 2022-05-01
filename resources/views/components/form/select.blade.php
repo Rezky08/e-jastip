@@ -1,5 +1,5 @@
 <x-wrapper.form-group label="{{$label}}" name="{{$name}}" error="{{$error}}" helper="{{$helper}}" :isGroup="$isGroup">
-    <select id="{{$id}}" class="custom-select" name="{{$name}}">
+    <select id="{{$id}}" class="custom-select form-control" name="{{$name}}" select-autocomplete="{{$autocomplete?'true':'false'}}">
         @forelse($options as $option)
             <option
                 value="{{$option['value']}}" {{$isSelected($option['value']) ? "selected='selected'":''}}>{{$option['label']}}</option>

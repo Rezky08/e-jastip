@@ -5,9 +5,17 @@ namespace App\Models\Master;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $faculty_id
+ * @property string $code
+ * @property string $name
+ * @property Faculty $faculty
+ */
 class StudyProgram extends Model
 {
     use HasFactory;
+
     protected $table = 'm_study_programs';
 
     public static function generateCodeFromName($name = "")
@@ -26,5 +34,10 @@ class StudyProgram extends Model
         }
 
         return strtoupper($result);
+    }
+
+    public function faculty(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Faculty::class, "faculty_id", 'id');
     }
 }

@@ -9,6 +9,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset("js/sb-admin-2.min.js")}}"></script>
+    <script src="{{asset("js/select2.min.js")}}"></script>
 
     <!-- Page level plugins -->
     <script src="{{asset("vendor/chart.js/Chart.min.js")}}"></script>
@@ -28,17 +29,25 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded",function (){
-            const formWrapperResponsive = ()=>{
+        $(document).ready(function () {
+            $("select[select-autocomplete='true']").select2({
+                theme: 'bootstrap4',
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const formWrapperResponsive = () => {
                 document.querySelectorAll("#wrapper-form.is-responsive.is-row").forEach(function (item) {
                     const breakpoint = window.getBreakPoint()
-                    if (["xs","sm"].includes(breakpoint)){
-                        if (item.classList.contains("form-row")){
+                    if (["xs", "sm"].includes(breakpoint)) {
+                        if (item.classList.contains("form-row")) {
                             item.classList.remove("form-row")
                             item.classList.add("form")
                         }
-                    }else{
-                        if (!item.classList.contains("form-row")){
+                    } else {
+                        if (!item.classList.contains("form-row")) {
                             item.classList.remove("form")
                             item.classList.add("form-row")
                         }
@@ -46,7 +55,7 @@
                 })
             }
             formWrapperResponsive()
-            window.addEventListener("resize",function (){
+            window.addEventListener("resize", function () {
                 formWrapperResponsive()
             })
         })

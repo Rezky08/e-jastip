@@ -29,3 +29,8 @@ Route::group(["prefix"=>"raja-ongkir"],function (){
         Route::get("/kecamatan",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"kecamatan"]);
     });
 });
+
+Route::group(["prefix"=>"master"],function (){
+    Route::get("/faculty",[\App\Http\Controllers\Api\Master\FacultyController::class,"index"]);
+    Route::get("/study-program",[\App\Http\Controllers\Api\RajaOngkir\GeoController::class,"kota"]);
+});

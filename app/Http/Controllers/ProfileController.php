@@ -14,8 +14,11 @@ class ProfileController extends Controller
     public function index(Request $request): Response|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         if ($request->expectsJson()){
-            $request->whenHas("fakultas",function($value){
-                dd($value);
+            $request->whenHas("faculty",function($value){
+
+            });
+            $request->whenHas("study_program",function($value){
+
             });
             return new Response(Response::CODE_SUCCESS,[
                 [
