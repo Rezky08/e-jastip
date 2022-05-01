@@ -12,11 +12,10 @@
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.select-api name="fakultas" label="Fakultas" isGroup url="/api/master/faculty" />
-                <x-form.select name="fakultas" label="Fakultas" isGroup />
+                <x-form.select-api name="faculty_id" label="Fakultas" isGroup url="/api/master/faculty"/>
             </x-wrapper.column>
             <x-wrapper.column>
-                <x-form.select name="jurusan" label="Jurusan" isGroup />
+                <x-form.select-api name="study_program_id" label="Jurusan" isGroup url="/api/master/study-program" chainSelector="select[name='faculty_id']" />
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>
