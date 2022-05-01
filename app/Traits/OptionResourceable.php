@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Rezky\LaravelResponseFormatter\Http\Code;
 use Rezky\LaravelResponseFormatter\Http\Response;
@@ -11,7 +12,8 @@ use Rezky\LaravelResponseFormatter\Http\Response;
 trait OptionResourceable
 {
     public Builder|null $query = null;
-    public Collection|null $result = null;
+    public Collection|Model|null $result = null;
+    protected bool $searchReturnResponse = true;
 
 
     function makeSearchQuery($modelClass = null)
@@ -32,11 +34,25 @@ trait OptionResourceable
             $request->whenHas($requestFieldName, fn($value) => $this->query = $this->query->where($dbFieldName, 'ilike', "%" . $value . "%"));
         } else {
             // combine db field
-            $request->whenHas($requestFieldName, fn($value) => $this->query = $this->query->where(function ($query) use ($dbFieldName,$value) {
-                foreach ($dbFieldName as $field){
-                    $query->orWhere($field,'ilike', "%" . $value . "%");
+            $request->whenHas($requestFieldName, fn($value) => $this->query = $this->query->where(function ($query) use ($dbFieldName, $value) {
+                foreach ($dbFieldName as $field) {
+                    $query->orWhere($field, 'ilike', "%" . $value . "%");
                 }
             }));
+        }
+    }
+
+    function searchResult($resourceClass, $isSingle = false)
+    {
+        if ($this->searchReturnResponse){
+            if ($isSingle){
+                $resourceData = $resourceClass ? $resourceClass::make($this->result) : $this->result;
+                return new Response(Code::CODE_SUCCESS, $resourceData);
+            }
+
+            return $this->withPagination($this->query, $resourceClass);
+        }else{
+            return $this->result ?? $this->query;
         }
     }
 
@@ -46,7 +62,7 @@ trait OptionResourceable
 
         $fieldParams = array_merge(array_values($searchFields), array_values($findFields));
         if (!$request->hasAny($fieldParams)) {
-            return $this->withPagination($this->query, $resourceClass);
+            return $this->searchResult($resourceClass);
         }
 
         foreach ($searchFields as $dbFieldName => $requestFieldName) {
@@ -67,14 +83,13 @@ trait OptionResourceable
         }
 
         if (!$request->has("id")) {
-            return $this->withPagination($this->query, $resourceClass);
+            return $this->searchResult($resourceClass);
         } else {
-            $result = null;
-            $request->whenHas("id", function ($value) use (&$result) {
-                $result = $this->query->find($value ?? "");
+
+            $request->whenHas("id", function ($value) {
+                $this->result = $this->query->find($value ?? "");
             });
-            $resourceData = $resourceClass ? $resourceClass::make($result) : $result;
-            return new Response(Code::CODE_SUCCESS, $resourceData);
+            return $this->searchResult($resourceClass,true);
         }
     }
 }

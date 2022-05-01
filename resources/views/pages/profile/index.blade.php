@@ -12,7 +12,7 @@
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.select-api name="fakultas" label="Fakultas" isGroup url="" />
+                <x-form.select-api name="fakultas" label="Fakultas" isGroup url="/api/master/faculty" />
                 <x-form.select name="fakultas" label="Fakultas" isGroup />
             </x-wrapper.column>
             <x-wrapper.column>

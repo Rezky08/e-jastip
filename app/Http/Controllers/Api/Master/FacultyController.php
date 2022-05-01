@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Master\FacultyOptionResource;
 use App\Models\Master\Faculty;
 use App\Traits\OptionResourceable;
 use App\Traits\usePagination;
@@ -14,6 +15,6 @@ class FacultyController extends Controller
 
     public function index(Request $request): \Rezky\LaravelResponseFormatter\Http\Response|\Illuminate\Http\JsonResponse
     {
-        return $this->search($request, Faculty::class, ['name,code' => 'search','code'],['id']);
+        return $this->search($request, Faculty::class, ['name,code' => 'search'],['id'],FacultyOptionResource::class);
     }
 }

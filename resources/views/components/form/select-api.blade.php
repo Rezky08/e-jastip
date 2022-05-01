@@ -9,19 +9,23 @@
             const requestUrl = isLocalhost ? `${window.location.origin}${url}` : url
             const additionalParams = <?=json_encode($params)?>;
             $(`#select-api[name='${name}']`).select2({
-                theme:"bootstrap4",
+                theme: "bootstrap4",
                 ajax: {
                     url: requestUrl,
                     data: function (params) {
-                        var query = {
+                        // Query parameters will be ?search=[term]&type=public
+                        return {
                             search: params.term,
                             ...additionalParams
-                        }
+                        };
+                    },
+                    processResults: function ({data}) {
+                        return {
+                            results: data
+                        };
+                    },
+                },
 
-                        // Query parameters will be ?search=[term]&type=public
-                        return query;
-                    }
-                }
             });
         });
     </script>
