@@ -18,10 +18,12 @@
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "jalameta/jps-attachments": "^2.0",
+        "laravel-lang/lang": "10.0",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "league/csv": "^9.8",
+        "propaganistas/laravel-phone": "^4.3",
         "rezky/laravel-response-formatter": "^1.1",
         "rezky/rajaongkir": "1.1.1"
     },
