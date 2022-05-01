@@ -1,13 +1,13 @@
 @extends("layouts.user.template")
 @section("main")
-    <form>
+    <form method="POST">
         @csrf
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.input name="nim" label="NIM" isGroup/>
+                <x-form.input name="student_id" label="NIM" isGroup/>
             </x-wrapper.column>
             <x-wrapper.column>
-                <x-form.input name="nama" label="Nama" isGroup/>
+                <x-form.input name="name" label="Nama" isGroup/>
             </x-wrapper.column>
         </x-wrapper.form>
         <x-wrapper.form isRow>
@@ -20,20 +20,13 @@
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.input name="nomor_hp" label="Nomor HP" placeholder="Masukan Nomor Hp" isGroup />
+                <x-form.input name="phone" label="Nomor HP" placeholder="Masukan Nomor Hp" isGroup />
             </x-wrapper.column>
             <x-wrapper.column>
             </x-wrapper.column>
         </x-wrapper.form>
-        <x-form.button>
+        <x-form.button isSubmit>
             Simpan
         </x-form.button>
     </form>
 @endsection
-@push("stack-script")
-    <script>
-        API.get(window.location.pathname).then((data)=>{
-            console.log(data)
-        })
-    </script>
-@endpush

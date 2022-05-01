@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => '/profile'], function () {
     Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"]);
+    Route::post("/", [\App\Http\Controllers\ProfileController::class, "store"]);
 });
 
 
