@@ -1,4 +1,5 @@
 @extends("layouts.general.default")
 @include("layouts.general.header")
+@include("layouts.general.navbar")
 @include("layouts.general.sidebar")
 @include("layouts.general.script")

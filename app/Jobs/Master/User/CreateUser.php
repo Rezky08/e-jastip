@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Master\User;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,9 +12,12 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
-class CreateUser implements ShouldQueue
+class CreateUser
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, SerializesModels;
+
+    public User $user;
+    public array $attributes;
 
     /**
      * Create a new job instance.
@@ -22,7 +26,7 @@ class CreateUser implements ShouldQueue
      */
     public function __construct($attributes = [])
     {
-        Validator::make($attributes, [
+        $this->attributes = Validator::make($attributes, [
             'name' => ['required', 'filled'],
             'email' => ['required', 'filled', 'email'],
             'password' => ['required', 'filled','confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
@@ -36,6 +40,7 @@ class CreateUser implements ShouldQueue
      */
     public function handle()
     {
-        //
+     $this->user = new User($this->attributes);
+     $this->user->save();
     }
 }

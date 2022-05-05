@@ -13,32 +13,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index2');
+
+Route::group(['middleware' => ['guest'], 'prefix' => '/auth'], function () {
+    Route::get("/login", [\App\Http\Controllers\Auth\LoginController::class, "index"])->name('auth.login');
+    Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
+    Route::post("/register", [\App\Http\Controllers\Auth\RegisterController::class, "index"]);
+    Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('auth.logout');
 });
+Route::group(['middleware' => ['auth']], function () {
 
-Route::group(['prefix' => '/profile'], function () {
-    Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"]);
-    Route::post("/", [\App\Http\Controllers\ProfileController::class, "store"]);
-});
-
-
-Route::group(['prefix' => '/invoice'], function () {
-    Route::group(['prefix' => '{invoice}'], function () {
-        Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"]);
-        Route::post("/", [\App\Http\Controllers\InvoiceController::class, "store"]);
-        Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"]);
+    Route::group(['prefix' => '/auth'], function () {
+        Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('auth.logout');
     });
-});
 
-Route::group(['prefix' => '/attachment'], function () {
-    Route::get("/{attachment}",[\Jalameta\Attachments\Controllers\AttachmentController::class,"file"]);
-});
-
-Route::group(['prefix' => '/pengajuan-legalisir'], function () {
-    Route::group(['prefix' => '/ijazah'], function () {
-        Route::get("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "create"]);
-        Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
+    Route::group(['prefix' => '/profile'], function () {
+        Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"]);
+        Route::post("/", [\App\Http\Controllers\ProfileController::class, "store"]);
     });
-});
 
+
+    Route::group(['prefix' => '/invoice'], function () {
+        Route::group(['prefix' => '{invoice}'], function () {
+            Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"]);
+            Route::post("/", [\App\Http\Controllers\InvoiceController::class, "store"]);
+            Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"]);
+        });
+    });
+
+    Route::group(['prefix' => '/attachment'], function () {
+        Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"]);
+    });
+
+    Route::group(['prefix' => '/pengajuan-legalisir'], function () {
+        Route::group(['prefix' => '/ijazah'], function () {
+            Route::get("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "create"]);
+            Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
+        });
+    });
+
+});

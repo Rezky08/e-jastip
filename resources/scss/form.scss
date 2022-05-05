@@ -1,0 +1,9 @@
+.form{
+    &-control{
+        &-rounded {
+            border-radius: 10rem;
+            //font-size: .8rem;
+            padding: 1.5rem 1rem;
+        }
+    }
+}
