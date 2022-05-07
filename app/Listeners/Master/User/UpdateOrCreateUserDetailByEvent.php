@@ -30,7 +30,7 @@ class UpdateOrCreateUserDetailByEvent
             /** @var User $user */
             $user = $event->user;
 //            dd($user->only('name'));
-            $job = new UpdateOrCreateUserDetail($user->only('name'));
+            $job = new UpdateOrCreateUserDetail($user->only('name'),$user);
             dispatch($job);
         }
     }

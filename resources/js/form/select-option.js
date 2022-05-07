@@ -1,6 +1,18 @@
 export const optionElement = (item = {}) => `<option value="${(item['value'] ?? '')}" ${item['disabled'] && 'disabled'} ${item['selected'] && 'selected'}>${item['label'] ?? ''}</option>`;
 
-export const optionApi = (url,id, additionalParams) => $(`#${id}`).select2({
+export const preOptionApi = (url, id, additionalParams) => {
+    const selector = $(`#${id}`);
+    $.ajax({
+        type: 'GET',
+        url,
+        data: additionalParams,
+    }).then(function ({data}) {
+        const option = new Option(data.text, data.id, true, true);
+        selector.append(option).trigger('change');
+    })
+}
+
+export const optionApi = (url, id, additionalParams) => $(`#${id}`).select2({
     theme: "bootstrap4",
     ajax: {
         url,
@@ -19,4 +31,4 @@ export const optionApi = (url,id, additionalParams) => $(`#${id}`).select2({
     },
 
 });
-export default {optionElement, optionApi}
+export default {optionElement, optionApi, preOptionApi}

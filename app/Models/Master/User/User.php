@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     protected $table = "m_users";
 
     /**
@@ -53,5 +54,10 @@ class User extends Authenticatable
             $passwordHashed = Hash::make($user->password);
             $user->setAttribute('password', $passwordHashed);
         });
+    }
+
+    public function detail(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Detail::class, 'user_id', 'id');
     }
 }

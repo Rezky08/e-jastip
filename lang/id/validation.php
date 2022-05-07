@@ -128,4 +128,5 @@ return [
         ],
     ],
     'attributes'           => [],
+    'phone' => ':attribute berisi nomor yang tidak valid.',
 ];

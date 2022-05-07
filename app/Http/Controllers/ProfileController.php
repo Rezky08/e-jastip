@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Master\User\UpdateOrCreateUserDetail;
+use App\Models\Master\User\Detail;
+use App\Models\Master\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 use Rezky\LaravelResponseFormatter\Http\Response;
 
 class ProfileController extends Controller
@@ -13,20 +18,17 @@ class ProfileController extends Controller
      */
     public function index(Request $request): Response|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        if ($request->expectsJson()){
-            $request->whenHas("faculty",function($value){
 
-            });
-            $request->whenHas("study_program",function($value){
+        /** @var User $user */
+        $user = auth()->user();
+        /** @var Detail $detail */
+        $detail = $user->detail;
+        Session::flash('form', $detail);
 
-            });
-            return new Response(Response::CODE_SUCCESS,[
-                [
-                    "label" => "Teknik Informatika",
-                    "value" => "TI"
-                ]
-            ]);
-        }
+        // get option if faculty and study program exists
+//        if (Arr::has($detail, ['faculty_id', 'study_program_id'])) {
+//            dd($detail);
+//        }
 
         return view('pages.profile.index');
     }
@@ -44,18 +46,19 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $job = new UpdateOrCreateUserDetail($request->all(), auth()->user());
+        $this->dispatch($job);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,7 +69,7 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,8 +80,8 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -89,7 +92,7 @@ class ProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
