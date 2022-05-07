@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Master\User\UserCreated;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Listeners\Invoice\GenerateInvoice;
+use App\Listeners\Master\User\UpdateOrCreateUserDetailByEvent;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         TransactionCreated::class => [
             GenerateInvoice::class
+        ],
+        UserCreated::class => [
+            UpdateOrCreateUserDetailByEvent::class
         ]
     ];
 

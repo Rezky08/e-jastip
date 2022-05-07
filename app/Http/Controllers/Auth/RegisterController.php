@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\AuthAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        //
+        return view("pages.auth.register.index");
     }
 
     /**
@@ -31,11 +32,12 @@ class RegisterController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $authAction = new AuthAction();
+        return $authAction->register($request->all());
     }
 
     /**

@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['guest'], 'prefix' => '/auth'], function () {
     Route::get("/login", [\App\Http\Controllers\Auth\LoginController::class, "index"])->name('auth.login');
     Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
-    Route::post("/register", [\App\Http\Controllers\Auth\RegisterController::class, "index"]);
+    Route::get("/register", [\App\Http\Controllers\Auth\RegisterController::class, "index"])->name('auth.register');
+    Route::post("/register", [\App\Http\Controllers\Auth\RegisterController::class, "store"]);
     Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('auth.logout');
 });
 Route::group(['middleware' => ['auth']], function () {
+    Route::redirect("/",\App\Providers\RouteServiceProvider::HOME);
 
     Route::group(['prefix' => '/auth'], function () {
         Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('auth.logout');

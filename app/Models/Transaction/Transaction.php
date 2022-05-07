@@ -2,19 +2,16 @@
 
 namespace App\Models\Transaction;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Contracts\InvoiceableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
-use App\Models\User;
+use App\Models\Master\User\User;
 use App\Traits\Invoiceable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\This;
 
 /**
  * @property string $user_id

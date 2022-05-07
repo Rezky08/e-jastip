@@ -2,12 +2,9 @@
 
 namespace App\Jobs\Master\User;
 
-use App\Models\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Events\Master\User\UserCreated;
+use App\Models\Master\User\User;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
@@ -28,8 +25,8 @@ class CreateUser
     {
         $this->attributes = Validator::make($attributes, [
             'name' => ['required', 'filled'],
-            'email' => ['required', 'filled', 'email'],
-            'password' => ['required', 'filled','confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'email' => ['required', 'filled', 'email','unique:m_users,email'],
+            'password' => ['required', 'filled', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
         ])->validate();
     }
 
@@ -40,7 +37,11 @@ class CreateUser
      */
     public function handle()
     {
-     $this->user = new User($this->attributes);
-     $this->user->save();
+        $this->user = new User($this->attributes);
+        $this->user->save();
+        if ($this->user->exists) {
+            event(new UserCreated($this->user));
+        }
+        return $this->user->exists;
     }
 }
