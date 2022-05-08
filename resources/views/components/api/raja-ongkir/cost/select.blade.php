@@ -25,7 +25,14 @@
 
             const getCost = (changeItem) => {
                 const filter = getValue();
-                let optionElementHtml = []
+                let optionElementHtml = [
+                    {
+                        id: "",
+                        text: "-- PILIH --",
+                        disabled: true,
+                        selected: true
+                    }
+                ]
                 raja_ongkir.getCost(filter).then(({data}) => {
                     data?.map((partner) => {
                         partner?.costs?.map((cost) => {
