@@ -21,9 +21,23 @@
         @show
 
         <!-- Begin Page Content -->
-            <div class="container-fluid">
-            {{--                @yield("main")--}}
-            @section("main")
+            <div class="container-fluid position-relative">
+                @section("toast")
+                    <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; top: 0;">
+                        @forelse(\App\Supports\Notification\ToastSupport::get() as $toast)
+                            <x-notification.toast title="{{$toast['title']}}"
+                                                  :datetime="$toast['datetime']"
+                                                  img="{{$toast['img']}}"
+                                                  altImg="{{$toast['altImg']}}">
+                                {{$toast['content']}}
+                            </x-notification.toast>
+                        @empty
+                        @endforelse
+                    </div>
+
+                @show
+                {{--                @yield("main")--}}
+                @section("main")
 
                 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">

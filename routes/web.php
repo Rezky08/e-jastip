@@ -21,16 +21,18 @@ Route::group(['middleware' => ['guest'], 'prefix' => '/auth'], function () {
     Route::post("/register", [\App\Http\Controllers\Auth\RegisterController::class, "store"]);
     Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('auth.logout');
 });
-Route::group(['middleware' => ['auth']], function () {
-    Route::redirect("/",\App\Providers\RouteServiceProvider::HOME);
+
+Route::group(['middleware' => ['auth', 'user.detail']], function () {
+
+    Route::group(['prefix' => '/profile'], function () {
+        Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"])->name('profile')->withoutMiddleware('user.detail');
+        Route::post("/", [\App\Http\Controllers\ProfileController::class, "store"])->withoutMiddleware('user.detail');
+    });
+
+    Route::redirect("/", \App\Providers\RouteServiceProvider::HOME);
 
     Route::group(['prefix' => '/auth'], function () {
         Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('auth.logout');
-    });
-
-    Route::group(['prefix' => '/profile'], function () {
-        Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"]);
-        Route::post("/", [\App\Http\Controllers\ProfileController::class, "store"]);
     });
 
 

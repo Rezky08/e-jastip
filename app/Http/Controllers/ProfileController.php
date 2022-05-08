@@ -25,11 +25,6 @@ class ProfileController extends Controller
         $detail = $user->detail;
         Session::flash('form', $detail);
 
-        // get option if faculty and study program exists
-//        if (Arr::has($detail, ['faculty_id', 'study_program_id'])) {
-//            dd($detail);
-//        }
-
         return view('pages.profile.index');
     }
 

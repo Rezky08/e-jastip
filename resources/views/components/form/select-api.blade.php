@@ -18,13 +18,16 @@
                     .on("change", function (item) {
                         additionalParams = {...additionalParams, chainValue: item?.target?.value}
                         form.select.optionApi(requestUrl, id, additionalParams);
-                        form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
+                        if(value){
+                            form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
+                        }
                     })
             } else {
 
                 form.select.optionApi(requestUrl, id, additionalParams);
-                form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
-
+                if(value){
+                    form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
+                }
             }
 
 
