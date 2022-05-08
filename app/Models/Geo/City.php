@@ -4,6 +4,7 @@ namespace App\Models\Geo;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class City extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
     protected $table = "m_cities";
     protected $primaryKey = "city_id";
     protected $hidden =['created_at','updated_at'];

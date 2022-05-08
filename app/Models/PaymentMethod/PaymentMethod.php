@@ -3,6 +3,7 @@
 namespace App\Models\PaymentMethod;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Collection\Collection;
 
@@ -22,7 +23,7 @@ use Ramsey\Collection\Collection;
  */
 class PaymentMethod extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
 
     protected $table = 'm_payment_methods';
 

@@ -3,6 +3,7 @@
 namespace App\Models\Transaction\Invoice;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -14,7 +15,7 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 class Detail extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
 
     protected $table = "t_invoice_details";
 

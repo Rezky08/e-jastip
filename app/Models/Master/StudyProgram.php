@@ -3,6 +3,7 @@
 namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StudyProgram extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
 
     protected $table = 'm_study_programs';
 

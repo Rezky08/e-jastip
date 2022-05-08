@@ -5,6 +5,7 @@ namespace App\Models\Transaction\Invoice;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
  */
 class Invoice extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
 
     const INVOICE_STATUS_CREATED = 1;
     const INVOICE_STATUS_WAITING_PAYMENT = 2;

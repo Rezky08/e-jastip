@@ -2,6 +2,7 @@
 
 namespace App\Models\Geo;
 
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Province extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
     protected $table = "m_provinces";
     protected $primaryKey = "city_id";
     protected $hidden =['created_at','updated_at'];

@@ -3,6 +3,7 @@
 namespace App\Models\Setting;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Setting extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTable;
     protected $table = 'm_settings';
     protected $primaryKey='key';
     public $incrementing = false;
