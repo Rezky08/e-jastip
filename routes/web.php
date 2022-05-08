@@ -38,9 +38,9 @@ Route::group(['middleware' => ['auth', 'user.detail']], function () {
 
     Route::group(['prefix' => '/invoice'], function () {
         Route::group(['prefix' => '{invoice}'], function () {
-            Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"]);
+            Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"])->name('invoice');
             Route::post("/", [\App\Http\Controllers\InvoiceController::class, "store"]);
-            Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"]);
+            Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"])->name('invoice.payment');
         });
     });
 

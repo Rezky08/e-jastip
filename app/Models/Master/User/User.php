@@ -2,6 +2,8 @@
 
 namespace App\Models\Master\User;
 
+use App\Models\Master\Faculty;
+use App\Models\Master\StudyProgram;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,9 +11,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property Detail $detail
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasTable;
+    use HasApiTokens, HasFactory, Notifiable, HasTable;
 
     protected $table = "m_users";
 

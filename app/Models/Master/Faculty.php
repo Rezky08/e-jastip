@@ -13,11 +13,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Faculty extends Model
 {
-    use HasFactory,HasTable;
+    use HasFactory, HasTable;
+
     protected $table = "m_faculties";
     protected $fillable = [
         'name',
         'code'
     ];
 
+    public function studyProgram(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(StudyProgram::class, 'study_program_id', 'id');
+    }
 }

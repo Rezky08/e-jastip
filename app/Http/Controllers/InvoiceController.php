@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Master\Faculty;
+use App\Models\Master\User\User;
 use App\Models\PaymentMethod\Account;
 use App\Models\PaymentMethod\Type;
 use App\Models\Transaction\Transaction;
 use App\Models\Transaction\Invoice\Detail;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Supports\InvoiceSupport;
 use App\Supports\PaymentMethodSupport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
 
 class InvoiceController extends Controller
 {
@@ -39,12 +42,11 @@ class InvoiceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        return redirect()->to("/invoice/1/payment");
+        return redirect(route('invoice.payment',Route::current()->parameters()));
     }
 
     /**
@@ -55,22 +57,18 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        /** @var Collection $items */
-        $items = $invoice->details->where('type','!=',Detail::INVOICE_DETAIL_TYPE_DISCOUNT);
-        /** @var Collection $discounts */
-        $discounts = $invoice->details->where('type',Detail::INVOICE_DETAIL_TYPE_DISCOUNT);
-        $invoiceDetails = [
-            'items' => $items,
-            'discounts' => $discounts,
-            'total' => bcsub($items->pluck('price')->sum(),$discounts->pluck('price')->sum())
-        ];
+        /** @var User $user */
+        $user = auth()->user();
+        /** @var \App\Models\Master\User\Detail $detail */
+        $detail = $user->detail;
         /** @var Faculty $faculty */
-        $faculty = Faculty::query()->inRandomOrder()->firstOrFail();
+        $faculty = $detail->faculty;
+
         $paymentMethodAccounts = PaymentMethodSupport::getPaymentMethodListByFaculty($faculty);
         $data = [
             'paymentMethods' => $paymentMethodAccounts->toArray(),
             'invoice' => $invoice,
-            'invoiceDetails' => $invoiceDetails
+            'invoiceDetails' => InvoiceSupport::calculateInvoice($invoice)
         ];
         return view("pages.invoice.index", $data);
     }
