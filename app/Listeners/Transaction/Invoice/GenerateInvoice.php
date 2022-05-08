@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Listeners\Invoice;
+namespace App\Listeners\Transaction\Invoice;
 
 use App\Jobs\Transaction\Invoice\CreateInvoiceFromTransaction;
 use App\Models\Transaction\Transaction;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Rezky\LaravelResponseFormatter\Exception\Error;
 use Rezky\LaravelResponseFormatter\Http\Code;
+use function dispatch;
+use function throw_if;
 
 class GenerateInvoice
 {

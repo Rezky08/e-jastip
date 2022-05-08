@@ -10,6 +10,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset("js/sb-admin-2.min.js")}}"></script>
     <script src="{{asset("js/select2.min.js")}}"></script>
+    <script src="{{asset("js/clipboard.min.js")}}"></script>
 
     <!-- Page level plugins -->
     <script src="{{asset("vendor/chart.js/Chart.min.js")}}"></script>
@@ -62,6 +63,10 @@
     </script>
 
     <script>
+        new ClipboardJS('#copy');
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({delay: {"show": 100, "hide": 100}})
+        })
         $(document).ready(function () {
             $(".toast").toast('show');
         });

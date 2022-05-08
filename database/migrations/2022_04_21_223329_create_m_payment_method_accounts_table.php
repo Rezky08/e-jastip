@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("faculty_id");
             $table->unsignedBigInteger("payment_method_id");
+            $table->string("name");
             $table->string("account");
             $table->string("qr")->nullable();
             $table->boolean("isActive")->default(true);

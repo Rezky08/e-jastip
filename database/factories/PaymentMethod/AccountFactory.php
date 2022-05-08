@@ -30,6 +30,7 @@ class AccountFactory extends Factory
         return [
             'faculty_id' => $faculty->id,
             'payment_method_id' => $paymentMethod->id,
+            'name' => $this->faker->name,
             'account' => $this->faker->creditCardNumber(),
             'qr' => $isQris ? $this->faker->imageUrl() : null,
             'isActive' => $this->faker->boolean(),

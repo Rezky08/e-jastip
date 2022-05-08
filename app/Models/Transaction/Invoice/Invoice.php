@@ -2,6 +2,7 @@
 
 namespace App\Models\Transaction\Invoice;
 
+use App\Models\PaymentMethod\Account;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,10 +14,11 @@ use Illuminate\Support\Str;
  * @property string $id
  * @property int $status
  * @property Collection $details
+ * @property Account $account
  */
 class Invoice extends Model
 {
-    use HasFactory,HasTable;
+    use HasFactory, HasTable;
 
     const INVOICE_STATUS_CREATED = 1;
     const INVOICE_STATUS_WAITING_PAYMENT = 2;
@@ -46,8 +48,26 @@ class Invoice extends Model
         });
     }
 
+    static public function getAvailableStatus(): array
+    {
+        return [
+            self::INVOICE_STATUS_CREATED,
+            self::INVOICE_STATUS_WAITING_PAYMENT,
+            self::INVOICE_STATUS_WAITING_CONFIRMATION,
+            self::INVOICE_STATUS_CONFIRMED,
+            self::INVOICE_STATUS_PAID,
+            self::INVOICE_STATUS_EXPIRED,
+            self::INVOICE_STATUS_CANCELED,
+        ];
+    }
+
     public function details(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Detail::class,'invoice_id','id');
+        return $this->hasMany(Detail::class, 'invoice_id', 'id');
+    }
+
+    public function account(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Account::class, 'payment_method_account_id', 'id');
     }
 }

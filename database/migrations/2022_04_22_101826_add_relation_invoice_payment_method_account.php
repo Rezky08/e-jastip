@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('t_invoices',function (Blueprint $table){
-            $table->unsignedBigInteger('payment_method_account_id')->nullable();
+            $table->unsignedBigInteger('payment_method_account_id')->after('status')->nullable();
             $table->foreign('payment_method_account_id')
                 ->references('id')
                 ->on('m_payment_method_accounts')

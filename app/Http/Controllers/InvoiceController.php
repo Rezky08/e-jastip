@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Transaction\Invoice\UpdateInvoicePaymentMethod;
+use App\Jobs\Transaction\Invoice\UpdateInvoiceStatus;
 use App\Models\Master\Faculty;
 use App\Models\Master\User\User;
-use App\Models\PaymentMethod\Account;
-use App\Models\PaymentMethod\Type;
-use App\Models\Transaction\Transaction;
-use App\Models\Transaction\Invoice\Detail;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Models\Transaction\Transaction;
 use App\Supports\InvoiceSupport;
 use App\Supports\PaymentMethodSupport;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 
 class InvoiceController extends Controller
@@ -44,9 +41,11 @@ class InvoiceController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, Invoice $invoice)
     {
-        return redirect(route('invoice.payment',Route::current()->parameters()));
+        $job = new UpdateInvoicePaymentMethod($invoice, $request->all());
+        $this->dispatch($job);
+        return redirect(route('invoice.payment', Route::current()->parameters()));
     }
 
     /**
