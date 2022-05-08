@@ -1,4 +1,4 @@
-INSERT INTO cities ("city_id", "province_id", "city_name", "postal_code")
+INSERT INTO m_cities ("city_id", "province_id", "city_name", "postal_code")
 VALUES (1, 21, 'Kabupaten Aceh Barat', '23681'),
        (2, 21, 'Kabupaten Aceh Barat Daya', '23764'),
        (3, 21, 'Kabupaten Aceh Besar', '23951'),

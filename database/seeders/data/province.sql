@@ -1,4 +1,4 @@
-INSERT INTO provinces ("province_id", "province_name")
+INSERT INTO m_provinces ("province_id", "province_name")
 VALUES (1, 'Bali'),
        (2, 'Bangka Belitung'),
        (3, 'Banten'),

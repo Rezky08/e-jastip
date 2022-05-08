@@ -5,30 +5,27 @@
 <input type="hidden" name="{{$name}}_etd" value="">
 @push("stack-script")
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        $(document).ready(function () {
             const originName = "<?=$origin ?? ""?>"
             const destinationName = "<?=$destination ?? ""?>"
             const weightName = "<?=$weight ?? ""?>"
             const costName = "<?=$name ?? ""?>"
-            const originSelector = document.querySelector(`[name='${originName}']`)
-            const destinationSelector = document.querySelector(`[name='${destinationName}']`)
-            const weightSelector = document.querySelector(`[name='${weightName}']`)
-            const costSelector = document.querySelector(`#cost[name='${costName}']`)
+            const originSelector = $(`[name='${originName}']`)
+            const destinationSelector = $(`[name='${destinationName}']`)
+            const weightSelector = $(`[name='${weightName}']`)
+            const costCssSelector = `#cost[name='${costName}']`;
+            const costSelector = $(costCssSelector)
             let postValues = {}
 
             const getValue = () => ({
-                origin: originSelector?.value,
-                destination: destinationSelector?.value,
-                weight: weightSelector?.value ?? 1,
+                origin: originSelector?.val(),
+                destination: destinationSelector?.val(),
+                weight: weightSelector?.val() ?? 1,
             })
 
             const getCost = (changeItem) => {
                 const filter = getValue();
-                let optionElementHtml = `${form.select.optionElement({
-                    label: "Pilih Pengiriman",
-                    disabled: "disabled",
-                    selected: true
-                })}\n`
+                let optionElementHtml = []
                 raja_ongkir.getCost(filter).then(({data}) => {
                     data?.map((partner) => {
                         partner?.costs?.map((cost) => {
@@ -41,17 +38,17 @@
                                 etd: costPrice?.etd
                             }
                             postValues[displayCode] = postValue
-                            optionElementHtml += `${form.select.optionElement({
-                                value: displayCode,
-                                label: `[${displayCode.toUpperCase()}] ${costPrice?.etd} Hari (${number_format(costPrice?.value)})`
-                            })}\n`
+                            optionElementHtml.push({
+                                id: displayCode,
+                                text: `[${displayCode.toUpperCase()}] ${costPrice?.etd} Hari (${number_format(costPrice?.value)})`
+                            });
                         })
                     })
-                    costSelector.innerHTML = optionElementHtml
+                    form.select.optionData(costCssSelector, optionElementHtml)
                 })
             }
 
-            costSelector.addEventListener("change", e => {
+            costSelector.on("change", e => {
                 const selected = e.target.value;
                 const postValue = postValues[selected]
                 Object.entries(postValue)?.map(([key, value]) => {
@@ -60,13 +57,13 @@
                 });
             })
 
-            originSelector?.addEventListener("change", (e) => {
+            originSelector?.on("change", (e) => {
                 getCost("origin")
             })
-            destinationSelector?.addEventListener("change", (e) => {
+            destinationSelector?.on("change", (e) => {
                 getCost("destination")
             })
-            weightSelector?.addEventListener("change", (e) => {
+            weightSelector?.on("change", (e) => {
                 getCost("weight")
             })
         })

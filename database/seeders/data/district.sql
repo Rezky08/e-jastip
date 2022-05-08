@@ -1,4 +1,4 @@
-INSERT INTO districts ("district_id", "city_id", "district_name")
+INSERT INTO m_districts ("district_id", "city_id", "district_name")
 VALUES (1, 1, 'Arongan Lambalek'),
        (2, 1, 'Bubon'),
        (3, 1, 'Johan Pahlawan'),

@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class District extends Model
 {
     use HasFactory;
-
+    protected $table = "m_districts";
     protected $primaryKey = "district_id";
     protected $hidden = ['created_at', 'updated_at'];
 

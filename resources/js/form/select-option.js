@@ -12,6 +12,11 @@ export const preOptionApi = (url, id, additionalParams) => {
     })
 }
 
+export const optionData = (selector, data) => $(selector).empty().select2({
+    theme: "bootstrap4",
+    data,
+});
+
 export const optionApi = (url, id, additionalParams) => $(`#${id}`).select2({
     theme: "bootstrap4",
     ajax: {
@@ -31,4 +36,4 @@ export const optionApi = (url, id, additionalParams) => $(`#${id}`).select2({
     },
 
 });
-export default {optionElement, optionApi, preOptionApi}
+export default {optionElement, optionApi, preOptionApi, optionData}

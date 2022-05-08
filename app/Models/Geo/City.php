@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     use HasFactory;
+    protected $table = "m_cities";
     protected $primaryKey = "city_id";
     protected $hidden =['created_at','updated_at'];
 

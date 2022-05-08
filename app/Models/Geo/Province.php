@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 class Province extends Model
 {
     use HasFactory;
+    protected $table = "m_provinces";
     protected $primaryKey = "city_id";
     protected $hidden =['created_at','updated_at'];
 

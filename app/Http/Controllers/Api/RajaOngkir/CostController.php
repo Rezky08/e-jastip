@@ -25,8 +25,9 @@ class CostController extends Controller
     public function index(Request $request)
     {
         $request->mergeIfMissing(['origin' => config('setting.geo.origin')]);
-
+        $request->mergeIfMissing(['destination' => $request->get('chainValue')]);
         $couriers = ['jne', 'tiki', 'pos'];
+
         Validator::make($request->all(), [
             'code' => ['filled', Rule::in($couriers)],
             'origin' => ['required', 'filled'],
