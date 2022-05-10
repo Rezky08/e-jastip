@@ -81,9 +81,9 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy()
+    public function destroy(AuthRepository $repository)
     {
-        $authAction = new AuthAction();
+        $authAction = new AuthAction($repository);
         return $authAction->logout();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Jobs\Master\User\CreateUser;
+use App\Models\Master\Admin;
 use App\Models\Master\User\User;
 use App\Providers\RouteServiceProvider;
 use App\Supports\Repositories\AuthRepository;
@@ -28,12 +29,11 @@ class AuthAction
             'password' => ['required', 'filled']
         ])->validate();
         // check user is exists
-        /** @var Authenticatable|User $user */
+        /** @var Authenticatable|User|Admin $user */
         $user = $this->repository->queries()->where('email', $credentials['email'])->first();
         $isPasswordValid = Hash::check($credentials['password'], $user->password);
         if ($isPasswordValid) {
             $this->repository->scopedAuth->login($user);
-            dd($this->repository->getUser());
             return redirect(RouteServiceProvider::HOME);
         } else {
             $errors = ValidationException::withMessages([

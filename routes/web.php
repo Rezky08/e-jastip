@@ -24,8 +24,8 @@ Route::middleware(['auth.guard:web'])->group(function () {
 
     Route::group(['middleware' => ['auth', 'user.detail']], function () {
 
-        Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {
-            Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"])->withoutMiddleware('user.detail');
+        Route::group(['prefix' => '/profile'], function () {
+            Route::get("/", [\App\Http\Controllers\ProfileController::class, "index"])->name("profile")->withoutMiddleware('user.detail');
             Route::post("/", [\App\Http\Controllers\ProfileController::class, "store"])->withoutMiddleware('user.detail');
         });
 
