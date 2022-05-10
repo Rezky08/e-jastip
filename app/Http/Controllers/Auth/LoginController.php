@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\AuthAction;
 use App\Http\Controllers\Controller;
+use App\Supports\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -34,9 +35,9 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request,AuthRepository $repository)
     {
-        $authAction = new AuthAction();
+        $authAction = new AuthAction($repository);
         return $authAction->login($request->all());
     }
 

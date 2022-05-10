@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         Rezky\LaravelResponseFormatter\LaravelResponseFormatterServiceProvider::class,
+        App\Providers\RepositoryRegistrarServiceProvider::class,
 
         /*
          * Application Service Providers...
