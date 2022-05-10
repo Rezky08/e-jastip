@@ -176,7 +176,7 @@
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name??null}}</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$user?->name??null}}</span>
                     <img class="img-profile rounded-circle"
                          src="{{asset("img/undraw_profile.svg")}}">
                 </a>
@@ -222,7 +222,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{route('auth.logout')}}">Logout</a>
+                    <a class="btn btn-primary" href="{{route(($isAdmin ? "admin.":"").'auth.logout')}}">Logout</a>
                 </div>
             </div>
         </div>

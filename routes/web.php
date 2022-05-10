@@ -58,11 +58,21 @@ Route::middleware(['auth.guard:web'])->group(function () {
     });
 });
 Route::middleware(['auth.guard:admin'])->group(function () {
-    Route::group(['middleware' => ['guest'], 'prefix' => '/admin', 'as' => 'admin.'], function () {
+    Route::group(['middleware' => ['guest:admin'], 'prefix' => '/admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
             Route::get("/login", [\App\Http\Controllers\Auth\LoginController::class, "index"])->name('login');
             Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
+        });
+    });
+    Route::group(['middleware' => ['auth:admin'], 'prefix' => '/admin', 'as' => 'admin.'], function () {
+        Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
             Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('logout');
+        });
+
+        Route::group(['prefix' => '/pengajuan-legalisir', 'as' => 'pengajuan-legalisir.'], function () {
+            Route::group(['prefix' => '/ijazah'], function () {
+                Route::get("/", [\App\Http\Controllers\Admin\PengajuanLegalisir\IjazahController::class, "index"])->name("ijazah");
+            });
         });
 
     });

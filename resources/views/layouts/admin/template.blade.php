@@ -1,0 +1,2 @@
+@extends("layouts.general.index")
+

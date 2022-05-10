@@ -10,11 +10,19 @@ use App\Models\Transaction\Invoice\Invoice;
 use App\Models\Transaction\Transaction;
 use App\Supports\InvoiceSupport;
 use App\Supports\PaymentMethodSupport;
+use App\Supports\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class InvoiceController extends Controller
 {
+    public AuthRepository $repository;
+
+    public function __construct(AuthRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +65,7 @@ class InvoiceController extends Controller
     public function show(Invoice $invoice)
     {
         /** @var User $user */
-        $user = auth()->user();
+        $user = $this->repository->getUser();
         /** @var \App\Models\Master\User\Detail $detail */
         $detail = $user->detail;
         /** @var Faculty $faculty */

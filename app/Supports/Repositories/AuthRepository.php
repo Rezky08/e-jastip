@@ -5,6 +5,7 @@ namespace App\Supports\Repositories;
 use App\Models\Master\Admin;
 use App\Models\Master\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Rezky\LaravelResponseFormatter\Exception\Error;
 use Rezky\LaravelResponseFormatter\Http\Code;
 
@@ -64,20 +65,31 @@ class AuthRepository
         }
     }
 
-    public function getUser(): User|Admin
+    public function getUser(): User|Admin|null
     {
 
         $user = $this->scopedAuth->user();
-
-        throw_if(!($user instanceof User || $user instanceof Admin), Error::make(Code::CODE_ERROR_UNAUTHENTICATED));
-        throw_if(($user instanceof User && $this->isAdmin()) || ($user instanceof Admin && !$this->isAdmin()), Error::make(Code::CODE_ERROR_UNAUTHORIZED));
-
         return $user;
     }
 
     public function isAdmin(): bool
     {
         return $this->scopedGuard === self::GUARD_ADMIN;
+    }
+
+    public function getRouteHome()
+    {
+        if ($this->isAdmin()) {
+            return route('admin.pengajuan-legalisir.ijazah');
+        } else {
+            return route('profile');
+
+        }
+    }
+
+    public function getSidebar()
+    {
+        return Config::get('sidebar')[$this->scopedGuard ?? self::GUARD_WEB];
     }
 
     private function getRequest(): Request

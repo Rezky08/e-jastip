@@ -1,6 +1,6 @@
 <?php
 return [
-    'user' => [
+    \App\Supports\Repositories\AuthRepository::GUARD_WEB => [
         [
             'code' => 'PRL',
             'title' => 'Layanan',
@@ -37,6 +37,27 @@ return [
                     'title' => 'Riwayat Pengajuan',
                     'url' => '/riwayat',
                     'children' => []
+                ],
+            ]
+        ],
+    ],
+    \App\Supports\Repositories\AuthRepository::GUARD_ADMIN => [
+        [
+            'code' => 'ARL',
+            'title' => 'Layanan',
+            'children' => [
+                [
+                    'code' => 'ARL',
+                    'title' => 'Pengajuan Legalisir',
+                    'childrenTitle' => 'Pengajuan Legalisir',
+                    'children' => [
+                        [
+                            'code' => 'AJZ',
+                            'title' => 'Ijazah',
+                            'routeName' => 'admin.pengajuan-legalisir.ijazah',
+                            'children' => []
+                        ],
+                    ]
                 ],
             ]
         ],

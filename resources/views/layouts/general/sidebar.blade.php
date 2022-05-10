@@ -34,7 +34,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed"
-                       href="{{$itemChild['url']}}"
+                       href="{{isset($itemChild['routeName']) ? route($itemChild['routeName']) : $itemChild['url'] ?? "#"}}"
                        @if(count($itemChild['children']) > 0)
 
                        data-toggle="collapse"
@@ -53,7 +53,7 @@
                                 <h6 class="collapse-header">{{$itemChild['childrenTitle']??""}}</h6>
                                 @foreach($itemChild['children'] as $itemSubChild)
                                     <a class="collapse-item"
-                                       href="{{$itemSubChild['url']}}">{{$itemSubChild['title']??""}}</a>
+                                       href="{{isset($itemSubChild['routeName']) ? route($itemSubChild['routeName']) : $itemSubChild['url'] ?? "#"}}">{{$itemSubChild['title']??""}}</a>
                                 @endforeach
                             </div>
                         </div>

@@ -34,7 +34,7 @@ class AuthAction
         $isPasswordValid = Hash::check($credentials['password'], $user->password);
         if ($isPasswordValid) {
             $this->repository->scopedAuth->login($user);
-            return redirect(RouteServiceProvider::HOME);
+            return redirect($this->repository->getRouteHome());
         } else {
             $errors = ValidationException::withMessages([
                 'password' => 'silahkan periksa credential anda'
@@ -49,13 +49,13 @@ class AuthAction
         dispatch($job);
         $user = $job->user;
         $this->repository->scopedAuth->login($user);
-        return redirect(RouteServiceProvider::HOME);
+        return redirect($this->repository->getRouteHome());
     }
 
     public function logout()
     {
         $this->repository->scopedAuth->logout();
-        return redirect(route('auth.login'));
+        return redirect(route(($this->repository->isAdmin() ? "admin." : "") . 'auth.login'));
     }
 
 }

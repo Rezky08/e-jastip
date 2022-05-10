@@ -6,6 +6,7 @@ use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
 use App\Jobs\Transaction\Invoice\UpdateInvoiceStatus;
 use App\Models\Master\User\User;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Supports\Repositories\AuthRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Rezky\LaravelResponseFormatter\Exception\Error;
 use Rezky\LaravelResponseFormatter\Http\Code;
@@ -13,15 +14,18 @@ use Rezky\LaravelResponseFormatter\Http\Code;
 class UpdateInvoiceStatusByEvent
 {
     public User|Authenticatable $user;
+    public AuthRepository $repository;
+
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AuthRepository $repository)
     {
 
-        $this->user = auth()->user();
+        $this->repository = $repository;
+        $this->user = $this->repository->getUser();
     }
 
     /**
