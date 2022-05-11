@@ -10,6 +10,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset("js/sb-admin-2.min.js")}}"></script>
     <script src="{{asset("js/select2.min.js")}}"></script>
+    <script src="{{asset("js/datatables.min.js")}}"></script>
     <script src="{{asset("js/clipboard.min.js")}}"></script>
 
     <!-- Page level plugins -->

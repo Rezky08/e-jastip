@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Admin\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction\Transaction;
+use App\Traits\usePagination;
 use Illuminate\Http\Request;
 
 class IjazahController extends Controller
 {
+    use usePagination;
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Rezky\LaravelResponseFormatter\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->expectsJson()){
+            $query = Transaction::query();
+            return $this->withPagination($query);
+        }
         return view("pages.admin.pengajuan-legalisir.ijazah.index");
     }
 

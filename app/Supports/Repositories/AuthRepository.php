@@ -47,12 +47,7 @@ class AuthRepository
 
     public function queries(): \Illuminate\Database\Eloquent\Builder
     {
-        $user = null;
-        try {
-            $user = $this->getUser();
-        } catch (\Exception $exception) {
-
-        }
+        $user = $this->getUser();
         return $user ? $user->newQuery() : $this->getModel()::query();
     }
 
