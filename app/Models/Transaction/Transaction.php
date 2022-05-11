@@ -15,6 +15,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Jalameta\Attachments\Concerns\Attachable;
+use Jalameta\Attachments\Contracts\AttachableContract;
+use Jalameta\Attachments\Entities\Attachment;
 
 /**
  * @property string $user_id
@@ -30,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $partner_shipment_price
  * @property string $partner_shipment_etd
  * @property string $status
+ * @property Attachment $file
  * @property User $user
  * @property StudyProgram $studyProgram
  * @property Faculty $faculty
@@ -38,9 +42,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property District $district
  * @property Collection $invoices
  */
-class Transaction extends Model implements InvoiceableContract
+class Transaction extends Model implements InvoiceableContract, AttachableContract
 {
-    use HasFactory, Invoiceable,HasTable;
+    use HasFactory, Invoiceable, HasTable, Attachable;
 
     protected $table = "t_transactions";
 
@@ -53,6 +57,7 @@ class Transaction extends Model implements InvoiceableContract
         'district_id',
         'zip_code',
         'address',
+        'file',
         'partner_shipment_code',
         'partner_shipment_service',
         'partner_shipment_price',
@@ -149,6 +154,11 @@ class Transaction extends Model implements InvoiceableContract
     public function district(): BelongsTo
     {
         return $this->belongsTo(District::class, 'district_id', 'district_id');
+    }
+
+    public function file(): BelongsTo
+    {
+        return $this->belongsTo(Attachment::class, "file", "id");
     }
 
 

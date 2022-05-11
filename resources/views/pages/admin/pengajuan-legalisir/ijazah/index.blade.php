@@ -12,7 +12,7 @@
     @endphp
     <x-wrapper.table :columns="$columns" name="data">
         <x-slot name="action">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-around">
                 <x-form.button id="download"
                                circle
                                type="{{\App\View\Components\Form\Button::TYPE_INFO}}"

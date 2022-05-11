@@ -12,13 +12,17 @@ use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
 use App\Supports\Repositories\AuthRepository;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Jalameta\Attachments\Concerns\AttachmentCreator;
+use Jalameta\Attachments\Entities\Attachment;
 
 class CreateTransaction
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable, SerializesModels, AttachmentCreator;
 
     protected array $attributes;
     public \App\Models\Transaction\Transaction $transaction;
@@ -38,14 +42,14 @@ class CreateTransaction
             'zip_code' => ['required', 'filled'],
             'address' => ['required', 'filled'],
             'partner_shipment' => ['filled'],
-            'file' => ['required', 'filled'],
+            'file' => ['required', 'filled', 'file'],
             'partner_shipment_code' => ['nullable'],
             'partner_shipment_service' => ['nullable'],
             'partner_shipment_price' => ['nullable'],
             'partner_shipment_etd' => ['nullable'],
             'status' => ['required', Rule::in(Transaction::getAvailableStatus())]
         ])->validate();
-        unset($this->attributes['partner_shipment'], $this->attributes['file']);
+        unset($this->attributes['partner_shipment']);
     }
 
     /**
@@ -55,6 +59,13 @@ class CreateTransaction
      */
     public function handle(AuthRepository $repository)
     {
+        // TODO: Upload File
+        /** @var UploadedFile $file */
+        $file = $this->attributes['file'];
+        $attachment = $this->create($this->attributes['file'], ['title' => $file->getClientOriginalName()]);
+
+        throw_if(!($attachment instanceof Attachment), ValidationException::withMessages(['file' => 'Gagal Melakukan Upload File']));
+
         /** @var User $user */
         $user = $repository->getUser();
         $faculty = $user->faculty;
@@ -66,6 +77,8 @@ class CreateTransaction
         $this->attributes['study_program_id'] = $studyProgram->id;
         $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);
         $this->transaction->save();
+
+        $this->transaction->attachments()->attach($attachment);
 
         if ($this->transaction->exists) {
             \event(new TransactionCreated($this->transaction));
