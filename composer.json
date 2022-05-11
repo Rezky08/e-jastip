@@ -28,7 +28,7 @@
         "rezky/rajaongkir": "1.1.1",
         "ext-bcmath": "*",
         "ext-mcrypt": "*",
-        "ext-memcached": "*",
+        "ext-memcached": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
