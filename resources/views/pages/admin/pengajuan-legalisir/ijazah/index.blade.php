@@ -41,7 +41,9 @@
             const name = "data"
             const dataTable = table.dataTable.readExistingDataTable(name)
             table.dataTable.action(dataTable, 'click', '#download', function (data) {
-                console.log("download", data)
+                const files = data?.files
+                const file = files?.shift()
+                window.open(helper.url.routeUri('admin.attachment', {attachment: file?.id}))
             })
             table.dataTable.action(dataTable, 'click', '#view', function (data) {
                 window.location.href = helper.url.routeUri('admin.pengajuan-legalisir.ijazah.detail', {transaction: data?.id})
