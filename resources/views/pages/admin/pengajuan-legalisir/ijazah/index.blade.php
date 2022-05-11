@@ -26,17 +26,9 @@
                                circle
                                size="{{\App\View\Components\Form\Button::SIZE_SMALL}}"
                                title="Lihat Detail"
-                >
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                </x-form.button>
-                <x-form.button id="cancel"
-                               type="{{\App\View\Components\Form\Button::TYPE_DANGER}}"
-                               circle
-                               size="{{\App\View\Components\Form\Button::SIZE_SMALL}}"
-                               title="Tolak Pengajuan"
                                outline
                 >
-                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <i class="fa fa-eye" aria-hidden="true"></i>
                 </x-form.button>
             </div>
         </x-slot>
@@ -48,14 +40,14 @@
         $(document).ready(function () {
             const name = "data"
             const dataTable = table.dataTable.readExistingDataTable(name)
-            table.dataTable.action(dataTable,'click','#download',function (data) {
-                console.log("download",data)
+            table.dataTable.action(dataTable, 'click', '#download', function (data) {
+                console.log("download", data)
             })
-            table.dataTable.action(dataTable,'click','#view',function (data) {
-                console.log("view",data)
+            table.dataTable.action(dataTable, 'click', '#view', function (data) {
+                window.location.href = helper.url.routeUri('admin.pengajuan-legalisir.ijazah.detail', {transaction: data?.id})
             })
-            table.dataTable.action(dataTable,'click','#cancel',function (data) {
-                console.log("cancel",data)
+            table.dataTable.action(dataTable, 'click', '#cancel', function (data) {
+                console.log("cancel", data)
             })
         });
     </script>

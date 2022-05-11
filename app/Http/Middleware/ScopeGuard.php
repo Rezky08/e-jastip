@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use App\Supports\Repositories\AuthRepository;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class ScopeGuard
 {
@@ -29,6 +31,25 @@ class ScopeGuard
             $view->with('sidebar', $this->repository->getSidebar());
             $view->with('isAdmin', $this->repository->isAdmin());
             $view->with('user', $this->repository->getUser());
+
+            $collection = new Collection();
+
+            $this->repository->getRoutes()->each(function ($item, $key) use ($collection) {
+                $collection->offsetSet($key, [
+                    'uri' => $item->uri,
+                    'methods' => $item->methods,
+                ]);
+            });
+
+            if (!array_key_exists('laravelJs', $view->getData())) {
+                $view->with('laravelJs', [
+                    'is_authenticated' => auth()->check(),
+                    'user' => auth()->user(),
+                    'routes' => $collection,
+                    'current_route' => empty(request()->route()) ? '' : request()->route()->getName(),
+                    'request' => request()->all(),
+                ]);
+            }
         });
         return $next($request);
     }

@@ -1,5 +1,5 @@
 @section("script")
-
+    <script type="text/javascript">window.laravel = @json($laravelJs);</script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>
     <script src="{{asset("vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>

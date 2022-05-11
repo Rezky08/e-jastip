@@ -5,7 +5,10 @@ namespace App\Supports\Repositories;
 use App\Models\Master\Admin;
 use App\Models\Master\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Rezky\LaravelResponseFormatter\Exception\Error;
 use Rezky\LaravelResponseFormatter\Http\Code;
 
@@ -80,6 +83,39 @@ class AuthRepository
             return route('profile');
 
         }
+    }
+
+
+    /**
+     * Get route collection.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getRoutes(): Collection
+    {
+        $routes = Route::getRoutes()->getRoutesByName();
+        return collect($routes)->filter(function ($route, $name) {
+            if ($this->getUser() instanceof User and Str::startsWith($name, 'auth')) {
+                return true;
+            }
+
+            if ($this->getUser() instanceof User and Str::startsWith($name, 'api')) {
+                return true;
+            }
+
+            // add verify for user later
+            if ($this->getUser() instanceof User and !(Str::startsWith($name, 'admin'))) {
+                return true;
+            }
+
+            // add verify for admin later
+            if ($this->getUser() instanceof Admin and Str::startsWith($name, 'admin')) {
+                return true;
+            }
+
+
+            return false;
+        });
     }
 
     public function getSidebar()

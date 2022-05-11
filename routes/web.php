@@ -72,6 +72,10 @@ Route::middleware(['auth.guard:admin'])->group(function () {
         Route::group(['prefix' => '/pengajuan-legalisir', 'as' => 'pengajuan-legalisir.'], function () {
             Route::group(['prefix' => '/ijazah'], function () {
                 Route::get("/", [\App\Http\Controllers\Admin\PengajuanLegalisir\IjazahController::class, "index"])->name("ijazah");
+                Route::group(['prefix' => "{transaction}", "as" => 'ijazah.'], function () {
+                    Route::get("/", [\App\Http\Controllers\Admin\PengajuanLegalisir\IjazahController::class, "show"])->name("detail");
+
+                });
             });
         });
 

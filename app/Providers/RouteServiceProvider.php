@@ -35,6 +35,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('invoice', function ($value) {
             return Invoice::query()->findOrFail($value);
         });
+
+        Route::bind('transaction', function ($value) {
+            return Transaction::query()->findOrFail($value);
+        });
         $this->configureRateLimiting();
 
         $this->routes(function () {

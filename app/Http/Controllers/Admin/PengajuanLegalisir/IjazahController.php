@@ -50,12 +50,12 @@ class IjazahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($transaction)
     {
-        //
+        dd($transaction);
     }
 
     /**
