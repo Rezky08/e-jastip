@@ -26,9 +26,7 @@
         "propaganistas/laravel-phone": "^4.3",
         "rezky/laravel-response-formatter": "^1.2",
         "rezky/rajaongkir": "1.1.1",
-        "ext-bcmath": "*",
-        "ext-mcrypt": "*",
-        "ext-memcached": "*"
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
