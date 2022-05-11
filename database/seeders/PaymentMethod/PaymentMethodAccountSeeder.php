@@ -3,14 +3,10 @@
 namespace Database\Seeders\PaymentMethod;
 
 use App\Models\PaymentMethod\Account;
-use App\Models\PaymentMethod\PaymentMethod;
 use App\Models\PaymentMethod\Type;
 use App\Supports\PaymentMethodSupport;
-use Database\Factories\PaymentMethod\AccountFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
-
-use Faker\Factory as Faker;
 
 class PaymentMethodAccountSeeder extends Seeder
 {
