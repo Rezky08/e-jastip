@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('token')->unique();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('faculty_id');
+            $table->unsignedBigInteger('study_program_id');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('district_id');

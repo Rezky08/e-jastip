@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Models\Transaction\Transaction;
 use App\Traits\usePagination;
 use Illuminate\Http\Request;
+use Rezky\LaravelResponseFormatter\Http\Response;
 
 class IjazahController extends Controller
 {
@@ -19,7 +21,7 @@ class IjazahController extends Controller
     {
         if ($request->expectsJson()){
             $query = Transaction::query();
-            return $this->withPagination($query);
+            return $this->withPagination($query,TransactionResource::class,Response::PAGINATOR_TYPE_DATA_TABLE);
         }
         return view("pages.admin.pengajuan-legalisir.ijazah.index");
     }

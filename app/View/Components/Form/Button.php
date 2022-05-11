@@ -19,6 +19,7 @@ class Button extends Component implements SizeInterface, TypeInterface
     public ?bool $fullWidth;
     public ?bool $isSubmit;
     public ?bool $rounded;
+    public ?bool $circle;
 
     /**
      * Create a new component instance.
@@ -31,7 +32,7 @@ class Button extends Component implements SizeInterface, TypeInterface
      * @param bool $isSubmit
      * @param bool $rounded
      */
-    public function __construct(string $variant = "", string $type = null, string $size = null, bool $outline = false, bool $fullWidth = false, bool $isSubmit = false, bool $rounded = false)
+    public function __construct(string $variant = "", string $type = null, string $size = null, bool $outline = false, bool $fullWidth = false, bool $isSubmit = false, bool $rounded = false,$circle=false)
     {
         //
         $this->variant = $variant;
@@ -41,6 +42,7 @@ class Button extends Component implements SizeInterface, TypeInterface
         $this->type = $this->getType()[$type ?? self::TYPE_PRIMARY];
         $this->isSubmit = $isSubmit;
         $this->rounded = $rounded;
+        $this->circle = $circle;
     }
 
     /**

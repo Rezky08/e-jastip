@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77487472083cc4739fc801b7c39a18c2",
+    "content-hash": "061e84e513f84fb3d9a8ab3bfe1140f0",
     "packages": [
         {
             "name": "brick/math",
@@ -3173,16 +3173,16 @@
         },
         {
             "name": "rezky/laravel-response-formatter",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rezky08/laravel-response-formatter.git",
-                "reference": "d5f2096b473f19fd82a3078251cd02ef15a81b55"
+                "reference": "8ba6a62770d25ce315469253e3c8677f8894e742"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/d5f2096b473f19fd82a3078251cd02ef15a81b55",
-                "reference": "d5f2096b473f19fd82a3078251cd02ef15a81b55",
+                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/8ba6a62770d25ce315469253e3c8677f8894e742",
+                "reference": "8ba6a62770d25ce315469253e3c8677f8894e742",
                 "shasum": ""
             },
             "require": {
@@ -3207,9 +3207,9 @@
             "description": "result api formatter",
             "support": {
                 "issues": "https://github.com/Rezky08/laravel-response-formatter/issues",
-                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.1.1"
+                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.2.0"
             },
-            "time": "2022-04-11T08:09:00+00:00"
+            "time": "2022-05-11T06:42:12+00:00"
         },
         {
             "name": "rezky/rajaongkir",

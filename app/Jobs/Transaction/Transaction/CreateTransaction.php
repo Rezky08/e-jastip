@@ -6,7 +6,11 @@ use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
+use App\Models\Master\Faculty;
+use App\Models\Master\StudyProgram;
+use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
+use App\Supports\Repositories\AuthRepository;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
@@ -49,10 +53,17 @@ class CreateTransaction
      *
      * @return void
      */
-    public function handle()
+    public function handle(AuthRepository $repository)
     {
+        /** @var User $user */
+        $user = $repository->getUser();
+        $faculty = $user->faculty;
+        $studyProgram = $user->studyProgram;
+
         // TODO: Assign Into Existing User
-        $this->attributes['user_id'] = 1;
+        $this->attributes['user_id'] = $user->id;
+        $this->attributes['faculty_id'] = $faculty->id;
+        $this->attributes['study_program_id'] = $studyProgram->id;
         $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);
         $this->transaction->save();
 

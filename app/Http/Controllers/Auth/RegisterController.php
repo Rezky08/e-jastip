@@ -4,10 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\AuthAction;
 use App\Http\Controllers\Controller;
+use App\Supports\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+    public AuthRepository $repository;
+
+    /**
+     * @param AuthRepository $repository
+     */
+    public function __construct(AuthRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +47,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        $authAction = new AuthAction();
+        $authAction = new AuthAction($this->repository);
         return $authAction->register($request->all());
     }
 

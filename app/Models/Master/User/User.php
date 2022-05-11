@@ -12,10 +12,14 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
+ *
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property string $password
  * @property Detail $detail
+ * @property Faculty $faculty
+ * @property StudyProgram $studyProgram
  */
 class User extends Authenticatable
 {
@@ -68,5 +72,13 @@ class User extends Authenticatable
     public function detail(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Detail::class, 'user_id', 'id');
+    }
+
+    public function faculty(){
+        return $this->hasOneThrough(Faculty::class,Detail::class,'user_id','id','id','faculty_id');
+    }
+
+    public function studyProgram(){
+        return $this->hasOneThrough(StudyProgram::class,Detail::class,'user_id','id','id','study_program_id');
     }
 }

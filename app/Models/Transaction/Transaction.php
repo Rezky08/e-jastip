@@ -6,6 +6,8 @@ use App\Contracts\InvoiceableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
+use App\Models\Master\Faculty;
+use App\Models\Master\StudyProgram;
 use App\Models\Master\User\User;
 use App\Traits\Invoiceable;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property string $user_id
+ * @property string $faculty_id
+ * @property string $study_program_id
  * @property string $province_id
  * @property string $city_id
  * @property string $district_id
@@ -26,6 +30,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $partner_shipment_price
  * @property string $partner_shipment_etd
  * @property string $status
+ * @property User $user
+ * @property StudyProgram $studyProgram
+ * @property Faculty $faculty
  * @property Province $province
  * @property City $city
  * @property District $district
@@ -33,12 +40,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Transaction extends Model implements InvoiceableContract
 {
-    use HasFactory, Invoiceable;
+    use HasFactory, Invoiceable,HasTable;
 
     protected $table = "t_transactions";
 
     protected $fillable = [
         'user_id',
+        'faculty_id',
+        'study_program_id',
         'province_id',
         'city_id',
         'district_id',
@@ -111,9 +120,19 @@ class Transaction extends Model implements InvoiceableContract
         });
     }
 
-    function user()
+    function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    function faculty(): BelongsTo
+    {
+        return $this->belongsTo(Faculty::class, 'faculty_id', 'id');
+    }
+
+    function studyProgram(): BelongsTo
+    {
+        return $this->belongsTo(StudyProgram::class, 'study_program_id', 'id');
     }
 
     public function province(): \Illuminate\Database\Eloquent\Relations\BelongsTo

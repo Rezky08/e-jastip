@@ -19,6 +19,7 @@
 @push("stack-script")
     <script>
         $(document).ready(function () {
+            const action = `<?=$action?>`;
             const tableName = "<?=$name?>"
             const url = "<?=$url?>"
             const isLocalhost = <?=json_encode($isLocalhost)?>;
@@ -33,7 +34,15 @@
                     contentType: "application/json",
                     accept: "application/json",
                 },
-                "columns": mappedColumns
+                "columns": mappedColumns,
+                columnDefs: [
+                    {
+                        targets: -1,
+                        render: function (data, type, row, meta) {
+                            return action
+                        }
+                    }
+                ]
             });
         });
     </script>
