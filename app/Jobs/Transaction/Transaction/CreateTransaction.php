@@ -11,6 +11,7 @@ use App\Models\Master\StudyProgram;
 use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
 use App\Supports\Repositories\AuthRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\SerializesModels;
@@ -42,7 +43,8 @@ class CreateTransaction
             'zip_code' => ['required', 'filled'],
             'address' => ['required', 'filled'],
             'partner_shipment' => ['filled'],
-            'file' => ['required', 'filled', 'file'],
+            'files' => ['required'],
+            'files.*' => ['filled', 'file'],
             'partner_shipment_code' => ['nullable'],
             'partner_shipment_service' => ['nullable'],
             'partner_shipment_price' => ['nullable'],
@@ -60,9 +62,13 @@ class CreateTransaction
     public function handle(AuthRepository $repository)
     {
         // TODO: Upload File
+        $files = $this->attributes['files'];
+        $attachments = new Collection();
         /** @var UploadedFile $file */
-        $file = $this->attributes['file'];
-        $attachment = $this->create($this->attributes['file'], ['title' => $file->getClientOriginalName()]);
+        foreach ($files as $file){
+            $attachment = $this->create($file, ['title' => $file->getClientOriginalName()]);
+            $attachments->add($attachment);
+        };
 
         throw_if(!($attachment instanceof Attachment), ValidationException::withMessages(['file' => 'Gagal Melakukan Upload File']));
 
@@ -78,7 +84,7 @@ class CreateTransaction
         $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);
         $this->transaction->save();
 
-        $this->transaction->attachments()->attach($attachment);
+        $this->transaction->attachments()->sync($attachments);
 
         if ($this->transaction->exists) {
             \event(new TransactionCreated($this->transaction));

@@ -51,10 +51,9 @@ class CreateInvoiceFromTransaction
 
 
         // Get biaya layanan dari m_settings
-        /** @var Setting $settingService */
         $settingService = SettingSupport::getSettingByKey(Setting::KEY_BIAYA_LAYANAN);
         $serviceFee = Detail::getAvailableType()[Detail::INVOICE_DETAIL_TYPE_SERVICE];
-        $serviceFee['price'] = $settingService->value;
+        $serviceFee['price'] = $settingService;
 
         // Get biaya kirim dari invoiceable
         /** @var Model $transaction */

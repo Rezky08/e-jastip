@@ -29,7 +29,12 @@ class SettingSeeder extends Seeder
             [
                 'key'=> 'biaya_layanan',
                 'value' => 100000
-            ]
+            ],
+            [
+                'key'=> 'pengiriman_kota_asal',
+                'value' => 399 // Semarang Kota
+            ],
+
         ];
     }
 }

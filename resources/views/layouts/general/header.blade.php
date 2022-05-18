@@ -19,7 +19,9 @@
         <link href="{{asset("css/sb-admin-2.css")}}" rel="stylesheet">
         <link href="{{asset("css/select2.min.css")}}" rel="stylesheet">
         <link href="{{asset("css/select2-bootstrap4.min.css")}}" rel="stylesheet">
-{{--        <link href="{{asset("css/datatables.min.css")}}" rel="stylesheet">--}}
+        <link href="{{asset("css/fileinput.min.css")}}" rel="stylesheet" />
+
+        {{--        <link href="{{asset("css/datatables.min.css")}}" rel="stylesheet">--}}
         <link href="{{asset("css/dataTables.bootstrap4.min.css")}}" rel="stylesheet">
         <link href="{{asset("css/app.css")}}" rel="stylesheet">
         <script src="/js/manifest.js"></script>

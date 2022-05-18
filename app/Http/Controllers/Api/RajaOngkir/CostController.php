@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\RajaOngkir;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting\Setting;
+use App\Supports\SettingSupport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -24,7 +26,7 @@ class CostController extends Controller
      */
     public function index(Request $request)
     {
-        $request->mergeIfMissing(['origin' => config('setting.geo.origin')]);
+        $request->mergeIfMissing(['origin' => SettingSupport::getSettingByKey(Setting::KEY_PENGIRIMAN_KOTA_ASAL)]);
         $request->mergeIfMissing(['destination' => $request->get('chainValue')]);
         $couriers = ['jne', 'tiki', 'pos'];
 

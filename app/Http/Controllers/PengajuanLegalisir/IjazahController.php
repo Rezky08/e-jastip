@@ -7,11 +7,13 @@ use App\Jobs\Transaction\Transaction\CreateTransaction;
 use App\Models\Transaction\Transaction;
 use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Jalameta\Attachments\Concerns\AttachmentCreator;
 
 class IjazahController extends Controller
 {
     use AttachmentCreator;
+
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
     }
@@ -29,15 +31,17 @@ class IjazahController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
 
         $job = new CreateTransaction($request->all());
-        $this->dispatch($job);
 
+        DB::transaction(function () use (&$job, $request) {
+            $this->dispatch($job);
+        });
         /** @var Transaction $transaction */
         $transaction = $job->transaction;
         $transaction->refresh();
@@ -45,15 +49,17 @@ class IjazahController extends Controller
         /** @var Invoice $invoice */
         $invoice = $transaction->invoices->first();
 
-        if ($invoice->exists){
+        if ($invoice->exists) {
             return redirect()->to("/invoice/{$invoice->id}");
+        } else {
+            return redirect()->back();
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -64,7 +70,7 @@ class IjazahController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -75,8 +81,8 @@ class IjazahController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -87,7 +93,7 @@ class IjazahController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

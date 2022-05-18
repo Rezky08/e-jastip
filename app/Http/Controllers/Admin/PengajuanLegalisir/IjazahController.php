@@ -55,7 +55,7 @@ class IjazahController extends Controller
      */
     public function show($transaction)
     {
-        dd($transaction);
+        return view('pages.admin.pengajuan-legalisir.ijazah.detail.index');
     }
 
     /**

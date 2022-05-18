@@ -30,7 +30,7 @@
         </x-wrapper.form>
         <x-wrapper.form isRow>
             <x-wrapper.column>
-                <x-form.file name="file" label="Dokumen Legalisir" placeholder="Pilih Dokumen" isGroup noResize/>
+                <x-form.file name="files" label="Dokumen Legalisir" placeholder="Pilih Dokumen" isGroup noResize isMultiple/>
             </x-wrapper.column>
             <x-wrapper.column>
             </x-wrapper.column>

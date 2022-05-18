@@ -19,4 +19,5 @@ class Setting extends Model
     public $timestamps=false;
 
     const KEY_BIAYA_LAYANAN = 'biaya_layanan';
+    const KEY_PENGIRIMAN_KOTA_ASAL = 'pengiriman_kota_asal';
 }
