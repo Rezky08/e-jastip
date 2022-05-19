@@ -61,32 +61,35 @@
                     <x-form.display-text name="partner_shipment" label="Kurir" isGroup/>
                 </x-wrapper.column>
             </x-wrapper.form>
+
+            <hr/>
+            <x-wrapper.form isRow>
+                <x-wrapper.column>
+                    <span class="font-weight-bold text-lg">Dokumen Legalisir</span>
+                </x-wrapper.column>
+            </x-wrapper.form>
+            <div class="d-flex justify-content-center" style="gap:1rem">
+                @forelse(\App\Supports\FormSupport::getFormData('documents') as $document)
+                    <div class="d-flex flex-column align-items-center">
+                        <a target="_blank"
+                           href="{{route('admin.attachment',['attachment'=>$document['attachment_id']])}}">
+                            <x-form.button id="download"
+                                           circle
+                                           type="{{\App\View\Components\Form\Button::TYPE_INFO}}"
+                                           size="{{\App\View\Components\Form\Button::SIZE_SMALL}}"
+                                           data-toggle="tooltip"
+                                           title="Unduh Dokumen"
+                            >
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </x-form.button>
+                        </a>
+                        <span>{{$document['name']}}</span>
+                    </div>
+                @empty
+                @endforelse
+            </div>
         </div>
 
-        <hr/>
-        <x-wrapper.form isRow>
-            <x-wrapper.column>
-                <span class="font-weight-bold text-lg">Dokumen Legalisir</span>
-            </x-wrapper.column>
-        </x-wrapper.form>
-        <div class="d-flex justify-content-center" style="gap:1rem">
-            @forelse(\App\Supports\FormSupport::getFormData('documents') as $document)
-                <div class="d-flex flex-column align-items-center">
-                    <a target="_blank" href="{{route('admin.attachment',['attachment'=>$document['attachment_id']])}}">
-                        <x-form.button id="download"
-                                       circle
-                                       type="{{\App\View\Components\Form\Button::TYPE_INFO}}"
-                                       size="{{\App\View\Components\Form\Button::SIZE_SMALL}}"
-                                       data-toggle="tooltip"
-                                       title="Unduh Dokumen"
-                        >
-                            <i class="fa fa-download" aria-hidden="true"></i>
-                        </x-form.button>
-                    </a>
-                    <span>{{$document['name']}}</span>
-                </div>
-            @empty
-            @endforelse
-        </div>
+
     </x-wrapper.card>
 @endsection
