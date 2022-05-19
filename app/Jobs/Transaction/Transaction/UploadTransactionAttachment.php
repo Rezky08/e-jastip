@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Transaction\Transaction;
 
+use App\Models\Transaction\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,19 +23,21 @@ class UploadTransactionAttachment
     public array $attributes;
 
     public Collection $transactionDocuments;
+    public Transaction $transaction;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($attributes)
+    public function __construct(Transaction $transaction, $attributes)
     {
         $this->attributes = Validator::make($attributes, [
             '*.file' => ['filled', 'file'],
             '*.name' => ['filled', 'distinct'],
         ])->validate();
         $this->transactionDocuments = new Collection();
+        $this->transaction = $transaction;
     }
 
     /**
@@ -62,12 +65,12 @@ class UploadTransactionAttachment
                 'name' => $document['name'],
                 'attachment_id' => $attachment->id
             ]);
-            $trasnactionDocument->save();
             $this->transactionDocuments->add($trasnactionDocument);
 
             $attachments->add($attachment);
         };
 
-
+        $this->transaction->documents()->saveMany($this->transactionDocuments);
+        $this->transactionDocuments = $this->transaction->documents;
     }
 }

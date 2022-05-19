@@ -12,6 +12,7 @@ use Rezky\LaravelResponseFormatter\Http\Response;
 class IjazahController extends Controller
 {
     use usePagination;
+
     /**
      * Display a listing of the resource.
      *
@@ -19,11 +20,29 @@ class IjazahController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->expectsJson()){
+        if ($request->expectsJson()) {
             $query = Transaction::query();
-            return $this->withPagination($query,TransactionResource::class,Response::PAGINATOR_TYPE_DATA_TABLE);
+            return $this->withPagination($query, TransactionResource::class, Response::PAGINATOR_TYPE_DATA_TABLE);
         }
-        return view("pages.admin.pengajuan-legalisir.ijazah.index");
+        $data = [
+            'tables' => [
+                'transactionTable' => [
+                    'Token' => 'token',
+                    'NIM' => 'user.student_id',
+                    'Nama' => 'user.name',
+                    'Fakultas' => 'faculty.name',
+                    'Program Studi' => 'study_program.name',
+                    'Aksi' => null,
+                ],
+                'documentsTable' => [
+                    'Nama Dokumen' => 'name',
+                    'Aksi' => null,
+                ],
+
+            ]
+
+        ];
+        return view("pages.admin.pengajuan-legalisir.ijazah.index", $data);
     }
 
     /**
@@ -39,7 +58,7 @@ class IjazahController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,7 +69,7 @@ class IjazahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Transaction  $transaction
+     * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
     public function show($transaction)
@@ -61,7 +80,7 @@ class IjazahController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,8 +91,8 @@ class IjazahController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -84,7 +103,7 @@ class IjazahController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

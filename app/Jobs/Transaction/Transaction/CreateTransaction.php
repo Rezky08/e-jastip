@@ -47,7 +47,7 @@ class CreateTransaction
                 'partner_shipment_etd' => ['nullable'],
                 'status' => ['required', Rule::in(Transaction::getAvailableStatus())]
             ])->validate();
-            $this->uploadDocumentJob = new UploadTransactionAttachment($attributes['documents']);
+            $this->uploadDocumentJob = new UploadTransactionAttachment(new Transaction(),$attributes['documents']);
         } catch (ValidationException $e) {
             ToastSupport::add($e->getMessage(), "Error");
             throw $e;
@@ -63,9 +63,6 @@ class CreateTransaction
     public function handle(AuthRepository $repository)
     {
 
-        dispatch($this->uploadDocumentJob);
-        $documents = $this->uploadDocumentJob->transactionDocuments;
-
         /** @var User $user */
         $user = $repository->getUser();
         $faculty = $user->faculty;
@@ -78,11 +75,9 @@ class CreateTransaction
         $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);
         $this->transaction->save();
 
-        foreach ($documents as $document){
-            /** @var Transaction\Attachment $document */
-            $document->transaction()->associate($this->transaction);
-            $document->save();
-        }
+        $this->uploadDocumentJob->transaction = $this->transaction;
+
+        dispatch($this->uploadDocumentJob);
 
         if ($this->transaction->exists) {
             \event(new TransactionCreated($this->transaction));

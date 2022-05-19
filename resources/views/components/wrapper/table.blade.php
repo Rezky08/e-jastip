@@ -25,18 +25,24 @@
             const tableName = "<?=$name?>"
             const url = "<?=$url?>"
             const isLocalhost = <?=json_encode($isLocalhost)?>;
+            const isServerSide = <?=json_encode($isServerSide)?>;
             const columns = <?=json_encode($columns)?>;
+            const options = <?=json_encode($options)?> ?? {};
             const requestUrl = isLocalhost ? `${window.location.origin}${url}` : url;
             const mappedColumns = Object.entries(columns)?.map(([columnName, keyValue]) => ({data: keyValue}))
-            $(`#${tableName}`).DataTable({
-                responsive: true,
+            const serverSideOptions = {
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: requestUrl,
                     contentType: "application/json",
                     accept: "application/json",
-                },
+                }
+            }
+            $(`#${tableName}`).DataTable({
+                responsive: true,
+                ...(isServerSide && serverSideOptions),
+                ...options,
                 "columns": mappedColumns,
                 columnDefs: [
                     {

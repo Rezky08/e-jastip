@@ -20,13 +20,13 @@ class TransactionResource extends JsonResource
         $user = $data->user->detail;
         $faculty = $data->faculty;
         $studyProgram = $data->studyProgram;
-        $files = $data->attachments;
+        $documents = $data->documents;
         $data->unsetRelations();
         return array_merge($data->toArray(), [
             'user' => $user,
             'faculty' => $faculty,
             'study_program' => $studyProgram,
-            'files' => $files
+            'documents' => $documents
         ]);
     }
 }

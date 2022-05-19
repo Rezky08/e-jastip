@@ -15,13 +15,15 @@ class Table extends Component
      * @var null
      */
     public $action;
+    public ?bool $isServerSide;
+    public ?array $options;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name = "table", $columns = [], $isLocalhost = true, $url = "", $action = null)
+    public function __construct($name = "table", $columns = [], $isLocalhost = true, $url = "", $action = null, $isServerSide=true,$options = [])
     {
         //
         $this->name = "table-{$name}";
@@ -29,6 +31,8 @@ class Table extends Component
         $this->isLocalhost = $isLocalhost;
         $this->url = empty($url) ? "/" . Route::current()->uri : $url;
         $this->action = $action;
+        $this->isServerSide = $isServerSide;
+        $this->options = $options;
     }
 
     /**
