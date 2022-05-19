@@ -26,17 +26,18 @@ class SelectApi extends Select
      * @param array $params
      * @param string $chainSelector
      */
-    public function __construct(array $options = [], string $selected = null, string $name = "", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $id = "", bool $autocomplete = true, bool $isLocalhost = true, string $url="", array $params=[], string $chainSelector="")
+    public function __construct(array $options = [], string $selected = null, string $name = "", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $id = "", bool $autocomplete = true, bool $isLocalhost = true, string $url = "", array $params = [], string $chainSelector = "", bool $disabled = false)
     {
         $this->isLocalhost = $isLocalhost;
         $this->url = $url;
         $this->params = $params;
 
-        parent::__construct($options, $selected, $name, $label, $error, $helper, $isGroup, $id, $autocomplete);
+        parent::__construct($options, $selected, $name, $label, $error, $helper, $isGroup, $id, $autocomplete, $disabled);
         $this->chainSelector = $chainSelector;
     }
 
-    public function getPrefixId(){
+    public function getPrefixId()
+    {
         return "select-api-";
     }
 

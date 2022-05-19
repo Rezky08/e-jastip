@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\Transaction\TransactionDetailResource;
 use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Models\Transaction\Transaction;
+use App\Supports\FormSupport;
 use App\Traits\usePagination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Rezky\LaravelResponseFormatter\Http\Response;
 
 class IjazahController extends Controller
@@ -72,8 +75,10 @@ class IjazahController extends Controller
      * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show($transaction)
+    public function show(Request $request,$transaction)
     {
+        $form = TransactionDetailResource::make($transaction)->toArray($request);
+        FormSupport::storeFormData($form);
         return view('pages.admin.pengajuan-legalisir.ijazah.detail.index');
     }
 

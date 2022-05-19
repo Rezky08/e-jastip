@@ -10,6 +10,7 @@ class Select extends FormGroup
     public ?string $selected;
     public ?string $id;
     public ?bool $autocomplete;
+    public ?bool $disabled;
 
     /**
      * Create a new component instance.
@@ -24,13 +25,13 @@ class Select extends FormGroup
      * @param string $id
      * @param bool $autocomplete
      */
-    public function __construct(array $options = [], string $selected = null, string $name = "", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $id = "",bool $autocomplete=true)
+    public function __construct(array $options = [], string $selected = null, string $name = "", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $id = "", bool $autocomplete = true, bool $disabled = false)
     {
         $this->options = $options;
         $this->selected = $selected;
         $this->id = $id;
         $this->autocomplete = $autocomplete;
-
+        $this->disabled = $disabled;
         parent::__construct($name, $label, $error, $helper, $isGroup);
     }
 

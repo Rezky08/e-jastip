@@ -1,6 +1,8 @@
 <x-form.select id="{{$getPrefixId()}}{{$name}}" label="{{$label}}" name="{{$name}}" error="{{$error}}"
                helper="{{$helper}}"
-               :isGroup="$isGroup"/>
+               :isGroup="$isGroup"
+               :disabled="$disabled"
+/>
 @push('stack-script')
     <script>
         $(document).ready(function () {
@@ -18,14 +20,14 @@
                     .on("change", function (item) {
                         additionalParams = {...additionalParams, chainValue: item?.target?.value}
                         form.select.optionApi(requestUrl, id, additionalParams);
-                        if(value){
+                        if (value) {
                             form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
                         }
                     })
             } else {
 
                 form.select.optionApi(requestUrl, id, additionalParams);
-                if(value){
+                if (value) {
                     form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
                 }
             }

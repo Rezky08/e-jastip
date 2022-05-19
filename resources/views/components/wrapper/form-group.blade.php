@@ -1,6 +1,6 @@
 @if($isGroup)
     <div class="form-group">
-        <label>{!! $label !!}</label>
+        <label class="font-weight-bold">{!! $label !!}</label>
         {{$slot}}
         @if($helper)
             <small id="{{$name}}-help" class="form-text text-muted">{{$helper}}</small>
