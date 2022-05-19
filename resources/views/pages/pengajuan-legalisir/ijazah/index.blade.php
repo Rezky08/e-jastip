@@ -28,16 +28,13 @@
                 <x-api.raja-ongkir.cost.select destination="city_id" isGroup/>
             </x-wrapper.column>
         </x-wrapper.form>
-        <x-wrapper.form isRow>
-            <x-wrapper.column>
-                <x-form.file name="files" label="Dokumen Legalisir" placeholder="Pilih Dokumen" isGroup noResize isMultiple/>
-            </x-wrapper.column>
-            <x-wrapper.column>
-            </x-wrapper.column>
-        </x-wrapper.form>
+        <x-form.transaction-attachment/>
 
-        <x-form.button isSubmit>
-            Ajukan
-        </x-form.button>
+        <div class="py-3">
+            <x-form.button isSubmit fullWidth>
+                Ajukan
+            </x-form.button>
+        </div>
+
     </form>
 @endsection

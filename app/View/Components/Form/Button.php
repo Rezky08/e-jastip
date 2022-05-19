@@ -38,7 +38,7 @@ class Button extends Component implements SizeInterface, TypeInterface
         $this->variant = $variant;
         $this->outline = $outline;
         $this->fullWidth = $fullWidth;
-        $this->size = $this->getType()[$size] ?? "";
+        $this->size = $this->getSize()[$size] ?? "";
         $this->type = $this->getType()[$type ?? self::TYPE_PRIMARY];
         $this->isSubmit = $isSubmit;
         $this->rounded = $rounded;

@@ -6,27 +6,24 @@ use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
-use App\Models\Master\Faculty;
-use App\Models\Master\StudyProgram;
 use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
+use App\Supports\Notification\ToastSupport;
 use App\Supports\Repositories\AuthRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use Jalameta\Attachments\Concerns\AttachmentCreator;
-use Jalameta\Attachments\Entities\Attachment;
 
 class CreateTransaction
 {
-    use Dispatchable, SerializesModels, AttachmentCreator;
+    use Dispatchable, SerializesModels;
 
     protected array $attributes;
     public \App\Models\Transaction\Transaction $transaction;
+    public UploadTransactionAttachment $uploadDocumentJob;
 
     /**
      * Create a new job instance.
@@ -36,21 +33,25 @@ class CreateTransaction
     public function __construct($attributes = [], $status = Transaction::TRANSACTION_STATUS_CREATED)
     {
         $attributes = array_merge(['status' => $status], $attributes);
-        $this->attributes = Validator::make($attributes, [
-            'province_id' => ['required', 'filled', 'exists:' . Province::getTableName() . ',province_id'],
-            'city_id' => ['required', 'filled', 'exists:' . City::getTableName() . ',city_id'],
-            'district_id' => ['required', 'filled', 'exists:' . District::getTableName() . ',district_id'],
-            'zip_code' => ['required', 'filled'],
-            'address' => ['required', 'filled'],
-            'partner_shipment' => ['filled'],
-            'files' => ['required'],
-            'files.*' => ['filled', 'file'],
-            'partner_shipment_code' => ['nullable'],
-            'partner_shipment_service' => ['nullable'],
-            'partner_shipment_price' => ['nullable'],
-            'partner_shipment_etd' => ['nullable'],
-            'status' => ['required', Rule::in(Transaction::getAvailableStatus())]
-        ])->validate();
+        try {
+            $this->attributes = Validator::make($attributes, [
+                'province_id' => ['required', 'filled', 'exists:' . Province::getTableName() . ',province_id'],
+                'city_id' => ['required', 'filled', 'exists:' . City::getTableName() . ',city_id'],
+                'district_id' => ['required', 'filled', 'exists:' . District::getTableName() . ',district_id'],
+                'zip_code' => ['required', 'filled'],
+                'address' => ['required', 'filled'],
+                'partner_shipment' => ['filled'],
+                'partner_shipment_code' => ['nullable'],
+                'partner_shipment_service' => ['nullable'],
+                'partner_shipment_price' => ['nullable'],
+                'partner_shipment_etd' => ['nullable'],
+                'status' => ['required', Rule::in(Transaction::getAvailableStatus())]
+            ])->validate();
+            $this->uploadDocumentJob = new UploadTransactionAttachment($attributes['documents']);
+        } catch (ValidationException $e) {
+            ToastSupport::add($e->getMessage(), "Error");
+            throw $e;
+        }
         unset($this->attributes['partner_shipment']);
     }
 
@@ -61,16 +62,9 @@ class CreateTransaction
      */
     public function handle(AuthRepository $repository)
     {
-        // TODO: Upload File
-        $files = $this->attributes['files'];
-        $attachments = new Collection();
-        /** @var UploadedFile $file */
-        foreach ($files as $file){
-            $attachment = $this->create($file, ['title' => $file->getClientOriginalName()]);
-            $attachments->add($attachment);
-        };
 
-        throw_if(!($attachment instanceof Attachment), ValidationException::withMessages(['file' => 'Gagal Melakukan Upload File']));
+        dispatch($this->uploadDocumentJob);
+        $documents = $this->uploadDocumentJob->transactionDocuments;
 
         /** @var User $user */
         $user = $repository->getUser();
@@ -84,7 +78,11 @@ class CreateTransaction
         $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);
         $this->transaction->save();
 
-        $this->transaction->attachments()->sync($attachments);
+        foreach ($documents as $document){
+            /** @var Transaction\Attachment $document */
+            $document->transaction()->associate($this->transaction);
+            $document->save();
+        }
 
         if ($this->transaction->exists) {
             \event(new TransactionCreated($this->transaction));

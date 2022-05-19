@@ -161,5 +161,9 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         return $this->belongsTo(Attachment::class, "file", "id");
     }
 
+    public function documents(){
+        return $this->hasMany(\App\Models\Transaction\Transaction\Attachment::class,'transaction_id','id');
+    }
+
 
 }

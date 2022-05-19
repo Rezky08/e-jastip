@@ -8,6 +8,7 @@ class File extends FormGroup
 {
     public ?string $placeholder;
     public ?bool $isMultiple;
+    public ?string $id;
 
     /**
      * @param string $name
@@ -17,11 +18,12 @@ class File extends FormGroup
      * @param bool $isGroup
      * @param string|null $placeholder
      */
-    public function __construct(string $name = "file", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $placeholder = null, $isMultiple = false)
+    public function __construct(string $name = "file", string $label = "", string $error = "", string $helper = "", bool $isGroup = false, string $placeholder = null, $isMultiple = false, $id = null)
     {
         parent::__construct($name, $label, $error, $helper, $isGroup);
         $this->placeholder = $placeholder;
         $this->isMultiple = $isMultiple;
+        $this->id = $id ?? $name;
     }
 
     /**

@@ -12,9 +12,9 @@
     <script src="{{asset("js/select2.min.js")}}"></script>
     <script src="{{asset("js/datatables.min.js")}}"></script>
     <script src="{{asset("js/clipboard.min.js")}}"></script>
-    <script src="{{asset("js/plugins/piexif.js")}}" type="text/javascript"></script>
-    <script src="{{asset("js/plugins/sortable.js")}}" type="text/javascript"></script>
-    <script src="{{asset("js/fileinput.js")}}" type="text/javascript"></script>
+{{--    <script src="{{asset("js/plugins/piexif.js")}}" type="text/javascript"></script>--}}
+{{--    <script src="{{asset("js/plugins/sortable.js")}}" type="text/javascript"></script>--}}
+{{--    <script src="{{asset("js/fileinput.js")}}" type="text/javascript"></script>--}}
 
 
     <!-- Page level plugins -->
@@ -77,10 +77,10 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function () {
-            // initialize plugin with defaults
-            $("input[type=file]").fileinput();
-        })
-    </script>
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            // initialize plugin with defaults--}}
+{{--            $("input[type=file]").fileinput();--}}
+{{--        })--}}
+{{--    </script>--}}
 @endsection
