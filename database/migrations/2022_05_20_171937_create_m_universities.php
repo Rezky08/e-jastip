@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('m_study_programs', function (Blueprint $table) {
+        Schema::create('m_universities', function (Blueprint $table) {
             $table->id();
-            $table->string('faculty_id')->nullable();
-            $table->string('code');
-            $table->string('name');
+            $table->string("name");
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('district_id')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->text('address')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_study_programs');
+        Schema::dropIfExists('m_universities');
     }
 };

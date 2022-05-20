@@ -36,6 +36,7 @@ class UpdateOrCreateUserDetail
         $this->attributes = Validator::make($attributes, [
             'name' => ['required', 'filled'],
             'student_id' => ['filled'],
+            'university_id' => ['filled', 'exists:m_universities,id'],
             'faculty_id' => ['filled', 'exists:m_faculties,id'],
             'study_program_id' => ['filled', 'exists:m_study_programs,id'],
             'phone' => ['filled', 'phone:AUTO,ID']

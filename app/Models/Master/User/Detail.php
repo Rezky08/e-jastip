@@ -27,6 +27,7 @@ class Detail extends Model
     protected $fillable = [
         "name",
         "student_id",
+        "university_id",
         "faculty_id",
         "study_program_id",
         "phone",

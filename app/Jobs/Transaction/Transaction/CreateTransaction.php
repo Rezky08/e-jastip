@@ -35,11 +35,18 @@ class CreateTransaction
         $attributes = array_merge(['status' => $status], $attributes);
         try {
             $this->attributes = Validator::make($attributes, [
-                'province_id' => ['required', 'filled', 'exists:' . Province::getTableName() . ',province_id'],
-                'city_id' => ['required', 'filled', 'exists:' . City::getTableName() . ',city_id'],
-                'district_id' => ['required', 'filled', 'exists:' . District::getTableName() . ',district_id'],
-                'zip_code' => ['required', 'filled'],
-                'address' => ['required', 'filled'],
+                'name' => ['required','filled'],
+                'student_id' => ['required','filled'],
+                'origin_province_id' => ['required', 'filled', 'exists:' . Province::getTableName() . ',province_id'],
+                'origin_city_id' => ['required', 'filled', 'exists:' . City::getTableName() . ',city_id'],
+                'origin_district_id' => ['required', 'filled', 'exists:' . District::getTableName() . ',district_id'],
+                'origin_zip_code' => ['required', 'filled'],
+                'origin_address' => ['required', 'filled'],
+                'destination_province_id' => ['required', 'filled', 'exists:' . Province::getTableName() . ',province_id'],
+                'destination_city_id' => ['required', 'filled', 'exists:' . City::getTableName() . ',city_id'],
+                'destination_district_id' => ['required', 'filled', 'exists:' . District::getTableName() . ',district_id'],
+                'destination_zip_code' => ['required', 'filled'],
+                'destination_address' => ['required', 'filled'],
                 'partner_shipment' => ['filled'],
                 'partner_shipment_code' => ['nullable'],
                 'partner_shipment_service' => ['nullable'],

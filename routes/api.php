@@ -33,4 +33,5 @@ Route::group(["prefix" => "raja-ongkir"], function () {
 Route::group(["prefix" => "master"], function () {
     Route::get("/faculty", [\App\Http\Controllers\Api\Master\FacultyController::class, "index"]);
     Route::get("/study-program", [\App\Http\Controllers\Api\Master\StudyProgramController::class, "index"]);
+    Route::get("/university", [\App\Http\Controllers\Api\Master\UniversityController::class, "index"]);
 });
