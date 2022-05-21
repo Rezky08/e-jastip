@@ -52,6 +52,7 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         'user_id',
         'student_id',
         'name',
+        'university_id',
         'faculty_id',
         'study_program_id',
         'origin_province_id',

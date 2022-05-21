@@ -1,27 +1,64 @@
 <div id="transaction-attachment">
-    <div id="transaction-attachment-item">
-        <x-wrapper.form isRow>
-            <x-wrapper.column>
-                <x-form.input name="documents[][name]" label="Nama Dokumen" isGroup/>
-            </x-wrapper.column>
-            <x-wrapper.column>
-                <x-form.file id="file" name="documents[][file]" label="Dokumen Legalisir" placeholder="Pilih Dokumen"
-                             isGroup
-                             noResize isMultiple/>
-            </x-wrapper.column>
-            <x-wrapper.column>
-                <x-wrapper.form-group label="&nbsp;" isGroup>
-                    <div class="d-block py-1">
-                        <x-form.button id="transaction-attachment-remove" :isSubmit="false" circle outline
-                                       type="{{\App\View\Components\Form\Button::TYPE_DANGER}}"
-                                       size="{{\App\View\Components\Form\Button::SIZE_SMALL}}">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </x-form.button>
-                    </div>
-                </x-wrapper.form-group>
-            </x-wrapper.column>
-        </x-wrapper.form>
-    </div>
+    {{--    {{dd(\Illuminate\Support\Facades\Session::getOldInput(),old('documents'))}}--}}
+    @forelse(old('documents',\App\Supports\FormSupport::getFormData('documents')??[]) as $index => $document)
+        <div id="transaction-attachment-item">
+            <x-wrapper.form isRow>
+                <x-wrapper.column>
+                    <x-form.input name="documents[{{$index}}][name]" label="Nama Dokumen" isGroup/>
+                </x-wrapper.column>
+
+                <x-wrapper.column>
+                    <x-form.file id="file" name="documents[{{$index}}][file]" label="Dokumen Legalisir"
+                                 placeholder="Pilih Dokumen"
+                                 isGroup
+                                 noResize isMultiple/>
+                </x-wrapper.column>
+                <x-wrapper.column>
+                    <x-form.input type="number" name="documents[{{$index}}][qty]" label="Jumlah Salinan" isGroup/>
+                </x-wrapper.column>
+                <div class="col-1">
+                    <x-wrapper.form-group label="&nbsp;" isGroup>
+                        <div class="d-block py-1">
+                            <x-form.button id="transaction-attachment-remove" :isSubmit="false" circle outline
+                                           type="{{\App\View\Components\Form\Button::TYPE_DANGER}}"
+                                           size="{{\App\View\Components\Form\Button::SIZE_SMALL}}">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </x-form.button>
+                        </div>
+                    </x-wrapper.form-group>
+                </div>
+            </x-wrapper.form>
+        </div>
+    @empty
+        <div id="transaction-attachment-item">
+            <x-wrapper.form isRow>
+                <x-wrapper.column>
+                    <x-form.input name="documents[0][name]" label="Nama Dokumen" isGroup/>
+                </x-wrapper.column>
+                <x-wrapper.column>
+                    <x-form.input type="number" name="documents[0][qty]" label="Jumlah Salinan" isGroup/>
+                </x-wrapper.column>
+                <x-wrapper.column>
+                    <x-form.file id="file" name="documents[0][file]" label="Dokumen Legalisir"
+                                 placeholder="Pilih Dokumen"
+                                 isGroup
+                                 noResize isMultiple/>
+                </x-wrapper.column>
+                <div class="col-1">
+                    <x-wrapper.form-group label="&nbsp;" isGroup>
+                        <div class="d-block py-1">
+                            <x-form.button id="transaction-attachment-remove" :isSubmit="false" circle outline
+                                           type="{{\App\View\Components\Form\Button::TYPE_DANGER}}"
+                                           size="{{\App\View\Components\Form\Button::SIZE_SMALL}}">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </x-form.button>
+                        </div>
+                    </x-wrapper.form-group>
+                </div>
+            </x-wrapper.form>
+        </div>
+    @endforelse
+
 </div>
 <x-wrapper.form isRow>
     <x-wrapper.column>
@@ -50,7 +87,14 @@
                 const addButton = $("#transaction-attachment-add")
                 const item = items[0]
                 addButton.on("click", function () {
-                    $(item).clone(true, true).appendTo("#transaction-attachment")
+                    const regex = /documents\[\d\]/g;
+                    const countEl = $("#transaction-attachment #transaction-attachment-item").length;
+
+                    const itemCloned = $(item).clone(true, true)
+                    itemCloned.html(function (index,html) {
+                        return html.replace(regex, `documents[${countEl}]`)
+                    })
+                    itemCloned.appendTo("#transaction-attachment")
                 })
                 attachEvent()
             }

@@ -5,8 +5,11 @@
         @if($helper)
             <small id="{{$name}}-help" class="form-text text-muted">{{$helper}}</small>
         @endif
-        @error($name)
-        <small id="{{$name}}-error" class="form-text text-danger">{{$message}}</small>
+        @php
+        $errorName = \App\Supports\StringSupport::convertArrayIntoDotKey($name);
+        @endphp
+        @error($errorName)
+        <small id="{{$errorName}}-error" class="form-text text-danger">{{$message}}</small>
         @enderror
         @php
             $errorNames = new \Illuminate\Support\Collection(explode(',',$error));

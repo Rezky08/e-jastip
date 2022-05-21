@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Wrapper;
 
+use App\Supports\StringSupport;
 use Illuminate\View\Component;
 
 class FormGroup extends Component

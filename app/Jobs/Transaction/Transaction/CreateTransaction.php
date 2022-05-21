@@ -13,6 +13,7 @@ use App\Supports\Repositories\AuthRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -35,8 +36,6 @@ class CreateTransaction
         $attributes = array_merge(['status' => $status], $attributes);
         try {
             $this->attributes = Validator::make($attributes, [
-                'name' => ['required','filled'],
-                'student_id' => ['required','filled'],
                 'origin_province_id' => ['required', 'filled', 'exists:' . Province::getTableName() . ',province_id'],
                 'origin_city_id' => ['required', 'filled', 'exists:' . City::getTableName() . ',city_id'],
                 'origin_district_id' => ['required', 'filled', 'exists:' . District::getTableName() . ',district_id'],
@@ -48,13 +47,13 @@ class CreateTransaction
                 'destination_zip_code' => ['required', 'filled'],
                 'destination_address' => ['required', 'filled'],
                 'partner_shipment' => ['filled'],
-                'partner_shipment_code' => ['nullable'],
-                'partner_shipment_service' => ['nullable'],
-                'partner_shipment_price' => ['nullable'],
-                'partner_shipment_etd' => ['nullable'],
+                'partner_shipment_code' => ['required','filled'],
+                'partner_shipment_service' => ['required','filled'],
+                'partner_shipment_price' => ['required','filled'],
+                'partner_shipment_etd' => ['required','filled'],
                 'status' => ['required', Rule::in(Transaction::getAvailableStatus())]
             ])->validate();
-            $this->uploadDocumentJob = new UploadTransactionAttachment(new Transaction(),$attributes['documents']);
+            $this->uploadDocumentJob = new UploadTransactionAttachment(new Transaction(),$attributes);
         } catch (ValidationException $e) {
             ToastSupport::add($e->getMessage(), "Error");
             throw $e;
@@ -72,11 +71,15 @@ class CreateTransaction
 
         /** @var User $user */
         $user = $repository->getUser();
+        $university = $user->university;
         $faculty = $user->faculty;
         $studyProgram = $user->studyProgram;
 
         // TODO: Assign Into Existing User
         $this->attributes['user_id'] = $user->id;
+        $this->attributes['student_id'] = $user->detail->student_id;
+        $this->attributes['name'] = $user->detail->name;
+        $this->attributes['university_id'] = $university->id;
         $this->attributes['faculty_id'] = $faculty->id;
         $this->attributes['study_program_id'] = $studyProgram->id;
         $this->transaction = new \App\Models\Transaction\Transaction($this->attributes);

@@ -22,6 +22,7 @@ class FormSupport
     {
         /** @var FormSupport $self */
         $self = self::getInstance();
+        $key = StringSupport::convertArrayIntoDotKey($key);
         return \Illuminate\Support\Facades\Session::get($self->formKey . "." . $key);
     }
 }

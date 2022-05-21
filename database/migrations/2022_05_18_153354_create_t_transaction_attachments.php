@@ -19,6 +19,7 @@ return new class extends Migration
             $table->uuid("parent_id")->nullable();
             $table->uuid("attachment_id");
             $table->string("name");
+            $table->integer("qty")->default(1);
             $table->timestamps();
 
             $table->primary('id');

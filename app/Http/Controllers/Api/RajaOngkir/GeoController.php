@@ -31,17 +31,17 @@ class GeoController extends Controller
 
     public function province(Request $request): \Rezky\LaravelResponseFormatter\Http\Response|\Illuminate\Http\JsonResponse
     {
-        return $this->search($request, Province::class, ['province_name' => 'search'], ['id'], ProvinceOptionResource::class);
+        return $this->search($request, Province::class, ['province_name' => 'search'], ['province_id' => 'id'], ProvinceOptionResource::class);
     }
 
     public function city(Request $request): \Rezky\LaravelResponseFormatter\Http\Response|\Illuminate\Http\JsonResponse
     {
-        return $this->search($request, City::class, ['city_name' => 'search'], ['id', 'province_id' => 'chainValue'], CityOptionResource::class);
+        return $this->search($request, City::class, ['city_name' => 'search'], ['city_id' => 'id', 'province_id' => 'chainValue'], CityOptionResource::class);
     }
 
     public function district(Request $request): \Rezky\LaravelResponseFormatter\Http\Response|\Illuminate\Http\JsonResponse
     {
-        return $this->search($request, District::class, ['district_name' => 'search'], ['id','city_id' => 'chainValue'], DistrictOptionResource::class);
+        return $this->search($request, District::class, ['district_name' => 'search'], ['district_id' => 'id', 'city_id' => 'chainValue'], DistrictOptionResource::class);
     }
 
 }

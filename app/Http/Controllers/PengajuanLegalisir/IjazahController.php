@@ -4,8 +4,11 @@ namespace App\Http\Controllers\PengajuanLegalisir;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\Transaction\Transaction\CreateTransaction;
+use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Supports\FormSupport;
+use App\Supports\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Jalameta\Attachments\Concerns\AttachmentCreator;
@@ -23,9 +26,25 @@ class IjazahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(AuthRepository $repository)
     {
-        return view("pages.pengajuan-legalisir.ijazah.index");
+        /** @var User $user */
+        $user = $repository->getUser();
+        $university = $user->university;
+        $form = [
+            'origin_province_id' => $university->province_id,
+            'origin_city_id' => $university->city_id,
+            'origin_district_id' => $university->district_id,
+            'origin_zip_code' => $university->zip_code,
+            'origin_address' => $university->address,
+            'university_id' => $user->university->id,
+            'name' => $user->detail->name
+        ];
+        FormSupport::storeFormData($form);
+        $data = [
+            'user' => $user
+        ];
+        return view("pages.pengajuan-legalisir.ijazah.index", $data);
     }
 
     /**
@@ -36,7 +55,6 @@ class IjazahController extends Controller
      */
     public function store(Request $request)
     {
-
         $job = new CreateTransaction($request->all());
 
         DB::transaction(function () use (&$job, $request) {

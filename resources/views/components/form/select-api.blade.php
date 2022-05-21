@@ -6,7 +6,7 @@
 @push('stack-script')
     <script>
         $(document).ready(function () {
-            const value = "<?=old($name, \Illuminate\Support\Facades\Session::get('form.' . $name))?>";
+            const value = "<?=old($name, \App\Supports\FormSupport::getFormData($name))?>";
             const id = "<?=$getPrefixId . $name?>"
             const url = "<?=$url?>"
             const isLocalhost = <?=json_encode($isLocalhost)?>;

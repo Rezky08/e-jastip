@@ -22,11 +22,11 @@ class Province extends Model
 {
     use HasFactory,HasTable;
     protected $table = "m_provinces";
-    protected $primaryKey = "city_id";
+    protected $primaryKey = "province_id";
     protected $hidden =['created_at','updated_at'];
 
     public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(City::class);
+        return $this->hasMany(City::class,'province_id','province_id');
     }
 }

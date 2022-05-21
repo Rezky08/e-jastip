@@ -3,6 +3,6 @@
            type="{{$type}}"
            placeholder="{{$placeholder ?? $label ?? $name ?? $name ?? ""}}"
            {{$attributes->class(["form-control","form-control-rounded"=>$rounded])}}
-           value="{{old($name,\Illuminate\Support\Facades\Session::get('form.'.$name))}}"
+           value="{{old(\App\Supports\StringSupport::convertArrayIntoDotKey($name),\App\Supports\FormSupport::getFormData($name))}}"
     >
 </x-wrapper.form-group>

@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Jalameta\Attachments\Concerns\AttachmentCreator;
@@ -30,12 +31,17 @@ class UploadTransactionAttachment
      *
      * @return void
      */
-    public function __construct(Transaction $transaction, $attributes)
+    public function __construct(Transaction $transaction, $attributes, $keyName = 'documents')
     {
         $this->attributes = Validator::make($attributes, [
-            '*.file' => ['filled', 'file'],
-            '*.name' => ['filled', 'distinct'],
+            ($keyName ? $keyName . "." : "") . '*.file' => ['required', 'filled', 'file'],
+            ($keyName ? $keyName . "." : "") . '*.name' => ['filled', 'distinct'],
+            ($keyName ? $keyName . "." : "") . '*.qty' => ['required', 'filled', 'min:1'],
         ])->validate();
+
+        if (!empty($keyName)) {
+            $this->attributes = $this->attributes[$keyName];
+        }
         $this->transactionDocuments = new Collection();
         $this->transaction = $transaction;
     }
@@ -54,7 +60,7 @@ class UploadTransactionAttachment
         /** @var UploadedFile $file */
         foreach ($this->attributes as $document) {
             $file = $document['file'];
-            $fileName = $document['name'] . "." . $file->getClientOriginalExtension();
+            $fileName = $document['name'] ?? $file->getClientOriginalName() . "." . $file->getClientOriginalExtension();
             $attachment = $this->create($file, ['title' => $fileName]);
 
 
@@ -63,7 +69,8 @@ class UploadTransactionAttachment
             $trasnactionDocument = new \App\Models\Transaction\Transaction\Attachment();
             $trasnactionDocument->fill([
                 'name' => $document['name'],
-                'attachment_id' => $attachment->id
+                'attachment_id' => $attachment->id,
+                'qty' => $document['qty']
             ]);
             $this->transactionDocuments->add($trasnactionDocument);
 

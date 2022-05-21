@@ -4,6 +4,7 @@ namespace App\Models\Master\User;
 
 use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
+use App\Models\Master\University;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,6 +19,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property string $password
  * @property Detail $detail
+ * @property University $university
  * @property Faculty $faculty
  * @property StudyProgram $studyProgram
  */
@@ -76,6 +78,10 @@ class User extends Authenticatable
 
     public function faculty(){
         return $this->hasOneThrough(Faculty::class,Detail::class,'user_id','id','id','faculty_id');
+    }
+
+    public function university(){
+        return $this->hasOneThrough(University::class,Detail::class,'user_id','id','id','university_id');
     }
 
     public function studyProgram(){
