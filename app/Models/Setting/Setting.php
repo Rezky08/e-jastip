@@ -20,4 +20,5 @@ class Setting extends Model
 
     const KEY_BIAYA_LAYANAN = 'biaya_layanan';
     const KEY_PENGIRIMAN_KOTA_ASAL = 'pengiriman_kota_asal';
+    const KEY_MAX_TRANSACTION_ATTACHMENT = 'max_trans_att';
 }

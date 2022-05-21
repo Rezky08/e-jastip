@@ -2,6 +2,8 @@
 
 namespace App\View\Components\Form;
 
+use App\Models\Setting\Setting;
+use App\Supports\SettingSupport;
 use Illuminate\View\Component;
 
 class TransactionAttachment extends Component
@@ -16,7 +18,7 @@ class TransactionAttachment extends Component
     public function __construct($maxElement = 10)
     {
         //
-        $this->maxElement = $maxElement;
+        $this->maxElement = SettingSupport::getSettingByKey(Setting::KEY_MAX_TRANSACTION_ATTACHMENT) ?? $maxElement;
     }
 
     /**

@@ -27,12 +27,16 @@ class SettingSeeder extends Seeder
     {
         return [
             [
-                'key'=> 'biaya_layanan',
+                'key'=> Setting::KEY_BIAYA_LAYANAN,
                 'value' => 100000
             ],
             [
-                'key'=> 'pengiriman_kota_asal',
+                'key'=> Setting::KEY_PENGIRIMAN_KOTA_ASAL,
                 'value' => 399 // Semarang Kota
+            ],
+            [
+                'key'=> Setting::KEY_MAX_TRANSACTION_ATTACHMENT,
+                'value' => 1
             ],
 
         ];
