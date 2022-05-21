@@ -8,6 +8,7 @@ use App\Models\Geo\District;
 use App\Models\Geo\Province;
 use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
+use App\Models\Master\University;
 use App\Models\Master\User\User;
 use App\Traits\Invoiceable;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,14 +21,20 @@ use Jalameta\Attachments\Contracts\AttachableContract;
 use Jalameta\Attachments\Entities\Attachment;
 
 /**
- * @property string $user_id
- * @property string $faculty_id
+ * @property int $user_id
+ * @property int $university_id
+ * @property int $faculty_id
  * @property string $study_program_id
- * @property string $province_id
- * @property string $city_id
- * @property string $district_id
- * @property string $zip_code
- * @property string $address
+ * @property int $origin_province_id
+ * @property int $origin_city_id
+ * @property int $origin_district_id
+ * @property string $origin_zip_code
+ * @property string $origin_address
+ * @property int $destination_province_id
+ * @property int $destination_city_id
+ * @property int $destination_district_id
+ * @property string $destination_zip_code
+ * @property string $destination_address
  * @property string $partner_shipment_code
  * @property string $partner_shipment_service
  * @property string $partner_shipment_price
@@ -35,11 +42,15 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property string $status
  * @property Attachment $file
  * @property User $user
- * @property StudyProgram $studyProgram
+ * @property University $university
  * @property Faculty $faculty
- * @property Province $province
- * @property City $city
- * @property District $district
+ * @property StudyProgram $studyProgram
+ * @property Province $originProvince
+ * @property City $originCity
+ * @property District $originDistrict
+ * @property Province $destinationProvince
+ * @property City $destinationCity
+ * @property District $destinationDistrict
  * @property Collection $invoices
  */
 class Transaction extends Model implements InvoiceableContract, AttachableContract
@@ -137,6 +148,10 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    function university(): BelongsTo
+    {
+        return $this->belongsTo(University::class, 'university_id', 'id');
+    }
     function faculty(): BelongsTo
     {
         return $this->belongsTo(Faculty::class, 'faculty_id', 'id');
@@ -147,20 +162,34 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         return $this->belongsTo(StudyProgram::class, 'study_program_id', 'id');
     }
 
-    public function province(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function originProvince(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Province::class, 'province_id', 'province_id');
+        return $this->belongsTo(Province::class, 'origin_province_id', 'province_id');
     }
 
-
-    public function city(): BelongsTo
+    public function originCity(): BelongsTo
     {
-        return $this->belongsTo(City::class, 'city_id', 'city_id');
+        return $this->belongsTo(City::class, 'origin_city_id', 'city_id');
     }
 
-    public function district(): BelongsTo
+    public function originDistrict(): BelongsTo
     {
-        return $this->belongsTo(District::class, 'district_id', 'district_id');
+        return $this->belongsTo(District::class, 'origin_district_id', 'district_id');
+    }
+
+    public function destinationProvince(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Province::class, 'destination_province_id', 'province_id');
+    }
+
+    public function destinationCity(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'destination_city_id', 'city_id');
+    }
+
+    public function destinationDistrict(): BelongsTo
+    {
+        return $this->belongsTo(District::class, 'destination_district_id', 'district_id');
     }
 
     public function file(): BelongsTo
