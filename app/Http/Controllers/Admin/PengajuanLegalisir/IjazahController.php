@@ -48,6 +48,7 @@ class IjazahController extends Controller
                     'Nama' => 'user.name',
                     'Fakultas' => 'faculty.name',
                     'Program Studi' => 'study_program.name',
+                    'Status' => 'status_label',
                     'Aksi' => null,
                 ],
                 'documentsTable' => [

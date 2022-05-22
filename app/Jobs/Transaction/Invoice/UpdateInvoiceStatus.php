@@ -26,7 +26,7 @@ class UpdateInvoiceStatus
     public function __construct(Invoice $invoice, $status)
     {
         $this->invoice = $invoice;
-        $this->attributes = Validator::make(['status' => $status], ['status' => Rule::in(Invoice::getAvailableStatus())])->validate();
+        $this->attributes = Validator::make(['status' => $status], ['status' => Rule::in(array_keys(Invoice::getAvailableStatus()))])->validate();
     }
 
     /**
@@ -38,7 +38,7 @@ class UpdateInvoiceStatus
     {
         $this->invoice->status = $this->attributes['status'];
         $this->invoice->save();
-        if ($this->invoice->exists){
+        if ($this->invoice->exists) {
             event(new InvoiceUpdated($this->invoice));
         }
         return $this->invoice->wasChanged();

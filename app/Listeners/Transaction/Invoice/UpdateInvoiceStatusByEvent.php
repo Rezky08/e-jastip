@@ -4,6 +4,7 @@ namespace App\Listeners\Transaction\Invoice;
 
 use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
 use App\Jobs\Transaction\Invoice\UpdateInvoiceStatus;
+use App\Jobs\Transaction\Transaction\UpdateTransactionStatus;
 use App\Models\Master\User\User;
 use App\Models\Transaction\Invoice\Invoice;
 use App\Supports\Repositories\AuthRepository;

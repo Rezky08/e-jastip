@@ -51,7 +51,7 @@ class CreateTransaction
                 'partner_shipment_service' => ['required','filled'],
                 'partner_shipment_price' => ['required','filled'],
                 'partner_shipment_etd' => ['required','filled'],
-                'status' => ['required', Rule::in(Transaction::getAvailableStatus())]
+                'status' => ['required', Rule::in(array_keys(Transaction::getAvailableStatus()))]
             ])->validate();
             $this->uploadDocumentJob = new UploadTransactionAttachment(new Transaction(),$attributes);
         } catch (ValidationException $e) {

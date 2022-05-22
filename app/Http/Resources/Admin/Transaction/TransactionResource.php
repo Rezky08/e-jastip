@@ -23,6 +23,7 @@ class TransactionResource extends JsonResource
         $documents = $data->documents;
         $data->unsetRelations();
         return array_merge($data->toArray(), [
+            'status_label' => Transaction::getAvailableStatus()[$data->status],
             'user' => $user,
             'faculty' => $faculty,
             'study_program' => $studyProgram,

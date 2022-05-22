@@ -3,6 +3,7 @@
 namespace App\Models\Transaction\Invoice;
 
 use App\Models\PaymentMethod\Account;
+use App\Models\Transaction\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,13 +52,13 @@ class Invoice extends Model
     static public function getAvailableStatus(): array
     {
         return [
-            self::INVOICE_STATUS_CREATED,
-            self::INVOICE_STATUS_WAITING_PAYMENT,
-            self::INVOICE_STATUS_WAITING_CONFIRMATION,
-            self::INVOICE_STATUS_CONFIRMED,
-            self::INVOICE_STATUS_PAID,
-            self::INVOICE_STATUS_EXPIRED,
-            self::INVOICE_STATUS_CANCELED,
+            self::INVOICE_STATUS_CREATED => 'Created',
+            self::INVOICE_STATUS_WAITING_PAYMENT => 'Menunggu Pembayaran',
+            self::INVOICE_STATUS_WAITING_CONFIRMATION => 'Menunggu Konfirmasi',
+            self::INVOICE_STATUS_CONFIRMED => 'Terkonfirmasi',
+            self::INVOICE_STATUS_PAID => 'Telah Terbayar',
+            self::INVOICE_STATUS_EXPIRED => 'Kadaluwarsa',
+            self::INVOICE_STATUS_CANCELED => 'Dibatalkan',
         ];
     }
 
@@ -69,5 +70,9 @@ class Invoice extends Model
     public function account(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Account::class, 'payment_method_account_id', 'id');
+    }
+
+    public function transaction(){
+        return $this->morphedByMany(Transaction::class,'invoiceable','t_invoiceables','invoice_id','invoiceable_id');
     }
 }

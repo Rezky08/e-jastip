@@ -96,19 +96,20 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
     const TRANSACTION_STATUS_CONFIRMED = 9;
     const TRANSACTION_STATUS_FINISHED = 10;
 
+
     static public function getAvailableStatus(): array
     {
         return [
-            self::TRANSACTION_STATUS_CREATED,
-            self::TRANSACTION_STATUS_WAITING_PAYMENT,
-            self::TRANSACTION_STATUS_PAID,
-            self::TRANSACTION_STATUS_IN_PROGRESS,
-            self::TRANSACTION_STATUS_DONE,
-            self::TRANSACTION_STATUS_WAITING_PICKUP,
-            self::TRANSACTION_STATUS_IN_SHIPPING,
-            self::TRANSACTION_STATUS_ARRIVED,
-            self::TRANSACTION_STATUS_CONFIRMED,
-            self::TRANSACTION_STATUS_FINISHED,
+            self::TRANSACTION_STATUS_CREATED => 'Created',
+            self::TRANSACTION_STATUS_WAITING_PAYMENT => 'Menunggu Pembayaran',
+            self::TRANSACTION_STATUS_PAID => 'Terbayar',
+            self::TRANSACTION_STATUS_IN_PROGRESS => 'Dalam Proses',
+            self::TRANSACTION_STATUS_DONE => 'Selesai Diproses',
+            self::TRANSACTION_STATUS_WAITING_PICKUP => 'Menunggu dijemput',
+            self::TRANSACTION_STATUS_IN_SHIPPING => 'Dalam Pengiriman',
+            self::TRANSACTION_STATUS_ARRIVED => 'Sampai Tujuan',
+            self::TRANSACTION_STATUS_CONFIRMED => 'Telah Diterima',
+            self::TRANSACTION_STATUS_FINISHED => 'Selesai',
         ];
     }
 
@@ -152,6 +153,7 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
     {
         return $this->belongsTo(University::class, 'university_id', 'id');
     }
+
     function faculty(): BelongsTo
     {
         return $this->belongsTo(Faculty::class, 'faculty_id', 'id');
@@ -197,8 +199,9 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         return $this->belongsTo(Attachment::class, "file", "id");
     }
 
-    public function documents(){
-        return $this->hasMany(\App\Models\Transaction\Transaction\Attachment::class,'transaction_id','id');
+    public function documents()
+    {
+        return $this->hasMany(\App\Models\Transaction\Transaction\Attachment::class, 'transaction_id', 'id');
     }
 
 
