@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-body">
-                {{$body}}
+                {{$slot}}
             </div>
             @if(!empty($footer))
                 <div class="modal-footer">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Admin\Transaction\TransactionDetailResource;
 use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
+use App\Supports\FormSupport;
 use App\Supports\Repositories\AuthRepository;
 use App\Supports\Repositories\TransactionRepository;
 use App\Traits\usePagination;
@@ -18,7 +20,7 @@ class RiwayatController extends Controller
     public AuthRepository $authRepository;
     public TransactionRepository $transactionRepository;
 
-    public function __construct(AuthRepository $authRepository,TransactionRepository $transactionRepository)
+    public function __construct(AuthRepository $authRepository, TransactionRepository $transactionRepository)
     {
         $this->authRepository = $authRepository;
         $this->transactionRepository = $transactionRepository;
@@ -44,6 +46,7 @@ class RiwayatController extends Controller
                     'Nama' => 'user.name',
                     'Fakultas' => 'faculty.name',
                     'Program Studi' => 'study_program.name',
+                    'Status' => 'status_label',
                     'Aksi' => null,
                 ],
                 'documentsTable' => [
@@ -79,14 +82,15 @@ class RiwayatController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $transaction
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
      */
-    public function show($id)
+    public function show(Request $request, $transaction): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        $form = TransactionDetailResource::make($transaction)->toArray($request);
+        FormSupport::storeFormData($form);
+        return view('pages.riwayat.detail.index');
     }
 
     /**

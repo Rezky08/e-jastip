@@ -24,34 +24,32 @@
         </x-slot>
     </x-wrapper.table>
     <x-wrapper.modal name="documentsModal">
-        <x-slot name="body">
-            @php
-                $options = [
-                      'order' => [],
-                      'bSort' => false,
-                      'targets' => "no-sort",
-                      'searching' => false,
-                      'paging'=> false,
-                      'info' => false
-                  ];
-            @endphp
-            <x-wrapper.table :options="$options" :columns="$tables['documentsTable']" name="documentsTable"
-                             :isServerSide="false">
-                <x-slot name="action">
-                    <div class="d-flex justify-content-around">
-                        <x-form.button id="download"
-                                       circle
-                                       type="{{\App\View\Components\Form\Button::TYPE_INFO}}"
-                                       size="{{\App\View\Components\Form\Button::SIZE_SMALL}}"
-                                       data-toggle="tooltip"
-                                       title="Unduh Dokumen"
-                        >
-                            <i class="fa fa-download" aria-hidden="true"></i>
-                        </x-form.button>
-                    </div>
-                </x-slot>
-            </x-wrapper.table>
-        </x-slot>
+        @php
+            $options = [
+                  'order' => [],
+                  'bSort' => false,
+                  'targets' => "no-sort",
+                  'searching' => false,
+                  'paging'=> false,
+                  'info' => false
+              ];
+        @endphp
+        <x-wrapper.table :options="$options" :columns="$tables['documentsTable']" name="documentsTable"
+                         :isServerSide="false">
+            <x-slot name="action">
+                <div class="d-flex justify-content-around">
+                    <x-form.button id="download"
+                                   circle
+                                   type="{{\App\View\Components\Form\Button::TYPE_INFO}}"
+                                   size="{{\App\View\Components\Form\Button::SIZE_SMALL}}"
+                                   data-toggle="tooltip"
+                                   title="Unduh Dokumen"
+                    >
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </x-form.button>
+                </div>
+            </x-slot>
+        </x-wrapper.table>
     </x-wrapper.modal>
 @endsection
 

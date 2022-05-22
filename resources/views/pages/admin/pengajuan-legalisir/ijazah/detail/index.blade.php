@@ -133,6 +133,8 @@
                 @empty
                 @endforelse
             </div>
+            @section("actions")
+            @show
         </div>
 
 

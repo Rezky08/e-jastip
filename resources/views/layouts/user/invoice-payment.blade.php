@@ -8,9 +8,12 @@
                 </h5>
                 <hr/>
 
-                <div class="row">
-                    <div class="col-12">
+                <div class="row justify-content-between">
+                    <div class="col-8">
                         Nomor Invoice <strong>#{{$invoice->id??""}}</strong>
+                    </div>
+                    <div class="col-auto">
+                        <x-badges.invoice-payment-status :status="$invoice->status"/>
                     </div>
                 </div>
 
@@ -55,6 +58,7 @@
                     <x-form.button fullWidth>
                         Cek Status Pembayaran
                     </x-form.button>
+                    <x-invoice.payment-confirmation id="{{$invoice->id}}"/>
                 </div>
             </x-wrapper.card>
         </div>
