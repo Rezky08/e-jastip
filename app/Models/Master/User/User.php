@@ -5,6 +5,7 @@ namespace App\Models\Master\User;
 use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
 use App\Models\Master\University;
+use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,15 +77,23 @@ class User extends Authenticatable
         return $this->hasOne(Detail::class, 'user_id', 'id');
     }
 
-    public function faculty(){
-        return $this->hasOneThrough(Faculty::class,Detail::class,'user_id','id','id','faculty_id');
+    public function faculty()
+    {
+        return $this->hasOneThrough(Faculty::class, Detail::class, 'user_id', 'id', 'id', 'faculty_id');
     }
 
-    public function university(){
-        return $this->hasOneThrough(University::class,Detail::class,'user_id','id','id','university_id');
+    public function university()
+    {
+        return $this->hasOneThrough(University::class, Detail::class, 'user_id', 'id', 'id', 'university_id');
     }
 
-    public function studyProgram(){
-        return $this->hasOneThrough(StudyProgram::class,Detail::class,'user_id','id','id','study_program_id');
+    public function studyProgram()
+    {
+        return $this->hasOneThrough(StudyProgram::class, Detail::class, 'user_id', 'id', 'id', 'study_program_id');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id', $this->getKeyName());
     }
 }

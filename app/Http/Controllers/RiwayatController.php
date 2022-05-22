@@ -1,41 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PengajuanLegalisir;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\Transaction\TransactionDetailResource;
 use App\Http\Resources\Admin\Transaction\TransactionResource;
-use App\Models\Master\Admin;
+use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
-use App\Supports\FormSupport;
 use App\Supports\Repositories\AuthRepository;
 use App\Supports\Repositories\TransactionRepository;
 use App\Traits\usePagination;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Rezky\LaravelResponseFormatter\Http\Response;
 
-class IjazahController extends Controller
+class RiwayatController extends Controller
 {
     use usePagination;
 
-    public TransactionRepository $transactionRepository;
     public AuthRepository $authRepository;
+    public TransactionRepository $transactionRepository;
 
     public function __construct(AuthRepository $authRepository,TransactionRepository $transactionRepository)
     {
-
-        $this->transactionRepository = $transactionRepository;
         $this->authRepository = $authRepository;
+        $this->transactionRepository = $transactionRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse|\Rezky\LaravelResponseFormatter\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
+
         if ($request->expectsJson()) {
             $query = $this->transactionRepository->queries();
             return $this->withPagination($query, TransactionResource::class, Response::PAGINATOR_TYPE_DATA_TABLE);
@@ -58,7 +54,7 @@ class IjazahController extends Controller
             ]
 
         ];
-        return view("pages.admin.pengajuan-legalisir.ijazah.index", $data);
+        return view("pages.riwayat.index", $data);
     }
 
     /**
@@ -85,14 +81,12 @@ class IjazahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Transaction $transaction
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$transaction)
+    public function show($id)
     {
-        $form = TransactionDetailResource::make($transaction)->toArray($request);
-        FormSupport::storeFormData($form);
-        return view('pages.admin.pengajuan-legalisir.ijazah.detail.index');
+        //
     }
 
     /**

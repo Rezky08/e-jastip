@@ -61,8 +61,10 @@
             const name = "transactionTable"
             const dataTable = table.dataTable.readExistingDataTable(name)
             const documentsDataTable = table.dataTable.readExistingDataTable("documentsTable")
+            const viewUri = "@yield('viewUri', 'admin.pengajuan-legalisir.ijazah.detail')"
+            const attachmentUri = "@yield('attachmentUri', 'admin.attachment')"
             table.dataTable.action(documentsDataTable, 'click', '#download', function (document) {
-                window.open(helper.url.routeUri('admin.attachment', {attachment: document?.attachment_id}))
+                window.open(helper.url.routeUri(attachmentUri, {attachment: document?.attachment_id}))
             })
             table.dataTable.action(dataTable, 'click', '#download', function (data) {
                 const documents = data?.documents
@@ -74,7 +76,7 @@
 
             })
             table.dataTable.action(dataTable, 'click', '#view', function (data) {
-                window.location.href = helper.url.routeUri('admin.pengajuan-legalisir.ijazah.detail', {transaction: data?.id})
+                window.location.href = helper.url.routeUri(viewUri, {transaction: data?.id})
             })
             table.dataTable.action(dataTable, 'click', '#cancel', function (data) {
                 console.log("cancel", data)

@@ -5,6 +5,8 @@ namespace App\Models\Master;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
+use App\Models\Master\Pivot\AdminUniversity;
+use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class University extends Model
 {
-    use HasFactory,HasTable;
+    use HasFactory, HasTable;
 
     protected $table = 'm_universities';
 
@@ -45,4 +47,13 @@ class University extends Model
         return $this->belongsTo(District::class, 'district_id', 'district_id');
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'university_id', 'id');
+    }
+
+    public function admins(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Admin::class, AdminUniversity::getTableName())->using(AdminUniversity::class);
+    }
 }

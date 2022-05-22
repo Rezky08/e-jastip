@@ -2,6 +2,8 @@
 
 namespace App\Models\Master;
 
+use App\Models\Master\Pivot\AdminUniversity;
+use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use HasFactory,HasTable;
+    use HasFactory, HasTable;
 
     protected $table = 'm_admins';
 
@@ -43,5 +45,10 @@ class Admin extends Authenticatable
             $passwordHashed = Hash::make($admin->password);
             $admin->setAttribute('password', $passwordHashed);
         });
+    }
+
+    public function universities(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(University::class, AdminUniversity::getTableName())->using(AdminUniversity::class);
     }
 }

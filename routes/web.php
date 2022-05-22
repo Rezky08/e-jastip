@@ -55,6 +55,13 @@ Route::middleware(['auth.guard:web'])->group(function () {
             });
         });
 
+        Route::group(['prefix' => '/riwayat', 'as' => 'riwayat.'], function () {
+            Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'index'])->name('list');
+            Route::group(['prefix' => '/{transaction}'], function () {
+                Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'show'])->name('detail');
+            });
+        });
+
     });
 });
 Route::middleware(['auth.guard:admin'])->group(function () {
