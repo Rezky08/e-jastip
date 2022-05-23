@@ -5,7 +5,12 @@
             <div>
                 <x-wrapper.form isRow>
                     <x-wrapper.column>
-                        <span class="font-weight-bold text-lg">Data User</span>
+                        <div class="d-flex justify-content-between">
+                            <span class="font-weight-bold text-lg">Data User</span>
+                            <div>
+                                <x-badges.transaction-status status="{{\App\Supports\FormSupport::getFormData('status')}}"/>
+                            </div>
+                        </div>
                     </x-wrapper.column>
                 </x-wrapper.form>
                 <x-wrapper.form isRow>

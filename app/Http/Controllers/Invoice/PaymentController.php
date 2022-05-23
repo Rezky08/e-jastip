@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Invoice;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Transaction\Invoice\UploadInvoicePaymentConfirmation;
 use App\Models\PaymentMethod\Account;
 use App\Models\PaymentMethod\PaymentMethod;
 use App\Models\PaymentMethod\Type;
@@ -37,9 +38,10 @@ class PaymentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Invoice $invoice)
     {
-        dd($request->all());
+        $job = new UploadInvoicePaymentConfirmation($invoice,$request->all());
+        $this->dispatch($job);
     }
 
     /**
