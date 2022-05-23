@@ -11,7 +11,7 @@
                     <x-form.file id="file" name="documents[{{$index}}][file]" label="Dokumen Legalisir"
                                  placeholder="Pilih Dokumen"
                                  isGroup
-                                 noResize isMultiple/>
+                                 noResize/>
                 </x-wrapper.column>
                 <x-wrapper.column>
                     <x-form.input type="number" name="documents[{{$index}}][qty]" label="Jumlah Salinan" isGroup/>

@@ -12,7 +12,7 @@ use App\Models\Geo\City;
 use App\Models\Geo\Province;
 use App\Models\Geo\District;
 use App\Models\Master\Faculty;
-use App\Traits\OptionResourceable;
+use App\Traits\DataSearchResourceable;
 use App\Traits\usePagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,7 +27,7 @@ use Rezky\LaravelResponseFormatter\Http\Response;
 
 class GeoController extends Controller
 {
-    use usePagination, OptionResourceable;
+    use usePagination, DataSearchResourceable;
 
     public function province(Request $request): \Rezky\LaravelResponseFormatter\Http\Response|\Illuminate\Http\JsonResponse
     {

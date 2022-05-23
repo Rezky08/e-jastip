@@ -5,6 +5,7 @@ const selectOption = require("./form/select-option");
 const dataTable = require("./table/dataTable");
 const urlHelper = require("./helper/url");
 const fileHelper = require("./helper/file");
+const lodash = require("lodash");
 
 window.raja_ongkir = rajaOngkir
 window.form = {
@@ -15,5 +16,6 @@ window.table = {
 }
 window.helper = {
     url: urlHelper,
-    file: fileHelper
+    file: fileHelper,
+    lodash
 }

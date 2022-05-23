@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Admin\Transaction\TransactionDetailResource;
 use App\Http\Resources\Admin\Transaction\TransactionResource;
+use App\Http\Resources\Master\UniversityOptionResource;
+use App\Models\Master\University;
 use App\Models\Master\User\User;
 use App\Models\Transaction\Transaction;
 use App\Supports\FormSupport;
 use App\Supports\Repositories\AuthRepository;
 use App\Supports\Repositories\TransactionRepository;
+use App\Traits\DataSearchResourceable;
 use App\Traits\usePagination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Rezky\LaravelResponseFormatter\Http\Response;
 
 class RiwayatController extends Controller
 {
-    use usePagination;
+    use usePagination, DataSearchResourceable;
 
     public AuthRepository $authRepository;
     public TransactionRepository $transactionRepository;
@@ -29,24 +33,27 @@ class RiwayatController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\JsonResponse|Response
      */
     public function index(Request $request)
     {
 
         if ($request->expectsJson()) {
             $query = $this->transactionRepository->queries();
-            return $this->withPagination($query, TransactionResource::class, Response::PAGINATOR_TYPE_DATA_TABLE);
+            $searchFields = [
+                'token,student_id,name,faculty.name,faculty.code,studyProgram.name' => 'search.value',
+            ];
+            return $this->search($request, $query, $searchFields, ['id'], TransactionResource::class, Response::PAGINATOR_TYPE_DATA_TABLE);
         }
         $data = [
             'tables' => [
                 'transactionTable' => [
                     'Token' => 'token',
-                    'NIM' => 'user.student_id',
-                    'Nama' => 'user.name',
-                    'Fakultas' => 'faculty.name',
-                    'Program Studi' => 'study_program.name',
-                    'Status' => 'status_label',
+                    'NIM' => 'student_id',
+                    'Nama' => 'name',
+                    'Fakultas' => ['data' => 'faculty.name', 'name' => 'faculty_id'],
+                    'Program Studi' => ['data' => 'study_program.name', 'name' => 'study_program_id'],
+                    'Status' => ['data' => 'status_label', 'name' => 'status'],
                     'Aksi' => null,
                 ],
                 'documentsTable' => [
