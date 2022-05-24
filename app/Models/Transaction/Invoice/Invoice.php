@@ -3,6 +3,7 @@
 namespace App\Models\Transaction\Invoice;
 
 use App\Models\PaymentMethod\Account;
+use App\Models\Pivot\Transaction\InvoiceAttachment;
 use App\Models\Transaction\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Jalameta\Attachments\Concerns\Attachable;
+use Jalameta\Attachments\Contracts\AttachableContract;
+use Jalameta\Attachments\Entities\Attachment;
 
 /**
  * @property string $id
@@ -17,9 +21,9 @@ use Illuminate\Support\Str;
  * @property Collection $details
  * @property Account $account
  */
-class Invoice extends Model
+class Invoice extends Model implements AttachableContract
 {
-    use HasFactory, HasTable;
+    use HasFactory, HasTable, Attachable;
 
     const INVOICE_STATUS_CREATED = 1;
     const INVOICE_STATUS_WAITING_PAYMENT = 2;
@@ -72,7 +76,13 @@ class Invoice extends Model
         return $this->belongsTo(Account::class, 'payment_method_account_id', 'id');
     }
 
-    public function transaction(){
-        return $this->morphedByMany(Transaction::class,'invoiceable','t_invoiceables','invoice_id','invoiceable_id');
+    public function transaction()
+    {
+        return $this->morphedByMany(Transaction::class, 'invoiceable', 't_invoiceables', 'invoice_id', 'invoiceable_id');
+    }
+
+    public function attachment(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
+    {
+        return $this->hasOneThrough(Attachment::class,InvoiceAttachment::class,'invoice_id','id','id','attachment_id');
     }
 }

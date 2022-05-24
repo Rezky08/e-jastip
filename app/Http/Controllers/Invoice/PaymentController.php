@@ -8,7 +8,10 @@ use App\Models\PaymentMethod\Account;
 use App\Models\PaymentMethod\PaymentMethod;
 use App\Models\PaymentMethod\Type;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Supports\InvoiceSupport;
+use App\Supports\Notification\ToastSupport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -36,12 +39,16 @@ class PaymentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request,Invoice $invoice)
+    public function store(Request $request, Invoice $invoice)
     {
-        $job = new UploadInvoicePaymentConfirmation($invoice,$request->all());
-        $this->dispatch($job);
+        $job = new UploadInvoicePaymentConfirmation($invoice, $request->all());
+        DB::transaction(function () use ($job) {
+            $this->dispatch($job);
+        });
+        ToastSupport::add("Mohon tunggu admin untuk melakukan konfirmasi", "Konfirmasi Pembayaran");
+        return redirect()->back();
     }
 
     /**
@@ -60,7 +67,8 @@ class PaymentController extends Controller
             'invoice' => $invoice,
             'account' => $account,
             'paymentMethod' => $account->paymentMethod,
-            'type' => $type
+            'type' => $type,
+            'calc' => InvoiceSupport::calculateInvoice($invoice)
         ];
 
         switch (true) {

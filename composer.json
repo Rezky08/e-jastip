@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": "^8.0.2",
+        "ext-bcmath": "*",
         "guzzlehttp/guzzle": "^7.2",
         "jalameta/jps-attachments": "^2.0",
         "laravel-lang/lang": "10.0",
@@ -25,8 +26,7 @@
         "league/csv": "^9.8",
         "propaganistas/laravel-phone": "^4.3",
         "rezky/laravel-response-formatter": "^1.2",
-        "rezky/rajaongkir": "1.1.1",
-        "ext-bcmath": "*"
+        "rezky/rajaongkir": "1.1.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

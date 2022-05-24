@@ -2,13 +2,11 @@
 
 namespace App\Models\Master;
 
-use App\Models\Master\Pivot\AdminUniversity;
-use App\Models\Transaction\Transaction;
+use App\Models\Pivot\Master\AdminUniversity;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 
 class Admin extends Authenticatable

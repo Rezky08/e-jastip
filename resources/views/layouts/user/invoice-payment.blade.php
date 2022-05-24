@@ -37,6 +37,11 @@
                     <div class="col-12">
                         <span class="font-weight-bold">{{$account->name??""}}</span>
                     </div>
+                    <div class="col-12">
+                        <span class="font-weight-bold">
+                            <x-display.display-currency amount="{{$calc['total']}}"/>
+                        </span>
+                    </div>
                 </div>
                 <x-wrapper.collapse>
                     <x-slot name="toggle">
@@ -55,10 +60,14 @@
                 </x-wrapper.collapse>
 
                 <div class="pt-3">
-                    <x-form.button fullWidth>
-                        Cek Status Pembayaran
-                    </x-form.button>
-                    <x-invoice.payment-confirmation id="{{$invoice->id}}"/>
+                    <a class="text-decoration-none" href="">
+                        <x-form.button fullWidth>
+                            Cek Status Pembayaran
+                        </x-form.button>
+                    </a>
+                    @if($invoice->status === \App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_WAITING_PAYMENT)
+                        <x-invoice.payment-confirmation id="{{$invoice->id}}"/>
+                    @endif
                 </div>
             </x-wrapper.card>
         </div>

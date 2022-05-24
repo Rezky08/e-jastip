@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('t_invoice_attachments', function (Blueprint $table) {
             $table->id();
+            $table->string("invoice_id")->nullable();
+            $table->uuid("attachment_id");
             $table->timestamps();
         });
     }

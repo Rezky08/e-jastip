@@ -5,7 +5,7 @@ namespace App\Models\Master;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
-use App\Models\Master\Pivot\AdminUniversity;
+use App\Models\Pivot\Master\AdminUniversity;
 use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

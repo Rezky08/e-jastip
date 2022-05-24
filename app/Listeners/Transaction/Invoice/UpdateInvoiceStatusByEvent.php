@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Transaction\Invoice;
 
+use App\Events\Transaction\Invoice\InvoicePaymentConfirmationUploaded;
 use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
 use App\Jobs\Transaction\Invoice\UpdateInvoiceStatus;
 use App\Jobs\Transaction\Transaction\UpdateTransactionStatus;
@@ -44,6 +45,10 @@ class UpdateInvoiceStatusByEvent
         switch (true){
             case $event instanceof InvoicePaymentMethodUpdated:
                 $job = new UpdateInvoiceStatus($invoice,Invoice::INVOICE_STATUS_WAITING_PAYMENT);
+                dispatch($job);
+                break;
+            case $event instanceof InvoicePaymentConfirmationUploaded:
+                $job = new UpdateInvoiceStatus($invoice,Invoice::INVOICE_STATUS_WAITING_CONFIRMATION);
                 dispatch($job);
                 break;
         }

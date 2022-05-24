@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Master\Pivot;
+namespace App\Models\Pivot\Master;
 
 use App\Models\Master\Admin;
 use App\Models\Master\University;
