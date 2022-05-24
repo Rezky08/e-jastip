@@ -60,7 +60,7 @@ class UploadTransactionAttachment
         /** @var UploadedFile $file */
         foreach ($this->attributes as $document) {
             $file = $document['file'];
-            $fileName = $document['name'] ?? $file->getClientOriginalName() . "." . $file->getClientOriginalExtension();
+            $fileName = ($document['name'] ?? $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
             $attachment = $this->create($file, ['title' => $fileName]);
 
 

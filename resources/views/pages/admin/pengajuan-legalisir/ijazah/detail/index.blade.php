@@ -123,7 +123,7 @@
                 @forelse(\App\Supports\FormSupport::getFormData('documents') as $document)
                     <div class="d-flex flex-column align-items-center">
                         <a target="_blank"
-                           href="{{route('admin.attachment',['attachment'=>$document['attachment_id']])}}">
+                           href="{{route($isAdmin ? 'admin.attachment':'attachment',['attachment'=>$document['attachment_id']])}}">
                             <x-form.button id="download"
                                            circle
                                            type="{{\App\View\Components\Form\Button::TYPE_INFO}}"
@@ -139,30 +139,36 @@
                 @empty
                 @endforelse
             </div>
-            <div>
-                <hr/>
-                <x-wrapper.form isRow>
-                    <x-wrapper.column>
-                        <span class="font-weight-bold text-lg">Pembayaran</span>
-                    </x-wrapper.column>
-                </x-wrapper.form>
-                <x-wrapper.form isRow>
-                    <x-wrapper.column>
-                        <x-form.display-text name="status" label="Status Pembayaran" isGroup>
-                            <x-badges.invoice-payment-status status="{{\App\Supports\FormSupport::getFormData('invoice.status')}}"/>
-                        </x-form.display-text>
-                    </x-wrapper.column>
-                    <x-wrapper.column>
-                        <x-form.display-text name="invoice.attachment.holder_name" label="Atas Nama" isGroup/>
-                    </x-wrapper.column>
-                    <x-wrapper.column>
-                        <x-form.display-text name="attachment" label="Bukti Pembayaran" isGroup>
-                            <x-wrapper.image name="invoice-image"
-                                             src="{{\App\Supports\FormSupport::getFormData('invoice.attachment_url')}}"/>
-                        </x-form.display-text>
-                    </x-wrapper.column>
-                </x-wrapper.form>
-            </div>
+            @if(!empty(\App\Supports\FormSupport::getFormData('invoice')))
+                <div>
+                    <hr/>
+                    <x-wrapper.form isRow>
+                        <x-wrapper.column>
+                            <span class="font-weight-bold text-lg">Pembayaran</span>
+                        </x-wrapper.column>
+                    </x-wrapper.form>
+
+                    <x-wrapper.form isRow>
+                        <x-wrapper.column>
+                            <x-form.display-text name="status" label="Status Pembayaran" isGroup>
+                                <x-badges.invoice-payment-status
+                                    status="{{\App\Supports\FormSupport::getFormData('invoice.status')}}"/>
+                            </x-form.display-text>
+                        </x-wrapper.column>
+                        @if(\App\Supports\FormSupport::getFormData('invoice.status') >= \App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_WAITING_CONFIRMATION)
+                            <x-wrapper.column>
+                                <x-form.display-text name="invoice.attachment.holder_name" label="Atas Nama" isGroup/>
+                            </x-wrapper.column>
+                            <x-wrapper.column>
+                                <x-form.display-text name="attachment" label="Bukti Pembayaran" isGroup>
+                                    <x-wrapper.image name="invoice-image"
+                                                     src="{{\App\Supports\FormSupport::getFormData('invoice.attachment_url')}}"/>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                        @endif
+                    </x-wrapper.form>
+                </div>
+            @endif
             @section("actions")
             @show
         </div>

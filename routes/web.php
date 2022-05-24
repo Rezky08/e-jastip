@@ -38,7 +38,7 @@ Route::middleware(['auth.guard:web'])->group(function () {
 
         Route::group(['prefix' => '/invoice', 'as' => 'invoice.'], function () {
             Route::group(['prefix' => '{invoice}'], function () {
-                Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"]);
+                Route::get("/", [\App\Http\Controllers\InvoiceController::class, "show"])->name('method');
                 Route::post("/", [\App\Http\Controllers\InvoiceController::class, "store"]);
                 Route::get("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "show"])->name('payment');
                 Route::post("/payment", [\App\Http\Controllers\Invoice\PaymentController::class, "store"])->name('payment.confirmation');
