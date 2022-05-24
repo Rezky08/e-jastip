@@ -76,7 +76,9 @@ trait DataSearchResourceable
 
     function searchResult($resourceClass, $isSingle = false)
     {
-        $this->query->orderBy($this->orderBy['column'], $this->orderBy['dir']);
+        if (!empty($this->orderBy)) {
+            $this->query->orderBy($this->orderBy['column'], $this->orderBy['dir']);
+        }
         if ($this->searchReturnResponse) {
             if ($isSingle) {
                 $resourceData = $resourceClass ? $resourceClass::make($this->result) : $this->result;

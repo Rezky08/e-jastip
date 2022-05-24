@@ -30,6 +30,15 @@ class University extends Model
 
     protected $table = 'm_universities';
 
+    protected $fillable = [
+        'name',
+        'province_id',
+        'city_id',
+        'district_id',
+        'zip_code',
+        'address',
+    ];
+
 
     public function province(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

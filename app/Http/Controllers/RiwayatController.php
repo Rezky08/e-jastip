@@ -7,6 +7,7 @@ use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Http\Resources\Master\UniversityOptionResource;
 use App\Models\Master\University;
 use App\Models\Master\User\User;
+use App\Models\Transaction\Invoice\Invoice;
 use App\Models\Transaction\Transaction;
 use App\Supports\FormSupport;
 use App\Supports\Repositories\AuthRepository;
@@ -93,8 +94,10 @@ class RiwayatController extends Controller
      * @param $transaction
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
      */
-    public function show(Request $request, $transaction): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function show(Request $request,Transaction $transaction): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
+        /** @var Invoice $invoice */
+        $invoice = $transaction->invoice;
         $form = TransactionDetailResource::make($transaction)->toArray($request);
         FormSupport::storeFormData($form);
         return view('pages.riwayat.detail.index');

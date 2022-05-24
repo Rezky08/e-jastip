@@ -30,15 +30,14 @@ class UpdateTransactionStatusByEvent
      */
     public function handle($event)
     {
-        if (!($event->transaction instanceof Transaction)) {
+        $transaction = $event->transaction ?? null;
+        if (!($transaction instanceof Transaction)) {
             /** @var Invoice $invoice */
             $invoice = $event->invoice;
             throw_if(empty($invoice), Error::make(Code::CODE_ERROR_INVALID_DATA, [], "Invoice Not Found"));
 
             /** @var Transaction $transaction */
             $transaction = $invoice->transaction()->firstOrFail();
-        } else {
-            $transaction = $event->transaction;
         }
 
         switch (true) {

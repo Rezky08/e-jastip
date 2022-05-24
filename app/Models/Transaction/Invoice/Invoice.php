@@ -20,10 +20,11 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property int $status
  * @property Collection $details
  * @property Account $account
+ * @property Attachment $attachment
  */
-class Invoice extends Model implements AttachableContract
+class Invoice extends Model
 {
-    use HasFactory, HasTable, Attachable;
+    use HasFactory, HasTable;
 
     const INVOICE_STATUS_CREATED = 1;
     const INVOICE_STATUS_WAITING_PAYMENT = 2;
@@ -39,6 +40,8 @@ class Invoice extends Model implements AttachableContract
 
     protected $table = "t_invoices";
     public $incrementing = false;
+
+    protected $keyType = 'string';
 
     protected static function boot()
     {
@@ -76,13 +79,19 @@ class Invoice extends Model implements AttachableContract
         return $this->belongsTo(Account::class, 'payment_method_account_id', 'id');
     }
 
-    public function transaction()
+    public function transaction(): \Illuminate\Database\Eloquent\Relations\MorphToMany
     {
         return $this->morphedByMany(Transaction::class, 'invoiceable', 't_invoiceables', 'invoice_id', 'invoiceable_id');
     }
 
-    public function attachment(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
+    public function getAttachmentAttribute()
     {
-        return $this->hasOneThrough(Attachment::class,InvoiceAttachment::class,'invoice_id','id','id','attachment_id');
+        return $this->attachments()->latest()->first();
+    }
+
+    public function attachments(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Attachment::class, InvoiceAttachment::getTableName())->using(InvoiceAttachment::class)->withPivot(['holder_name']);
+
     }
 }

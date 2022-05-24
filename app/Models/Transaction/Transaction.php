@@ -10,6 +10,7 @@ use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
 use App\Models\Master\University;
 use App\Models\Master\User\User;
+use App\Models\Transaction\Invoice\Invoice;
 use App\Traits\Invoiceable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,6 +53,7 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property City $destinationCity
  * @property District $destinationDistrict
  * @property Collection $invoices
+ * @property Invoice $invoice
  */
 class Transaction extends Model implements InvoiceableContract, AttachableContract
 {

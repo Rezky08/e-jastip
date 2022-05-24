@@ -46,6 +46,7 @@ class UploadInvoicePaymentConfirmation
         $file = $this->attributes['file'];
         $this->attachment = $this->create($file, ['title' => $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension()]);
         $pivot = new InvoiceAttachment();
+        $pivot->holder_name = $this->attributes['holder_name'];
         $pivot->invoice()->associate($this->invoice);
         $pivot->attachment()->associate($this->attachment);
         $pivot->save();

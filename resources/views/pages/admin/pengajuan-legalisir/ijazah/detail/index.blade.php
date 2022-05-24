@@ -8,7 +8,8 @@
                         <div class="d-flex justify-content-between">
                             <span class="font-weight-bold text-lg">Data User</span>
                             <div>
-                                <x-badges.transaction-status status="{{\App\Supports\FormSupport::getFormData('status')}}"/>
+                                <x-badges.transaction-status
+                                    status="{{\App\Supports\FormSupport::getFormData('status')}}"/>
                             </div>
                         </div>
                     </x-wrapper.column>
@@ -138,25 +139,31 @@
                 @empty
                 @endforelse
             </div>
-            @section("actions")
+            <div>
                 <hr/>
                 <x-wrapper.form isRow>
                     <x-wrapper.column>
                         <span class="font-weight-bold text-lg">Pembayaran</span>
                     </x-wrapper.column>
                 </x-wrapper.form>
-                <x-wrapper.form>
+                <x-wrapper.form isRow>
                     <x-wrapper.column>
-                        <x-wrapper.form isRow>
-                            <x-wrapper.column>
-                                <span class="font-weight-bold text-lg">Status</span>
-                            </x-wrapper.column>
-                            <x-wrapper.column>
-                                <x-badges.invoice-payment-status/>
-                            </x-wrapper.column>
-                        </x-wrapper.form>
+                        <x-form.display-text name="status" label="Status Pembayaran" isGroup>
+                            <x-badges.invoice-payment-status status="{{\App\Supports\FormSupport::getFormData('invoice.status')}}"/>
+                        </x-form.display-text>
+                    </x-wrapper.column>
+                    <x-wrapper.column>
+                        <x-form.display-text name="invoice.attachment.holder_name" label="Atas Nama" isGroup/>
+                    </x-wrapper.column>
+                    <x-wrapper.column>
+                        <x-form.display-text name="attachment" label="Bukti Pembayaran" isGroup>
+                            <x-wrapper.image name="invoice-image"
+                                             src="{{\App\Supports\FormSupport::getFormData('invoice.attachment_url')}}"/>
+                        </x-form.display-text>
                     </x-wrapper.column>
                 </x-wrapper.form>
+            </div>
+            @section("actions")
             @show
         </div>
 

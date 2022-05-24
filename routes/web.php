@@ -46,7 +46,7 @@ Route::middleware(['auth.guard:web'])->group(function () {
         });
 
         Route::group(['prefix' => '/attachment'], function () {
-            Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"]);
+            Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"])->name('attachment');
         });
 
         Route::group(['prefix' => '/pengajuan-legalisir'], function () {
@@ -74,8 +74,8 @@ Route::middleware(['auth.guard:admin'])->group(function () {
     });
     Route::group(['middleware' => ['auth:admin'], 'prefix' => '/admin', 'as' => 'admin.'], function () {
 
-        Route::group(['prefix' => '/attachment', 'as' => 'attachment'], function () {
-            Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"]);
+        Route::group(['prefix' => '/attachment'], function () {
+            Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"])->name('attachment');
         });
 
         Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {

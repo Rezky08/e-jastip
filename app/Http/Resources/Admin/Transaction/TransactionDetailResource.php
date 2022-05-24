@@ -2,9 +2,12 @@
 
 namespace App\Http\Resources\Admin\Transaction;
 
+use App\Models\Master\Admin;
+use App\Models\Master\User\User;
 use App\Models\Transaction\Invoice\Invoice;
 use App\Models\Transaction\Transaction;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Jalameta\Attachments\Entities\Attachment;
 
 class TransactionDetailResource extends JsonResource
 {
@@ -16,6 +19,9 @@ class TransactionDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        /** @var User|Admin $user */
+        $user = $request->user();
+        $isAdmin = $user instanceof Admin;
         /** @var Transaction $transaction */
         $transaction = $this->resource;
         $transaction->load([
@@ -30,10 +36,18 @@ class TransactionDetailResource extends JsonResource
             'destinationCity',
             'destinationDistrict',
             'user.detail',
-            'invoices',
-            'invoice'
+            'invoice',
         ]);
-        $data = $transaction->toArray();
+
+        if (!empty($transaction->invoice->attachment)){
+            $invoiceAttachmentUrl = route($isAdmin ? 'admin.attachment' : 'attachment', ['attachment' => $transaction->invoice->attachment->id]);
+            $data = $transaction->toArray();
+            $data['invoice']['attachment']['holder_name'] = $transaction->invoice->attachment->pivot->holder_name;
+            $data['invoice']['attachment_url'] = $invoiceAttachmentUrl;
+        }else{
+            $data = $transaction->toArray();
+        }
+
         $data['partner_shipment'] = "[" . strtoupper($data['partner_shipment_code']) . "] " . $data['partner_shipment_service'] . " " . preg_replace('/[^0-9]/', '', $data['partner_shipment_etd']) . " Hari (" . number_format($data['partner_shipment_price']) . ")";
         return $data;
     }

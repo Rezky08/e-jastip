@@ -7,11 +7,19 @@ use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Jalameta\Attachments\Entities\Attachment;
 
+/**
+ * @property string $holder_name
+ */
 class InvoiceAttachment extends Pivot
 {
     use HasTable;
 
     protected $table = "t_invoice_attachments";
+
+    protected $casts = [
+        'attachment_id' => 'string',
+        'invoice_id' => 'string',
+    ];
 
     public function attachment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

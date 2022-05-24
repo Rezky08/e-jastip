@@ -59,7 +59,7 @@
                     </div>
                 </x-wrapper.collapse>
 
-                <div class="pt-3">
+                <div class="pt-3 d-flex flex-column" style="gap: 1rem">
                     <a class="text-decoration-none" href="">
                         <x-form.button fullWidth>
                             Cek Status Pembayaran
