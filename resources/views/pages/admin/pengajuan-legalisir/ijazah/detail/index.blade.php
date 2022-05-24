@@ -139,6 +139,24 @@
                 @endforelse
             </div>
             @section("actions")
+                <hr/>
+                <x-wrapper.form isRow>
+                    <x-wrapper.column>
+                        <span class="font-weight-bold text-lg">Pembayaran</span>
+                    </x-wrapper.column>
+                </x-wrapper.form>
+                <x-wrapper.form>
+                    <x-wrapper.column>
+                        <x-wrapper.form isRow>
+                            <x-wrapper.column>
+                                <span class="font-weight-bold text-lg">Status</span>
+                            </x-wrapper.column>
+                            <x-wrapper.column>
+                                <x-badges.invoice-payment-status/>
+                            </x-wrapper.column>
+                        </x-wrapper.form>
+                    </x-wrapper.column>
+                </x-wrapper.form>
             @show
         </div>
 

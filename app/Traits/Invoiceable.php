@@ -12,5 +12,10 @@ trait Invoiceable
         $attachment_class = Invoice::class;
         return $this->morphToMany($attachment_class, 'invoiceable', 't_invoiceables', 'invoiceable_id');
     }
+    public function invoice(): MorphToMany
+    {
+
+        return $this->invoices()->latest();
+    }
 }
 

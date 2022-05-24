@@ -30,12 +30,10 @@ class TransactionDetailResource extends JsonResource
             'destinationCity',
             'destinationDistrict',
             'user.detail',
-            'invoices'
+            'invoices',
+            'invoice'
         ]);
-        /** @var Invoice $invoice */
-        $invoice = $transaction->invoices->first();
         $data = $transaction->toArray();
-        $data['invoice'] = $invoice->toArray();
         $data['partner_shipment'] = "[" . strtoupper($data['partner_shipment_code']) . "] " . $data['partner_shipment_service'] . " " . preg_replace('/[^0-9]/', '', $data['partner_shipment_etd']) . " Hari (" . number_format($data['partner_shipment_price']) . ")";
         return $data;
     }
