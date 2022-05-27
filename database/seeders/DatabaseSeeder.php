@@ -35,10 +35,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UniversitySeeder::class);
         $this->call(FacultySeeder::class);
         $this->call(StudyProgramWithoutFacultySeeder::class);
-        $this->call(PaymentMethodAccountSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(UniversityAddressSeeder::class);
         $this->call(AdminUniversitySeeder::class);
+        $this->call(PaymentMethodAccountSeeder::class);
+
     }
 }

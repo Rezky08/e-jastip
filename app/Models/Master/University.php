@@ -2,12 +2,14 @@
 
 namespace App\Models\Master;
 
+use App\Contracts\PaymentMethodAccountableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
 use App\Models\Pivot\Master\AdminUniversity;
 use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
+use App\Traits\PaymentMethodAccountable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,9 +26,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $zip_code
  * @property string $address
  */
-class University extends Model
+class University extends Model implements PaymentMethodAccountableContract
 {
-    use HasFactory, HasTable;
+    use HasFactory, HasTable, PaymentMethodAccountable;
 
     protected $table = 'm_universities';
 

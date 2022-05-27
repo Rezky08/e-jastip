@@ -28,7 +28,7 @@ class AccountFactory extends Factory
         $isQris = $paymentMethod->type === PaymentMethod::TYPE_QRIS;
 
         return [
-            'faculty_id' => $faculty->id,
+//            'faculty_id' => $faculty->id,
             'payment_method_id' => $paymentMethod->id,
             'name' => $this->faker->name,
             'account' => $this->faker->creditCardNumber(),

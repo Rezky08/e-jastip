@@ -2,6 +2,8 @@
 
 namespace Database\Seeders\PaymentMethod;
 
+use App\Jobs\Master\PaymentMethod\CreatePaymentMethodAccount;
+use App\Models\Master\University;
 use App\Models\PaymentMethod\Account;
 use App\Models\PaymentMethod\Type;
 use App\Supports\PaymentMethodSupport;
@@ -21,10 +23,11 @@ class PaymentMethodAccountSeeder extends Seeder
     {
         $this->prepareDependency();
         $accounts = Account::factory()->count($this->COUNT)->make();
-        foreach ($accounts as $account){
+        foreach ($accounts as $account) {
             try {
-                $account->save();
-            }catch (\Exception $exception){
+                $job = new CreatePaymentMethodAccount($account->toArray());
+                dispatch($job);
+            } catch (\Exception $exception) {
 
             }
         }
