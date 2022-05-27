@@ -162,6 +162,24 @@
                             </x-form.display-text>
                         </x-wrapper.column>
                     </x-wrapper.form>
+                    @if(!empty(\App\Supports\FormSupport::getFormData('invoice.account')))
+                        <x-wrapper.form isRow>
+                            <x-wrapper.column>
+                                <x-form.display-text name="account_name" label="Tujuan" isGroup>
+                                    <x-display.payment-method
+                                        :paymentMethod="\App\Supports\FormSupport::getFormData('invoice.account.payment_method')"/>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                            <x-wrapper.column>
+                                <x-form.display-text name="account_number" label="Rekening Tujuan" isGroup>
+                                    <div class="d-flex flex-column">
+                                        <span>{{\App\Supports\FormSupport::getFormData('invoice.account.name')}}</span>
+                                        <span>{{\App\Supports\FormSupport::getFormData('invoice.account.account')}}</span>
+                                    </div>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                        </x-wrapper.form>
+                    @endif
                     @if(\App\Supports\FormSupport::getFormData('invoice.status') >= \App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_WAITING_CONFIRMATION)
                         <x-wrapper.form isRow>
 
