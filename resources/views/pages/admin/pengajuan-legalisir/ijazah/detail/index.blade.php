@@ -155,7 +155,16 @@
                                     status="{{\App\Supports\FormSupport::getFormData('invoice.status')}}"/>
                             </x-form.display-text>
                         </x-wrapper.column>
-                        @if(\App\Supports\FormSupport::getFormData('invoice.status') >= \App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_WAITING_CONFIRMATION)
+                        <x-wrapper.column>
+                            <x-form.display-text name="total" label="Jumlah Pembayaran" isGroup>
+                                <x-display.display-currency
+                                    amount="{{\App\Supports\FormSupport::getFormData('invoice.calculated.total')}}"/>
+                            </x-form.display-text>
+                        </x-wrapper.column>
+                    </x-wrapper.form>
+                    @if(\App\Supports\FormSupport::getFormData('invoice.status') >= \App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_WAITING_CONFIRMATION)
+                        <x-wrapper.form isRow>
+
                             <x-wrapper.column>
                                 <x-form.display-text name="invoice.attachment.holder_name" label="Atas Nama" isGroup/>
                             </x-wrapper.column>
@@ -165,11 +174,38 @@
                                                      src="{{\App\Supports\FormSupport::getFormData('invoice.attachment_url')}}"/>
                                 </x-form.display-text>
                             </x-wrapper.column>
-                        @endif
-                    </x-wrapper.form>
+                        </x-wrapper.form>
+                    @endif
+
                 </div>
             @endif
             @section("actions")
+                <div class="d-flex flex-column" style="gap: 1rem">
+                    @if(\App\Supports\FormSupport::getFormData('invoice.status') === \App\Models\Transaction\Invoice\Invoice::INVOICE_STATUS_WAITING_CONFIRMATION)
+                        <x-form.button :isSubmit="false" fullWidth data-toggle="modal"
+                                       data-target="#paymentConfirmation">
+                            {{__('messages.invoice.payment.confirmation.title')}}
+                        </x-form.button>
+                        <x-wrapper.modal name="paymentConfirmation"
+                                         title="{{__('messages.invoice.payment.confirmation.title')}}">
+                            {!!__('messages.invoice.payment.confirmation',['invoice'=>\App\Supports\FormSupport::getFormData('invoice.id')])!!}
+
+                            <x-slot name="footer">
+                                <form method="POST"
+                                      action="{{route('admin.invoice.payment.confirmation',['invoice'=>\App\Supports\FormSupport::getFormData('invoice.id')])}}">
+                                    @csrf
+                                    <x-form.button :isSubmit="false" data-dismiss="modal"
+                                                   type="{{\App\View\Components\Form\Button::TYPE_DANGER}}" outline>
+                                        {{__('messages.form.submit.cancel')}}
+                                    </x-form.button>
+                                    <x-form.button :isSubmit="true">
+                                        {{__('messages.form.submit.confirm')}}
+                                    </x-form.button>
+                                </form>
+                            </x-slot>
+                        </x-wrapper.modal>
+                    @endif
+                </div>
             @show
         </div>
 

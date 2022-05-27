@@ -104,7 +104,7 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         return [
             self::TRANSACTION_STATUS_CREATED => 'Created',
             self::TRANSACTION_STATUS_WAITING_PAYMENT => 'Menunggu Pembayaran',
-            self::TRANSACTION_STATUS_PAID => 'Terbayar',
+            self::TRANSACTION_STATUS_PAID => 'Telah Terbayar',
             self::TRANSACTION_STATUS_IN_PROGRESS => 'Dalam Proses',
             self::TRANSACTION_STATUS_DONE => 'Selesai Diproses',
             self::TRANSACTION_STATUS_WAITING_PICKUP => 'Menunggu dijemput',

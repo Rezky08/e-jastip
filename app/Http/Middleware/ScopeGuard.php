@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Supports\PageSupport;
 use App\Supports\Repositories\AuthRepository;
 use App\Supports\Repositories\TransactionRepository;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\View\View;
 
 class ScopeGuard
 {
@@ -32,7 +32,10 @@ class ScopeGuard
         $this->repository->setScopedGuard($guard);
         $this->transactionRepository->setAuthRepository($this->repository);
         view()->composer('*', function ($view) {
-            $view->with('sidebar', $this->repository->getSidebar());
+            $sidebar = $this->repository->getSidebar();
+            $currentSidebar = PageSupport::getCurrentSidebar($sidebar);
+            $view->with('sidebar', $sidebar);
+            $view->with('currentSidebar', $currentSidebar);
             $view->with('isAdmin', $this->repository->isAdmin());
             $view->with('user', $this->repository->getUser());
 

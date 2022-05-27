@@ -7,8 +7,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>{{$appName}} - Dashboard</title>
-
+        <title>{{$appName}} - {{$currentSidebar['title'] ??""}}</title>
+        <link rel="icon" href="{{asset('img/favicon.png') }}">
         <!-- Custom fonts for this template-->
         <link href="{{asset("vendor/fontawesome-free/css/all.min.css")}}" rel="stylesheet" type="text/css">
         <link
@@ -19,14 +19,16 @@
         <link href="{{asset("css/sb-admin-2.css")}}" rel="stylesheet">
         <link href="{{asset("css/select2.min.css")}}" rel="stylesheet">
         <link href="{{asset("css/select2-bootstrap4.min.css")}}" rel="stylesheet">
-{{--        <link href="{{asset("css/fileinput.min.css")}}" rel="stylesheet" />--}}
+        {{--        <link href="{{asset("css/fileinput.min.css")}}" rel="stylesheet" />--}}
 
         {{--        <link href="{{asset("css/datatables.min.css")}}" rel="stylesheet">--}}
         <link href="{{asset("css/dataTables.bootstrap4.min.css")}}" rel="stylesheet">
         <link href="{{asset("css/app.css")}}" rel="stylesheet">
-        <script src="/js/manifest.js"></script>
-        <script src="/js/vendor.js"></script>
-        <script src="/js/app.js"></script>
+
+
+        <script src="{{asset("/js/manifest.js")}}"></script>
+        {{--        <script src="{{asset("/js/vendor.js")}}"></script>--}}
+        <script src="{{asset("/js/app.js")}}"></script>
 
     </head>
 @endsection

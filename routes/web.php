@@ -87,8 +87,13 @@ Route::middleware(['auth.guard:admin'])->group(function () {
                 Route::get("/", [\App\Http\Controllers\Admin\PengajuanLegalisir\IjazahController::class, "index"])->name("ijazah");
                 Route::group(['prefix' => "{transaction}", "as" => 'ijazah.'], function () {
                     Route::get("/", [\App\Http\Controllers\Admin\PengajuanLegalisir\IjazahController::class, "show"])->name("detail");
-
                 });
+            });
+        });
+
+        Route::group(['prefix' => '/invoice', 'as' => 'invoice.'], function () {
+            Route::group(['prefix' => '{invoice}'], function () {
+                Route::post("/confirm", [\App\Http\Controllers\Admin\Invoice\PaymentController::class, "store"])->name('payment.confirmation');
             });
         });
 

@@ -5,6 +5,7 @@ namespace App\Models\Transaction\Invoice;
 use App\Models\PaymentMethod\Account;
 use App\Models\Pivot\Transaction\InvoiceAttachment;
 use App\Models\Transaction\Transaction;
+use App\Supports\InvoiceSupport;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,9 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property Collection $details
  * @property Account $account
  * @property Attachment $attachment
+ * @property array $calculated
+ * @property Collection $transactions
+ * @property Transaction $transaction
  */
 class Invoice extends Model
 {
@@ -79,9 +83,18 @@ class Invoice extends Model
         return $this->belongsTo(Account::class, 'payment_method_account_id', 'id');
     }
 
-    public function transaction(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    public function transactions(): \Illuminate\Database\Eloquent\Relations\MorphToMany
     {
         return $this->morphedByMany(Transaction::class, 'invoiceable', 't_invoiceables', 'invoice_id', 'invoiceable_id');
+    }
+
+    public function getTransactionAttribute()
+    {
+        return $this->transactions()->latest()->first();
+    }
+
+    public function getCalculatedAttribute(){
+        return InvoiceSupport::calculateInvoice($this);
     }
 
     public function getAttachmentAttribute()

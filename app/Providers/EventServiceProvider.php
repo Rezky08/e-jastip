@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\Master\User\UserCreated;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmationUploaded;
+use App\Events\Transaction\Invoice\InvoicePaymentConfirmed;
 use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Listeners\Master\User\UpdateOrCreateUserDetailByEvent;
@@ -36,6 +37,10 @@ class EventServiceProvider extends ServiceProvider
             UpdateInvoiceStatusByEvent::class,
         ],
         InvoicePaymentConfirmationUploaded::class => [
+            UpdateInvoiceStatusByEvent::class,
+        ],
+        InvoicePaymentConfirmed::class => [
+            UpdateTransactionStatusByEvent::class,
             UpdateInvoiceStatusByEvent::class,
         ]
     ];

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<body id="page-top">
-
 @yield("header")
+
+<body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -29,7 +29,7 @@
                                                   :datetime="$toast['datetime']"
                                                   img="{{$toast['img']}}"
                                                   altImg="{{$toast['altImg']}}">
-                                {{$toast['content']}}
+                                {!! $toast['content'] !!}
                             </x-notification.toast>
                         @empty
                         @endforelse

@@ -39,6 +39,8 @@ class TransactionDetailResource extends JsonResource
             'invoice',
         ]);
 
+        $transaction->invoice->append('calculated');
+
         if (!empty($transaction->invoice->attachment)){
             $invoiceAttachmentUrl = route($isAdmin ? 'admin.attachment' : 'attachment', ['attachment' => $transaction->invoice->attachment->id]);
             $data = $transaction->toArray();

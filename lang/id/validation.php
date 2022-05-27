@@ -129,4 +129,6 @@ return [
     ],
     'attributes'           => [],
     'phone' => ':attribute berisi nomor yang tidak valid.',
+    'invoice.status.invalid' => 'Invoice harus dalam status :status, sekarang dalam status :current_status',
+    'transaction.status.invalid' => 'Transaksi harus dalam status :status, sekarang dalam status :current_status'
 ];
