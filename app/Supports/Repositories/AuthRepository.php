@@ -3,6 +3,7 @@
 namespace App\Supports\Repositories;
 
 use App\Models\Master\Admin;
+use App\Models\Master\Sprinter;
 use App\Models\Master\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -21,6 +22,7 @@ class AuthRepository
 
     const GUARD_WEB = 'web';
     const GUARD_ADMIN = 'admin';
+    const GUARD_SPRINTER = 'sprinter';
 
 
     public function __construct(\Closure $requestCallback)
@@ -33,7 +35,9 @@ class AuthRepository
     {
         return [
             self::GUARD_ADMIN,
-            self::GUARD_WEB
+            self::GUARD_WEB,
+            self::GUARD_SPRINTER,
+
         ];
     }
 
@@ -58,6 +62,8 @@ class AuthRepository
     {
         if ($this->isAdmin()) {
             return Admin::class;
+        } elseif ($this->isSprinter()){
+            return Sprinter::class;
         } else {
             return User::class;
         }
@@ -73,6 +79,11 @@ class AuthRepository
     public function isAdmin(): bool
     {
         return $this->scopedGuard === self::GUARD_ADMIN;
+    }
+
+    public function isSprinter(): bool
+    {
+        return $this->scopedGuard === self::GUARD_SPRINTER;
     }
 
     public function getRouteHome()

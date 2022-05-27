@@ -99,3 +99,11 @@ Route::middleware(['auth.guard:admin'])->group(function () {
 
     });
 });
+Route::middleware(['auth.guard:sprinter'])->group(function () {
+    Route::group(['middleware' => ['guest:sprinter'], 'prefix' => '/sprinter', 'as' => 'sprinter.'], function () {
+        Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
+            Route::get("/login", [\App\Http\Controllers\Auth\LoginController::class, "index"])->name('login');
+            Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
+        });
+    });
+});

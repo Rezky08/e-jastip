@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('m_payment_method_accountables', function (Blueprint $table) {
+        Schema::create('m_universitiables', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('payment_method_account_id');
-            $table->morphs('payment_method_accountable');
-
+            $table->bigInteger('university_id');
+            $table->morphs('universitiable');
             $table->timestamps();
 
-            $table->foreign('payment_method_account_id')
-                ->references(\App\Models\PaymentMethod\Account::getInstance()->getKeyName())
-                ->on(\App\Models\PaymentMethod\Account::getTableName())
+            $table->foreign('university_id')
+                ->references(\App\Models\Master\University::getInstance()->getKeyName())
+                ->on(\App\Models\Master\University::getTableName())
                 ->onDelete('cascade');
         });
     }
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_payment_method_accountables');
+        Schema::dropIfExists('m_universitiables');
     }
 };
