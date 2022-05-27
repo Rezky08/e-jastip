@@ -14,7 +14,7 @@ class PageSupport
         $route = Route::getCurrentRoute();
 
         $routeName = $route->getName();
-        $url = "/" . request()->getUri();
+        $url = request()->getPathInfo();
 
         $filteredSidebar = $sidebar;
         $selectedSidebar = null;
@@ -41,15 +41,16 @@ class PageSupport
             $sidebar = collect();
         }
         $selectedSidebar = null;
-        $sidebar = $sidebar->sortByDesc('url');
+        $sidebar = $sidebar->sortByDesc('url')->values();
         $urls = $sidebar->pluck('url')->filter();
+
         foreach ($urls as $index => $item) {
-            if (str_contains($item, $url)) {
+            if (str_contains($url,$item)) {
                 return $sidebar->toArray()[$index];
             }
         }
 
-        $sidebar = $sidebar->sortByDesc('routeName');
+        $sidebar = $sidebar->sortByDesc('routeName')->values();
         $routeNames = $sidebar->pluck('routeName')->filter();
         foreach ($routeNames as $index => $item) {
             if (str_contains($routeName, $item)) {
