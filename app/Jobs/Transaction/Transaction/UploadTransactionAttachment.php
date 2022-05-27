@@ -25,6 +25,8 @@ class UploadTransactionAttachment
 
     public Collection $transactionDocuments;
     public Transaction $transaction;
+    public $disk = 'document';
+
 
     /**
      * Create a new job instance.
@@ -61,7 +63,10 @@ class UploadTransactionAttachment
         foreach ($this->attributes as $document) {
             $file = $document['file'];
             $fileName = ($document['name'] ?? $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
-            $attachment = $this->create($file, ['title' => $fileName]);
+            $attachment = $this->create($file, [
+                'title' => $fileName,
+                'disk' => $this->disk
+            ]);
 
 
             throw_if(!($attachment instanceof Attachment), ValidationException::withMessages(['file' => 'Gagal Melakukan Upload File']));

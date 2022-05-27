@@ -1022,16 +1022,16 @@
         },
         {
             "name": "jalameta/jps-attachments",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rezky08/jps-attachments.git",
-                "reference": "84dc8e65d7d03a6b39e037b467c238ceb37cecb4"
+                "reference": "4893d8d7a13bc08e3e109681b585d88d5df3fdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rezky08/jps-attachments/zipball/84dc8e65d7d03a6b39e037b467c238ceb37cecb4",
-                "reference": "84dc8e65d7d03a6b39e037b467c238ceb37cecb4",
+                "url": "https://api.github.com/repos/Rezky08/jps-attachments/zipball/4893d8d7a13bc08e3e109681b585d88d5df3fdac",
+                "reference": "4893d8d7a13bc08e3e109681b585d88d5df3fdac",
                 "shasum": ""
             },
             "require": {
@@ -1071,9 +1071,9 @@
             ],
             "description": "Easy attachment library to attach your media files into something attachable.",
             "support": {
-                "source": "https://github.com/Rezky08/jps-attachments/tree/v2.0.3"
+                "source": "https://github.com/Rezky08/jps-attachments/tree/v2.0.4"
             },
-            "time": "2022-04-18T04:23:26+00:00"
+            "time": "2022-05-27T11:43:50+00:00"
         },
         {
             "name": "laravel-lang/lang",
@@ -3179,16 +3179,16 @@
         },
         {
             "name": "rezky/laravel-response-formatter",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rezky08/laravel-response-formatter.git",
-                "reference": "8ba6a62770d25ce315469253e3c8677f8894e742"
+                "reference": "a5ed6b872a512ff2ba6065312375b30613fe0565"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/8ba6a62770d25ce315469253e3c8677f8894e742",
-                "reference": "8ba6a62770d25ce315469253e3c8677f8894e742",
+                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/a5ed6b872a512ff2ba6065312375b30613fe0565",
+                "reference": "a5ed6b872a512ff2ba6065312375b30613fe0565",
                 "shasum": ""
             },
             "require": {
@@ -3213,9 +3213,9 @@
             "description": "result api formatter",
             "support": {
                 "issues": "https://github.com/Rezky08/laravel-response-formatter/issues",
-                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.2.0"
+                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.2.1"
             },
-            "time": "2022-05-11T06:42:12+00:00"
+            "time": "2022-05-27T11:48:28+00:00"
         },
         {
             "name": "rezky/rajaongkir",
