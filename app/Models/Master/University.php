@@ -6,7 +6,6 @@ use App\Contracts\PaymentMethodAccountableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
-use App\Models\Pivot\Master\AdminUniversity;
 use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use App\Traits\PaymentMethodAccountable;
@@ -63,13 +62,13 @@ class University extends Model implements PaymentMethodAccountableContract
         return $this->hasMany(Transaction::class, 'university_id', 'id');
     }
 
-    public function admins(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Admin::class, AdminUniversity::getTableName())->using(AdminUniversity::class);
-    }
-
     public function sprinters(): \Illuminate\Database\Eloquent\Relations\MorphToMany
     {
         return $this->morphedByMany(Sprinter::class, 'universitiable', 'm_universitiables', 'university_id', 'universitiable_id');
+    }
+
+    public function admins(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphedByMany(Admin::class, 'universitiable', 'm_universitiables', 'university_id', 'universitiable_id');
     }
 }

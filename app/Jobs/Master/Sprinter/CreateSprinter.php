@@ -3,6 +3,7 @@
 namespace App\Jobs\Master\Sprinter;
 
 use App\Events\Master\Sprinter\SprinterCreated;
+use App\Jobs\Master\University\AttachUniversitiable;
 use App\Models\Master\Sprinter;
 use App\Models\Master\University;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ class CreateSprinter
     public array $attributes;
     public Sprinter $sprinter;
     public University|Model $university;
-    public AttachSprinterUniversity $attachUniversityJob;
+    public AttachUniversitiable $attachUniversityJob;
 
     /**
      * Create a new job instance.
@@ -51,7 +52,7 @@ class CreateSprinter
             event(new SprinterCreated($this->sprinter));
         }
 
-        $this->attachUniversityJob = new AttachSprinterUniversity($this->sprinter,$this->university);
+        $this->attachUniversityJob = new AttachUniversitiable($this->sprinter,$this->university);
         dispatch($this->attachUniversityJob);
 
         return $this->sprinter->exists;

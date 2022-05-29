@@ -19,7 +19,6 @@ class AdminSeeder extends Seeder
         $job = new CreateAdmin([
             'name' => 'admin',
             'email' => 'admin@mail.com',
-            'faculty_id' => Faculty::query()->inRandomOrder()->first()->id,
             'password_confirmation' => $password,
             'password' => $password
         ]);
