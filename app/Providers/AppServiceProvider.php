@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         view()->composer('*',function ($view){
-            $view->with('appName','E-Jastip');
+            $view->with('appName',\config('app.name'));
             $view->with('ApiRajaOngkir',Config::get('api')['raja_ongkir']);
         });
     }

@@ -7,4 +7,5 @@ return [
 
     'invoice.payment.confirmation.title' => 'Konfirmasi Pembayaran',
     'invoice.payment.confirmation' => 'Apakah anda ingin melakukan konfirmasi pembayaran invoice <span class="font-weight-bold">#:invoice</span> ?',
+    'data.empty' => 'Maaf, tidak ada data yang ditemukan'
 ];

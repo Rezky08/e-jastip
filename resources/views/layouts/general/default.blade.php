@@ -381,7 +381,7 @@
                 @section("footer-content")
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
+                            <span>Copyright &copy; {{config('app.name')}} 2021</span>
                         </div>
                     </div>
                 @show
