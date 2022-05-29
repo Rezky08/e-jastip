@@ -30,7 +30,8 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                                <label class="custom-control-label" for="customCheck">Remember
+                                                    Me</label>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +51,8 @@
                                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="{{route('auth.register')}}">Create an Account!</a>
+                                    <a class="small" href="@yield('url-register',route('auth.register'))">Create an
+                                        Account!</a>
                                 </div>
                             </div>
                         </div>

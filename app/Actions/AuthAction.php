@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Jobs\Master\Sprinter\CreateSprinter;
 use App\Jobs\Master\User\CreateUser;
 use App\Models\Master\Admin;
 use App\Models\Master\Sprinter;
@@ -9,6 +10,7 @@ use App\Models\Master\User\User;
 use App\Providers\RouteServiceProvider;
 use App\Supports\Repositories\AuthRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -46,17 +48,29 @@ class AuthAction
 
     public function register($credentials = ['email' => null, 'password' => null, 'password_confirmation' => null])
     {
-        $job = new CreateUser($credentials);
-        dispatch($job);
-        $user = $job->user;
+        if ($this->repository->isSprinter()) {
+            DB::transaction(function () use ($credentials, &$job) {
+                $job = new CreateSprinter($credentials);
+                dispatch($job);
+            });
+            $user = $job->sprinter;
+        } else {
+            DB::transaction(function () use ($credentials, &$job) {
+                $job = new CreateUser($credentials);
+                dispatch($job);
+            });
+            $user = $job->user;
+        }
+
         $this->repository->scopedAuth->login($user);
         return redirect($this->repository->getRouteHome());
     }
 
     public function logout()
     {
+        $homeRoute = $this->repository->getRouteLogin();
         $this->repository->scopedAuth->logout();
-        return redirect(route(($this->repository->isAdmin() ? "admin." : "") . 'auth.login'));
+        return redirect($homeRoute);
     }
 
 }

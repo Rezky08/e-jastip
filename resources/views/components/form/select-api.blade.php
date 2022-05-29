@@ -2,6 +2,7 @@
                helper="{{$helper}}"
                :isGroup="$isGroup"
                :disabled="$disabled"
+               :rounded="$rounded"
 />
 @push('stack-script')
     <script>
@@ -12,6 +13,7 @@
             const isLocalhost = <?=json_encode($isLocalhost)?>;
             const requestUrl = isLocalhost ? `${window.location.origin}${url}` : url
             let additionalParams = <?=json_encode($params)?>;
+            let initiateParams = <?=json_encode($initiateParams)?>;
             const chainCssSelector = "<?=$chainSelector?>"
 
             if (chainCssSelector) {
@@ -19,14 +21,14 @@
                 chainSelector
                     .on("change", function (item) {
                         additionalParams = {...additionalParams, chainValue: item?.target?.value}
-                        form.select.optionApi(requestUrl, id, additionalParams);
+                        form.select.optionApi(requestUrl, id, additionalParams,initiateParams);
                         if (value) {
                             form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
                         }
                     })
             } else {
 
-                form.select.optionApi(requestUrl, id, additionalParams);
+                form.select.optionApi(requestUrl, id, additionalParams,initiateParams);
                 if (value) {
                     form.select.preOptionApi(requestUrl, id, {...additionalParams, id: value});
                 }

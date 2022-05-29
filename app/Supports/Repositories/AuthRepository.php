@@ -37,7 +37,6 @@ class AuthRepository
             self::GUARD_ADMIN,
             self::GUARD_WEB,
             self::GUARD_SPRINTER,
-
         ];
     }
 
@@ -94,6 +93,18 @@ class AuthRepository
             return route('sprinter.order.incoming');
         } else {
             return route('profile');
+
+        }
+    }
+
+    public function getRouteLogin()
+    {
+        if ($this->isAdmin()) {
+            return route('admin.auth.login');
+        } elseif ($this->isSprinter()) {
+            return route('sprinter.auth.login');
+        } else {
+            return route('auth.login');
 
         }
     }

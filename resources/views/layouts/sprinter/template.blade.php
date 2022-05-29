@@ -1,4 +1,5 @@
 @extends("layouts.general.index")
+@section("url-logout",route('sprinter.auth.logout'))
 
 @push("stack-script")
     <script>

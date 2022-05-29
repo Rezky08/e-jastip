@@ -104,9 +104,17 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
         Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
             Route::get("/login", [\App\Http\Controllers\Auth\LoginController::class, "index"])->name('login');
             Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
+            Route::get("/register", [\App\Http\Controllers\Auth\RegisterController::class, "index"])->name('register');
+            Route::post("/register", [\App\Http\Controllers\Auth\RegisterController::class, "store"]);
+
         });
     });
+
     Route::group(['middleware' => ['auth:sprinter'], 'prefix' => '/sprinter', 'as' => 'sprinter.'], function () {
+
+        Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
+            Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('logout');
+        });
 
         Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
             Route::group(['prefix' => '/incoming'], function () {
