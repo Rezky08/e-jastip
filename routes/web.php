@@ -106,4 +106,12 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
             Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
         });
     });
+    Route::group(['middleware' => ['auth:sprinter'], 'prefix' => '/sprinter', 'as' => 'sprinter.'], function () {
+
+        Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
+            Route::group(['prefix' => '/incoming'], function () {
+                Route::get("/", [\App\Http\Controllers\Sprinter\Order\IncomingController::class, "index"])->name("incoming");
+            });
+        });
+    });
 });

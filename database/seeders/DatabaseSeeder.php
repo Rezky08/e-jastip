@@ -6,6 +6,7 @@ use Database\Seeders\Geo\GeoSeeder;
 use Database\Seeders\Master\AdminSeeder;
 use Database\Seeders\Master\AdminUniversitySeeder;
 use Database\Seeders\Master\FacultySeeder;
+use Database\Seeders\Master\SprinterSeeder;
 use Database\Seeders\Master\StudyProgramWithoutFacultySeeder;
 use Database\Seeders\Master\UniversityAddressSeeder;
 use Database\Seeders\Master\UniversitySeeder;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StudyProgramWithoutFacultySeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(SprinterSeeder::class);
         $this->call(UniversityAddressSeeder::class);
         $this->call(AdminUniversitySeeder::class);
         $this->call(PaymentMethodAccountSeeder::class);

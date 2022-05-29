@@ -37,6 +37,7 @@ class ScopeGuard
             $view->with('sidebar', $sidebar);
             $view->with('currentSidebar', $currentSidebar);
             $view->with('isAdmin', $this->repository->isAdmin());
+            $view->with('isSprinter', $this->repository->isSprinter());
             $view->with('user', $this->repository->getUser());
 
             $collection = new Collection();

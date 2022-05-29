@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Supports\Repositories\AuthRepository;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }

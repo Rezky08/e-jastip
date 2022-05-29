@@ -6,10 +6,10 @@ use App\Contracts\UniversitiableContract;
 use App\Traits\HasTable;
 use App\Traits\Universitiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
-class Sprinter extends Model implements UniversitiableContract
+class Sprinter extends Authenticatable implements  UniversitiableContract
 {
     use HasFactory, HasTable,Universitiable;
 
@@ -23,6 +23,12 @@ class Sprinter extends Model implements UniversitiableContract
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
     ];
 
     /**

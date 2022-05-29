@@ -62,14 +62,14 @@ class AuthRepository
     {
         if ($this->isAdmin()) {
             return Admin::class;
-        } elseif ($this->isSprinter()){
+        } elseif ($this->isSprinter()) {
             return Sprinter::class;
         } else {
             return User::class;
         }
     }
 
-    public function getUser(): User|Admin|null
+    public function getUser(): User|Admin|Sprinter|null
     {
 
         $user = $this->scopedAuth->user();
@@ -90,6 +90,8 @@ class AuthRepository
     {
         if ($this->isAdmin()) {
             return route('admin.pengajuan-legalisir.ijazah');
+        } elseif ($this->isSprinter()) {
+            return route('sprinter.order.incoming');
         } else {
             return route('profile');
 

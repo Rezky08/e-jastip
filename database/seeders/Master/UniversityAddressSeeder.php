@@ -16,7 +16,7 @@ class UniversityAddressSeeder extends Seeder
     public function run()
     {
         // Unnes Address
-        $university = University::query()->find(139);
+        $university = University::query()->find(UniversitySeeder::$defaultId);
         $university->fill([
             'province_id' => 10,// Jawa tengah
             'city_id' => 399,// Kota Semarang

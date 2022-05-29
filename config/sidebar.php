@@ -64,21 +64,14 @@ return [
     ],
     \App\Supports\Repositories\AuthRepository::GUARD_SPRINTER => [
         [
-            'code' => 'ARL',
-            'title' => 'Layanan',
+            'code' => 'SOR',
+            'title' => 'Order',
             'children' => [
                 [
-                    'code' => 'ARL',
-                    'title' => 'Pengajuan Legalisir',
-                    'childrenTitle' => 'Pengajuan Legalisir',
-                    'children' => [
-                        [
-                            'code' => 'AJZ',
-                            'title' => 'Ijazah',
-                            'routeName' => 'admin.pengajuan-legalisir.ijazah',
-                            'children' => []
-                        ],
-                    ]
+                    'code' => 'SOI',
+                    'title' => 'Incoming',
+                    'routeName' => 'sprinter.order.incoming',
+                    'children' => []
                 ],
             ]
         ],

@@ -67,4 +67,9 @@ class University extends Model implements PaymentMethodAccountableContract
     {
         return $this->belongsToMany(Admin::class, AdminUniversity::getTableName())->using(AdminUniversity::class);
     }
+
+    public function sprinters(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphedByMany(Sprinter::class, 'universitiable', 'm_universitiables', 'university_id', 'universitiable_id');
+    }
 }

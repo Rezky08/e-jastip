@@ -373,15 +373,18 @@
 
         </div>
         <!-- End of Main Content -->
+
     @section("footer")
 
         <!-- Footer -->
             <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                @section("footer-content")
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2021</span>
+                        </div>
                     </div>
-                </div>
+                @show
             </footer>
             <!-- End of Footer -->
 
