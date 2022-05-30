@@ -16,26 +16,17 @@
 
 <script>
 export default {
-    name: "Button",
+    name:"ButtonComponent",
     props: {
         rounded: Boolean,
         circle: Boolean,
         outline: Boolean,
         color: {
             type: String,
-            default: "primary",
-            validator(value) {
-                // The value must match one of these strings
-                return [consts.color.COLORS].includes(value)
-            }
+            default: consts.color.COLOR_PRIMARY,
         },
         size: {
             type: String,
-            default: "primary",
-            validator(value) {
-                // The value must match one of these strings
-                return [consts.size.SIZES].includes(value)
-            }
         },
     }
 

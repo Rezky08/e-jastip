@@ -11,7 +11,8 @@
                 </div>
             </div>
             <div class="col-4 text-right">
-                <Button :size="$consts.size.SIZE_SMALL" :color="$consts.color.COLOR_INFO" outline>Ambil</Button>
+                <button-component :size="$consts.size.SIZE_SMALL" :color="$consts.color.COLOR_INFO" outline>Ambil
+                </button-component>
             </div>
         </div>
     </card>
@@ -19,13 +20,13 @@
 
 <script>
 import Card from "../../Card";
-import Button from "../../Button";
+import ButtonComponent from "../../ButtonComponent";
 import Currency from "../../displays/currency";
 
 export default {
     name: "IncomingCard",
     props: ["token", "universityName", "amount"],
-    components: {Currency, Card, Button},
+    components: {Currency, Card, ButtonComponent},
 }
 </script>
 
