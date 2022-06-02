@@ -14,8 +14,8 @@ class Pagination extends Component {
             // size: "lg",
             threeDots: true,
             prevNext: true,
-            href: (config?.href ?? location.base) + '?page=*', // * will be replaced by the page number
-            pageOneHref: (config?.href ?? location.base),
+            pageOneHref: (config?.href ?? `${location.origin}${location.pathname}`),
+            href: (config?.href ?? `${location.origin}${location.pathname}`) + '?page=*', // * will be replaced by the page number
             // borderColor: 'red',
             // activeBorderColor: 'black',
             // activeBgColor: 'grey',

@@ -5635,6 +5635,42 @@ window.getBreakPoint = getBreakPoint;
 
 /***/ }),
 
+/***/ "./resources/js/helper/color.js":
+/*!**************************************!*\
+  !*** ./resources/js/helper/color.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "COLOR_DANGER": () => (/* binding */ COLOR_DANGER),
+/* harmony export */   "COLOR_DARK": () => (/* binding */ COLOR_DARK),
+/* harmony export */   "COLOR_INFO": () => (/* binding */ COLOR_INFO),
+/* harmony export */   "COLOR_LIGHT": () => (/* binding */ COLOR_LIGHT),
+/* harmony export */   "COLOR_PRIMARY": () => (/* binding */ COLOR_PRIMARY),
+/* harmony export */   "COLOR_SECONDARY": () => (/* binding */ COLOR_SECONDARY),
+/* harmony export */   "COLOR_SUCCESS": () => (/* binding */ COLOR_SUCCESS),
+/* harmony export */   "COLOR_WARNING": () => (/* binding */ COLOR_WARNING),
+/* harmony export */   "getColorClass": () => (/* binding */ getColorClass)
+/* harmony export */ });
+var COLOR_PRIMARY = 'primary';
+var COLOR_SECONDARY = 'secondary';
+var COLOR_SUCCESS = 'success';
+var COLOR_DANGER = 'danger';
+var COLOR_WARNING = 'warning';
+var COLOR_INFO = 'info';
+var COLOR_LIGHT = 'light';
+var COLOR_DARK = 'dark';
+var getColorClass = function getColorClass() {
+  var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'btn-';
+  var color = arguments.length > 1 ? arguments[1] : undefined;
+  var outline = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  return color ? outline ? "".concat(prefix, "outline-").concat(color) : "".concat(prefix).concat(color) : "";
+};
+
+/***/ }),
+
 /***/ "./resources/js/helper/file.js":
 /*!*************************************!*\
   !*** ./resources/js/helper/file.js ***!
@@ -5662,6 +5698,59 @@ var getSize = function getSize(file) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getSize: getSize
 });
+
+/***/ }),
+
+/***/ "./resources/js/helper/formatter.js":
+/*!******************************************!*\
+  !*** ./resources/js/helper/formatter.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "displayCurrency": () => (/* binding */ displayCurrency)
+/* harmony export */ });
+var displayCurrency = function displayCurrency(currency) {
+  return new Intl.NumberFormat("ID", {
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 0 // (causes 2500.99 to be printed as $2,501)
+
+  }).format(currency !== null && currency !== void 0 ? currency : 0);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  displayCurrency: displayCurrency
+});
+
+/***/ }),
+
+/***/ "./resources/js/helper/size.js":
+/*!*************************************!*\
+  !*** ./resources/js/helper/size.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SIZE_LARGE": () => (/* binding */ SIZE_LARGE),
+/* harmony export */   "SIZE_SMALL": () => (/* binding */ SIZE_SMALL),
+/* harmony export */   "SIZE_XLARGE": () => (/* binding */ SIZE_XLARGE),
+/* harmony export */   "SIZE_XSMALL": () => (/* binding */ SIZE_XSMALL),
+/* harmony export */   "getSizeClass": () => (/* binding */ getSizeClass)
+/* harmony export */ });
+var SIZE_SMALL = 'sm';
+var SIZE_XSMALL = 'xs';
+var SIZE_LARGE = 'lg';
+var SIZE_XLARGE = 'xl';
+var getSizeClass = function getSizeClass() {
+  var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'btn-';
+  var size = arguments.length > 1 ? arguments[1] : undefined;
+  return size ? "".concat(prefix).concat(size) : "";
+};
 
 /***/ }),
 
@@ -5708,6 +5797,85 @@ var routeUri = function routeUri(name) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   routeUri: routeUri
 });
+
+/***/ }),
+
+/***/ "./resources/js/react/components/Button.jsx":
+/*!**************************************************!*\
+  !*** ./resources/js/react/components/Button.jsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _helper_size__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/helper/size */ "./resources/js/helper/size.js");
+/* harmony import */ var _helper_color__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/helper/color */ "./resources/js/helper/color.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var prefixClass = 'btn-';
+
+var Button = /*#__PURE__*/function (_Component) {
+  _inherits(Button, _Component);
+
+  var _super = _createSuper(Button);
+
+  function Button() {
+    _classCallCheck(this, Button);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Button, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: ["btn", this.props.fullWidth ? "btn-block" : null, this.props.rounded ? "btn-rounded" : null, this.props.circle ? "btn-circle" : null, this.props.size ? (0,_helper_size__WEBPACK_IMPORTED_MODULE_1__.getSizeClass)(prefixClass, this.props.size) : null, this.props.color ? (0,_helper_color__WEBPACK_IMPORTED_MODULE_2__.getColorClass)(prefixClass, this.props.color, this.props.outline) : null].join(" "),
+        children: this.props.children
+      });
+    }
+  }]);
+
+  return Button;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+Button.defaultProps = {
+  fullWidth: false,
+  rounded: false,
+  circle: false,
+  outline: false,
+  size: _helper_size__WEBPACK_IMPORTED_MODULE_1__.SIZE_SMALL,
+  color: _helper_color__WEBPACK_IMPORTED_MODULE_2__.COLOR_PRIMARY
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
 
 /***/ }),
 
@@ -5835,6 +6003,82 @@ if (document.getElementById('example')) {
 
 /***/ }),
 
+/***/ "./resources/js/react/components/Form.jsx":
+/*!************************************************!*\
+  !*** ./resources/js/react/components/Form.jsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Form = /*#__PURE__*/function (_Component) {
+  _inherits(Form, _Component);
+
+  var _super = _createSuper(Form);
+
+  function Form() {
+    _classCallCheck(this, Form);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Form, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", _objectSpread(_objectSpread({}, this.props), {}, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "hidden",
+          name: "_token",
+          value: window.csrf
+        }), this.props.children]
+      }));
+    }
+  }]);
+
+  return Form;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Form);
+
+/***/ }),
+
 /***/ "./resources/js/react/components/OrderCard.jsx":
 /*!*****************************************************!*\
   !*** ./resources/js/react/components/OrderCard.jsx ***!
@@ -5849,7 +6093,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card */ "./resources/js/react/components/Card.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _react_components_display_currency__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/react/components/display/currency */ "./resources/js/react/components/display/currency.jsx");
+/* harmony import */ var _react_components_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/react/components/Button */ "./resources/js/react/components/Button.jsx");
+/* harmony import */ var _helper_color__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/helper/color */ "./resources/js/helper/color.js");
+/* harmony import */ var _react_components_Form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/react/components/Form */ "./resources/js/react/components/Form.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5878,6 +6126,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
+
+
 var OrderCard = /*#__PURE__*/function (_Component) {
   _inherits(OrderCard, _Component);
 
@@ -5892,26 +6144,40 @@ var OrderCard = /*#__PURE__*/function (_Component) {
   _createClass(OrderCard, [{
     key: "render",
     value: function render() {
-      var _this$props$transacti, _this$props$transacti2, _this$props$transacti3;
+      var _this$props$data$toke, _this$props$data, _this$props$data$univ, _this$props$data2, _this$props$data2$uni, _this$props$data3, _this$props$data3$inv, _this$props$data3$inv2, _this$props$data$id, _this$props$data4;
 
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "row align-items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "col-8",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               className: "d-flex flex-column",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
                 className: "font-weight-bold",
-                children: ["#", (_this$props$transacti = this.props.transaction) !== null && _this$props$transacti !== void 0 ? _this$props$transacti : null]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                children: (_this$props$transacti2 = this.props.transaction) === null || _this$props$transacti2 === void 0 ? void 0 : (_this$props$transacti3 = _this$props$transacti2.university) === null || _this$props$transacti3 === void 0 ? void 0 : _this$props$transacti3.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                className: "font-weight-bold"
+                children: ["#", (_this$props$data$toke = (_this$props$data = this.props.data) === null || _this$props$data === void 0 ? void 0 : _this$props$data.token) !== null && _this$props$data$toke !== void 0 ? _this$props$data$toke : null]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                children: (_this$props$data$univ = (_this$props$data2 = this.props.data) === null || _this$props$data2 === void 0 ? void 0 : (_this$props$data2$uni = _this$props$data2.university) === null || _this$props$data2$uni === void 0 ? void 0 : _this$props$data2$uni.name) !== null && _this$props$data$univ !== void 0 ? _this$props$data$univ : null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                className: "font-weight-bold",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_components_display_currency__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  value: (_this$props$data3 = this.props.data) === null || _this$props$data3 === void 0 ? void 0 : (_this$props$data3$inv = _this$props$data3.invoice) === null || _this$props$data3$inv === void 0 ? void 0 : (_this$props$data3$inv2 = _this$props$data3$inv.calculated) === null || _this$props$data3$inv2 === void 0 ? void 0 : _this$props$data3$inv2.total
+                })
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "col-4 text-right"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "col-4 text-right",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_components_Form__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              method: "POST",
+              action: helper.url.routeUri('sprinter.order.incoming.take', {
+                transaction: (_this$props$data$id = (_this$props$data4 = this.props.data) === null || _this$props$data4 === void 0 ? void 0 : _this$props$data4.id) !== null && _this$props$data$id !== void 0 ? _this$props$data$id : null
+              }),
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_components_Button__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                color: _helper_color__WEBPACK_IMPORTED_MODULE_5__.COLOR_INFO,
+                outline: true,
+                children: "ambil"
+              })
+            })
           })]
         })
       });
@@ -5924,7 +6190,7 @@ var OrderCard = /*#__PURE__*/function (_Component) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OrderCard);
 
 if (document.getElementById('order-card')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(OrderCard, {}), document.getElementById('order-card'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(OrderCard, {}), document.getElementById('order-card'));
 }
 
 /***/ }),
@@ -5999,9 +6265,9 @@ var Pagination = /*#__PURE__*/function (_Component) {
         // size: "lg",
         threeDots: true,
         prevNext: true,
-        href: ((_config$href = config === null || config === void 0 ? void 0 : config.href) !== null && _config$href !== void 0 ? _config$href : location.base) + '?page=*',
-        // * will be replaced by the page number
-        pageOneHref: (_config$href2 = config === null || config === void 0 ? void 0 : config.href) !== null && _config$href2 !== void 0 ? _config$href2 : location.base // borderColor: 'red',
+        pageOneHref: (_config$href = config === null || config === void 0 ? void 0 : config.href) !== null && _config$href !== void 0 ? _config$href : "".concat(location.origin).concat(location.pathname),
+        href: ((_config$href2 = config === null || config === void 0 ? void 0 : config.href) !== null && _config$href2 !== void 0 ? _config$href2 : "".concat(location.origin).concat(location.pathname)) + '?page=*' // * will be replaced by the page number
+        // borderColor: 'red',
         // activeBorderColor: 'black',
         // activeBgColor: 'grey',
         // disabledBgColor: 'red',
@@ -6024,6 +6290,75 @@ var Pagination = /*#__PURE__*/function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pagination);
+
+/***/ }),
+
+/***/ "./resources/js/react/components/display/currency.jsx":
+/*!************************************************************!*\
+  !*** ./resources/js/react/components/display/currency.jsx ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _helper_formatter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/helper/formatter */ "./resources/js/helper/formatter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var Currency = /*#__PURE__*/function (_Component) {
+  _inherits(Currency, _Component);
+
+  var _super = _createSuper(Currency);
+
+  function Currency() {
+    _classCallCheck(this, Currency);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Currency, [{
+    key: "render",
+    value: function render() {
+      var _this$props$value;
+
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+        children: ["Rp. ", (0,_helper_formatter__WEBPACK_IMPORTED_MODULE_1__.displayCurrency)((_this$props$value = this.props.value) !== null && _this$props$value !== void 0 ? _this$props$value : 0)]
+      });
+    }
+  }]);
+
+  return Currency;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Currency);
 
 /***/ }),
 
@@ -6095,7 +6430,7 @@ var Incoming = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      API.get(location.pathname).then(function (_ref) {
+      API.get(location.href).then(function (_ref) {
         var data = _ref.data;
 
         _this2.setState({
@@ -6110,7 +6445,15 @@ var Incoming = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_react_components_OrderCard__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_react_components_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "d-flex flex-column",
+        style: {
+          gap: "1rem"
+        },
+        children: [this.state.data.map(function (item, key) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_react_components_OrderCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            data: item
+          }, key);
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_react_components_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {
           config: this.state.paginator
         })]
       });
@@ -64602,10 +64945,13 @@ if (false) {} else {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./Button.jsx": "./resources/js/react/components/Button.jsx",
 	"./Card.jsx": "./resources/js/react/components/Card.jsx",
 	"./Example.js": "./resources/js/react/components/Example.js",
+	"./Form.jsx": "./resources/js/react/components/Form.jsx",
 	"./OrderCard.jsx": "./resources/js/react/components/OrderCard.jsx",
-	"./Pagination.jsx": "./resources/js/react/components/Pagination.jsx"
+	"./Pagination.jsx": "./resources/js/react/components/Pagination.jsx",
+	"./display/currency.jsx": "./resources/js/react/components/display/currency.jsx"
 };
 
 
@@ -64637,14 +64983,20 @@ webpackContext.id = "./resources/js/react/components sync recursive (\\.js%7C\\.
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./Button": "./resources/js/react/components/Button.jsx",
+	"./Button.jsx": "./resources/js/react/components/Button.jsx",
 	"./Card": "./resources/js/react/components/Card.jsx",
 	"./Card.jsx": "./resources/js/react/components/Card.jsx",
 	"./Example": "./resources/js/react/components/Example.js",
 	"./Example.js": "./resources/js/react/components/Example.js",
+	"./Form": "./resources/js/react/components/Form.jsx",
+	"./Form.jsx": "./resources/js/react/components/Form.jsx",
 	"./OrderCard": "./resources/js/react/components/OrderCard.jsx",
 	"./OrderCard.jsx": "./resources/js/react/components/OrderCard.jsx",
 	"./Pagination": "./resources/js/react/components/Pagination.jsx",
-	"./Pagination.jsx": "./resources/js/react/components/Pagination.jsx"
+	"./Pagination.jsx": "./resources/js/react/components/Pagination.jsx",
+	"./display/currency": "./resources/js/react/components/display/currency.jsx",
+	"./display/currency.jsx": "./resources/js/react/components/display/currency.jsx"
 };
 
 

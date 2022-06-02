@@ -36,6 +36,7 @@
     </script>
     <script>
         const phpJsonVar = "<?=json_encode($json ?? [])?>"
+        window.csrf = "<?=csrf_token()?>";
     </script>
 
     <script>

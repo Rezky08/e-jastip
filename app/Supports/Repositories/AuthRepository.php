@@ -132,6 +132,11 @@ class AuthRepository
                 return true;
             }
 
+            // add verify for user later
+            if ($this->getUser() instanceof Sprinter and (Str::startsWith($name, 'sprinter'))) {
+                return true;
+            }
+
             // add verify for admin later
             if ($this->getUser() instanceof Admin and Str::startsWith($name, 'admin')) {
                 return true;

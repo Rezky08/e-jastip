@@ -13,15 +13,15 @@ class Incoming extends Component {
     }
 
     componentDidMount() {
-        API.get(location.pathname).then(({data}) => {
+        API.get(location.href).then(({data}) => {
             this.setState({data: data?.data, paginator: data?.paginator}, () => console.log(this.state))
         })
     }
 
     render() {
         return (
-            <div>
-                <OrderCard/>
+            <div className="d-flex flex-column" style={{gap: "1rem"}}>
+                {this.state.data.map((item, key) => <OrderCard key={key} data={item}/>)}
                 <Pagination config={this.state.paginator}/>
             </div>
         );
