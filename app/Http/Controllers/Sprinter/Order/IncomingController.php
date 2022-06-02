@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Sprinter\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Models\Transaction\Transaction;
 use App\Supports\Repositories\SprinterRepository\Query;
 use App\Supports\Repositories\TransactionRepository;
 use App\Traits\usePagination;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Rezky\LaravelResponseFormatter\Http\Response;
@@ -26,16 +28,21 @@ class IncomingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response | JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         /** @var Query|Builder $query */
         $query = $this->transactionRepository->queries();
         $query = $query->getIncomingTransaction();
 
         /** @var LengthAwarePaginator $transactions */
-        $transactions = $this->withPagination($query, null, Response::PAGINATOR_TYPE_DEFAULT, 5);
+        $transactions = $this->withPagination($query, TransactionResource::class, Response::PAGINATOR_TYPE_DEFAULT, 5);
+        if ($request->expectsJson()) {
+            /** @var JsonResponse $transactions */
+
+            return $transactions;
+        }
         $data = [
             'data' => $transactions
         ];

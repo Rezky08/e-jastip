@@ -2,19 +2,20 @@
 
 namespace App\View\Components\Sprinter\Order;
 
+use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Models\Transaction\Transaction;
 use Illuminate\View\Component;
 
 class IncomingCard extends Component
 {
-    public Transaction $transaction;
+    public Transaction|TransactionResource $transaction;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(Transaction|TransactionResource $transaction)
     {
 
         $this->transaction = $transaction;

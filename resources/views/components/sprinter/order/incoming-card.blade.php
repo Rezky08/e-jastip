@@ -1,5 +1,5 @@
 @php
-    /** @var \App\Models\Transaction\Transaction $transaction */
+    /** @var \App\Models\Transaction\Transaction | \App\Http\Resources\Admin\Transaction\TransactionResource $transaction */
 @endphp
 
 <x-wrapper.card>

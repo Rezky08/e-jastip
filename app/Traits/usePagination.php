@@ -5,13 +5,14 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Rezky\LaravelResponseFormatter\Http\Code;
 use Rezky\LaravelResponseFormatter\Http\Response;
 
 trait usePagination
 {
-    public function withPagination(Builder $query, string|null $resource = null, $paginatorType = Response::PAGINATOR_TYPE_DEFAULT, $perPage = 10): Response|JsonResponse|LengthAwarePaginator
+    public function withPagination(Builder $query, string|null $resource = null, $paginatorType = Response::PAGINATOR_TYPE_DEFAULT, $perPage = 10): Response|JsonResponse|LengthAwarePaginator|AnonymousResourceCollection
     {
         /** @var Request $request */
         $request = \Request();
