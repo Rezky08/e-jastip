@@ -38,6 +38,10 @@ class SettingSeeder extends Seeder
                 'key'=> Setting::KEY_MAX_TRANSACTION_ATTACHMENT,
                 'value' => 1
             ],
+            [
+                'key'=> Setting::KEY_MAX_SPRINTER_ORDER_TAKEN,
+                'value' => 3
+            ],
 
         ];
     }

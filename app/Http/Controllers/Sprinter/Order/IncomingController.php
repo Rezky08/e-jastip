@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Sprinter\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Transaction\TransactionResource;
+use App\Jobs\Transaction\Order\TakeTransactionOrder;
+use App\Models\Master\Sprinter;
 use App\Models\Transaction\Transaction;
+use App\Supports\Notification\ToastSupport;
+use App\Supports\Repositories\AuthRepository;
 use App\Supports\Repositories\SprinterRepository\Query;
 use App\Supports\Repositories\TransactionRepository;
 use App\Traits\usePagination;
@@ -12,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Rezky\LaravelResponseFormatter\Http\Response;
 
 class IncomingController extends Controller
@@ -19,10 +24,12 @@ class IncomingController extends Controller
     use usePagination;
 
     public TransactionRepository $transactionRepository;
+    public AuthRepository $authRepository;
 
-    public function __construct(TransactionRepository $transactionRepository)
+    public function __construct(AuthRepository $authRepository, TransactionRepository $transactionRepository)
     {
         $this->transactionRepository = $transactionRepository;
+        $this->authRepository = $authRepository;
     }
 
     /**
@@ -65,11 +72,22 @@ class IncomingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Transaction $transaction)
     {
-        dd($transaction);
+        /** @var Sprinter $user */
+        $user = $this->authRepository->getUser();
+        try {
+            $job = new TakeTransactionOrder($user, $transaction);
+            DB::transaction(function () use ($user, $transaction, &$job) {
+                $this->dispatch($job);
+            });
+        } catch (\Exception $e) {
+            ToastSupport::add($e->getMessage(), __("messages.sprinter.order.incoming"));
+        }
+
+        return redirect()->back();
     }
 
     /**

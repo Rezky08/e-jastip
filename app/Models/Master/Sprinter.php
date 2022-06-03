@@ -3,6 +3,7 @@
 namespace App\Models\Master;
 
 use App\Contracts\UniversitiableContract;
+use App\Models\Transaction\Order;
 use App\Traits\HasTable;
 use App\Traits\Universitiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,6 +47,11 @@ class Sprinter extends Authenticatable implements  UniversitiableContract
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class,'sprinter_id','id');
     }
 
 }
