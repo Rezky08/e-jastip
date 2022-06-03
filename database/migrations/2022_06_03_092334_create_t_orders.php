@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_orders', function (Blueprint $table) {
+        Schema::create(\App\Models\Transaction\Order::getTableName(), function (Blueprint $table) {
             $table->uuid('id');
             $table->unsignedBigInteger('sprinter_id');
             $table->unsignedBigInteger('transaction_id');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_orders');
+        Schema::dropIfExists(\App\Models\Transaction\Order::getTableName());
     }
 };

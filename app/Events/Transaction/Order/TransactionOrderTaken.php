@@ -3,15 +3,12 @@
 namespace App\Events\Transaction\Order;
 
 use App\Models\Transaction\Order;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TransactionOrderTaked
+class TransactionOrderTaken
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

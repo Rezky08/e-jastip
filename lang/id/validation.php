@@ -131,7 +131,7 @@ return [
     'phone' => ':attribute berisi nomor yang tidak valid.',
     'invoice.status.invalid' => 'Invoice harus dalam status :status, sekarang dalam status :current_status',
     'transaction.status.invalid' => 'Transaksi harus dalam status :status, sekarang dalam status :current_status',
-    'order.transaction.taked' => 'Transaksi :id sudah pernah diambil sebelumnya',
+    'order.transaction.taken' => 'Transaksi :id sudah pernah diambil sebelumnya',
     'order.transaction.max' => 'Transaksi sudah mencapai batas maksimum untuk diambil',
 
 ];

@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Transaction\Order;
 
-use App\Events\Transaction\Order\TransactionOrderTaked;
+use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Models\Master\Sprinter;
 use App\Models\Setting\Setting;
 use App\Models\Transaction\Order;
@@ -51,7 +51,7 @@ class TakeTransactionOrder
                 function ($attribute, $value, $fail) {
                     $isAlreadyTaken = $this->sprinter->orders()->where('transaction_id', $value)->exists();
                     if ($isAlreadyTaken) {
-                        $fail(__('validation.order.transaction.taked', ['id' => $this->transaction->token]));
+                        $fail(__('validation.order.transaction.taken', ['id' => $this->transaction->token]));
                     }
                 },
             ]
@@ -68,12 +68,13 @@ class TakeTransactionOrder
      */
     public function handle(): bool
     {
+        $this->order->status = Order::ORDER_STATUS_TAKEN;
         $this->order->transaction()->associate($this->transaction);
         $this->order->sprinter()->associate($this->sprinter);
         $this->order->save();
 
         if ($this->order->exists) {
-            event(new TransactionOrderTaked($this->order));
+            event(new TransactionOrderTaken($this->order));
         }
         return $this->order->exists;
 
