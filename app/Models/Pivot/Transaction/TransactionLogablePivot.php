@@ -3,6 +3,7 @@
 namespace App\Models\Pivot\Transaction;
 
 use App\Models\Transaction\Order;
+use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
@@ -16,6 +17,7 @@ class TransactionLogablePivot extends MorphPivot
     public $timestamps = true;
 
     const LOG_TYPE_ORDER = 'Order';
+    const LOG_TYPE_TRANSACTION = 'Transaksi';
 
     /**
      * The table associated with the model.
@@ -51,7 +53,8 @@ class TransactionLogablePivot extends MorphPivot
     public static function getAvailableTypes()
     {
         return [
-            Order::class => self::LOG_TYPE_ORDER
+            Order::class => self::LOG_TYPE_ORDER,
+            Transaction::class => self::LOG_TYPE_TRANSACTION,
         ];
     }
 

@@ -29,7 +29,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         TransactionCreated::class => [
-            GenerateInvoice::class
+            GenerateInvoice::class,
+            WriteTransactionLogByEvent::class
         ],
         UserCreated::class => [
             UpdateOrCreateUserDetailByEvent::class

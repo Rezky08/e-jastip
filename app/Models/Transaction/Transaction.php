@@ -3,6 +3,7 @@
 namespace App\Models\Transaction;
 
 use App\Contracts\InvoiceableContract;
+use App\Contracts\TransactionLogableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
@@ -13,6 +14,7 @@ use App\Models\Master\User\User;
 use App\Models\Pivot\Transaction\TransactionLogablePivot;
 use App\Models\Transaction\Invoice\Invoice;
 use App\Traits\Invoiceable;
+use App\Traits\TransactionLogable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\HasTable;
@@ -57,9 +59,9 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property Collection $invoices
  * @property Invoice $invoice
  */
-class Transaction extends Model implements InvoiceableContract, AttachableContract
+class Transaction extends Model implements InvoiceableContract, AttachableContract, TransactionLogableContract
 {
-    use HasFactory, Invoiceable, HasTable, Attachable;
+    use HasFactory, Invoiceable, HasTable, Attachable,TransactionLogable;
 
     protected $table = "t_transactions";
 
@@ -219,6 +221,11 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
             ->withPivot('id', 'remark')
             ->withTimestamps()
             ->using(TransactionLogablePivot::class);
+    }
+
+    public function transactionLogable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    {
+        return $this->morphTo();
     }
 
 
