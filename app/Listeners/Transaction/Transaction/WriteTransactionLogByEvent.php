@@ -42,6 +42,7 @@ class WriteTransactionLogByEvent
 
                 $job = new WriteTransactionLog($transaction, $order, $data);
                 dispatch($job);
+                break;
             case $event instanceof TransactionCreated:
                 /** @var Transaction $transaction */
                 $transaction = $event->transaction;
@@ -53,6 +54,7 @@ class WriteTransactionLogByEvent
 
                 $job = new WriteTransactionLog($transaction, $transaction, $data);
                 dispatch($job);
+                break;
         }
     }
 }
