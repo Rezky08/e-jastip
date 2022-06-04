@@ -22,12 +22,7 @@ class OrderCard extends Component {
                         </div>
                     </div>
                     <div className="col-4 text-right">
-                        <Form method="POST"
-                              action={helper.url.routeUri('sprinter.order.incoming.take', {transaction: this.props.data?.id ?? null})}>
-                            <Button color={COLOR_INFO} outline>
-                                ambil
-                            </Button>
-                        </Form>
+                        {this.props.action}
 
                     </div>
                 </div>

@@ -210,9 +210,9 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
         return $this->hasMany(\App\Models\Transaction\Transaction\Attachment::class, 'transaction_id', 'id');
     }
 
-    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function order(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasMany(Order::class,'transaction_id','id');
+        return $this->hasOne(Order::class,'transaction_id','id');
     }
 
     public function orderLogs(): \Illuminate\Database\Eloquent\Relations\MorphToMany

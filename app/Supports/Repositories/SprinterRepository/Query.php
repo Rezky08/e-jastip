@@ -28,6 +28,13 @@ class Query
 
     public function getIncomingTransaction(): Builder
     {
-        return $this->query->whereDoesntHave('orders')->where('status', Transaction::TRANSACTION_STATUS_PAID);
+        return $this->query->whereDoesntHave('order')->where('status', Transaction::TRANSACTION_STATUS_PAID);
+    }
+
+    public function getOngoingTransaction(): Builder
+    {
+        return $this->query->whereHas('order', function (Builder $query) {
+            $query->where('sprinter_id', $this->sprinter->id);
+        });
     }
 }

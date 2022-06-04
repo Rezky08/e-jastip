@@ -117,6 +117,12 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
         });
 
         Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
+            Route::group(['prefix' => '/ongoing'], function () {
+                Route::group(['prefix' => '/{order}', 'as' => 'ongoing.'], function () {
+                    Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "show"])->name("detail");
+                });
+                Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "index"])->name("ongoing");
+            });
             Route::group(['prefix' => '/incoming'], function () {
                 Route::get("/", [\App\Http\Controllers\Sprinter\Order\IncomingController::class, "index"])->name("incoming");
 

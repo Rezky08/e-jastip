@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Transaction\Order;
 use App\Models\Transaction\Transaction;
 use App\Models\Transaction\Invoice\Invoice;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -39,6 +40,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('transaction', function ($value) {
             return Transaction::query()->findOrFail($value);
         });
+
+        Route::bind('order', function ($value) {
+            return Order::query()->findOrFail($value);
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

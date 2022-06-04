@@ -22,6 +22,7 @@ class TransactionResource extends JsonResource
         $studyProgram = $data->studyProgram;
         $university = $data->university;
         $invoice = $data->invoice;
+        $order = $data->order;
         $invoice->append('calculated');
         $documents = $data->documents;
         $data->unsetRelations();
@@ -32,7 +33,8 @@ class TransactionResource extends JsonResource
             'study_program' => $studyProgram,
             'documents' => $documents,
             'invoice' => $invoice,
-            'university' => $university
+            'university' => $university,
+            'order' => $order
         ]);
     }
 }

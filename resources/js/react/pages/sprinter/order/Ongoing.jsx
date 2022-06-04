@@ -4,9 +4,9 @@ import OrderCard from "@/react/components/OrderCard";
 import Pagination from "@/react/components/Pagination";
 import Button from "@/react/components/Button";
 import {COLOR_INFO} from "@/helper/color";
-import Form from "@/react/components/Form";
+import {routeUri} from "@/helper/url";
 
-class Incoming extends Component {
+class Ongoing extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,12 +25,11 @@ class Incoming extends Component {
         return (
             <div className="d-flex flex-column" style={{gap: "1rem"}}>
                 {this.state.data.map((item, key) => <OrderCard key={key} data={item} action={
-                    <Form method="POST"
-                          action={helper.url.routeUri('sprinter.order.incoming.take', {transaction: item?.id ?? null})}>
+                    <a href={routeUri('sprinter.order.ongoing.detail', {order: item?.order?.id})}>
                         <Button color={COLOR_INFO} outline>
-                            ambil
+                            detail
                         </Button>
-                    </Form>
+                    </a>
                 }/>)}
                 <Pagination config={this.state.paginator}/>
             </div>
@@ -38,8 +37,8 @@ class Incoming extends Component {
     }
 }
 
-export default Incoming;
+export default Ongoing;
 
-if (document.getElementById('sprinter-order-incoming')) {
-    ReactDOM.render(<Incoming/>, document.getElementById('sprinter-order-incoming'));
+if (document.getElementById('sprinter-order-ongoing')) {
+    ReactDOM.render(<Ongoing/>, document.getElementById('sprinter-order-ongoing'));
 }

@@ -73,6 +73,12 @@ return [
                     'routeName' => 'sprinter.order.incoming',
                     'children' => []
                 ],
+                [
+                    'code' => 'SOO',
+                    'title' => 'Ongoing',
+                    'routeName' => 'sprinter.order.ongoing',
+                    'children' => []
+                ],
             ]
         ],
     ]
