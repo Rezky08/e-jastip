@@ -6,11 +6,13 @@ use App\Events\Master\User\UserCreated;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmationUploaded;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmed;
 use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
+use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Listeners\Master\User\UpdateOrCreateUserDetailByEvent;
 use App\Listeners\Transaction\Invoice\GenerateInvoice;
 use App\Listeners\Transaction\Invoice\UpdateInvoiceStatusByEvent;
 use App\Listeners\Transaction\Transaction\UpdateTransactionStatusByEvent;
+use App\Listeners\Transaction\Transaction\WriteTransactionLogByEvent;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -42,6 +44,9 @@ class EventServiceProvider extends ServiceProvider
         InvoicePaymentConfirmed::class => [
             UpdateTransactionStatusByEvent::class,
             UpdateInvoiceStatusByEvent::class,
+        ],
+        TransactionOrderTaken::class => [
+            WriteTransactionLogByEvent::class
         ]
     ];
 

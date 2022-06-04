@@ -10,6 +10,7 @@ use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
 use App\Models\Master\University;
 use App\Models\Master\User\User;
+use App\Models\Pivot\Transaction\TransactionLogablePivot;
 use App\Models\Transaction\Invoice\Invoice;
 use App\Traits\Invoiceable;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,6 +27,7 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property int $university_id
  * @property int $faculty_id
  * @property string $study_program_id
+ * @property string $token
  * @property int $origin_province_id
  * @property int $origin_city_id
  * @property int $origin_district_id
@@ -209,6 +211,14 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Order::class,'transaction_id','id');
+    }
+
+    public function orderLogs(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphedByMany(Order::class, 'transaction_logable', TransactionLogablePivot::getTableName())
+            ->withPivot('id', 'remark')
+            ->withTimestamps()
+            ->using(TransactionLogablePivot::class);
     }
 
 

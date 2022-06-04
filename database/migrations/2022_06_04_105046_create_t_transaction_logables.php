@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(\App\Models\Transaction\Order::getTableName(), function (Blueprint $table) {
+        Schema::create('t_transaction_logables', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sprinter_id');
             $table->unsignedBigInteger('transaction_id');
-            $table->integer('status');
+            $table->morphs('transaction_logable');
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(\App\Models\Transaction\Order::getTableName());
+        Schema::dropIfExists('t_transaction_logables');
     }
 };

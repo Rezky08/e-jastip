@@ -2,27 +2,22 @@
 
 namespace App\Models\Transaction;
 
+use App\Contracts\TransactionLogableContract;
 use App\Models\Master\Sprinter;
 use App\Traits\HasTable;
+use App\Traits\TransactionLogable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 /**
+ * @property Transaction $transaction
  * @property int $status
  */
-class Order extends Model
+class Order extends Model implements TransactionLogableContract
 {
-    use HasFactory, HasTable;
+    use HasFactory, HasTable,TransactionLogable;
 
     protected $table = "t_orders";
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
 
     protected $keyType = "string";
 
@@ -33,20 +28,6 @@ class Order extends Model
     const ORDER_STATUS_SHIPPING = 5;
     const ORDER_STATUS_RECEIVED = 6;
     const ORDER_STATUS_ARRIVED = 7;
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function (self $attachment) {
-            $attachment->setAttribute($attachment->getKeyName(), (string)Str::orderedUuid()->toString());
-        });
-    }
 
     public function transaction(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
