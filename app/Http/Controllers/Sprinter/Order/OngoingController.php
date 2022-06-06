@@ -101,6 +101,12 @@ class OngoingController extends Controller
                 return view('pages.sprinter.order.ongoing.detail.index');
             case Order::ORDER_STATUS_PRINT :
                 return view('pages.sprinter.order.ongoing.detail.print');
+            case Order::ORDER_STATUS_TO_UNIVERSITY :
+                return view('pages.sprinter.order.ongoing.detail.to-university');
+            case Order::ORDER_STATUS_ARRIVED_UNIVERSITY :
+                return view('pages.sprinter.order.ongoing.detail.arrived-university');
+            case Order::ORDER_STATUS_LEGAL_PROCESS :
+                return view('pages.sprinter.order.ongoing.detail.legal');
             default:
                 return view('pages.sprinter.order.ongoing.detail.index');
         }

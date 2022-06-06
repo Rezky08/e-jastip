@@ -14,5 +14,7 @@ return [
     'sprinter.form.submit.printed' => 'Selesai Cetak Dokumen',
     'sprinter.form.submit.to_university' => 'Menuju Universitas',
     'sprinter.form.submit.arrived_university' => 'Sampai Universitas',
+    'sprinter.form.submit.legal_process' => 'Proses Legalisir',
+    'sprinter.form.submit.legal_process_done' => 'Selesai Proses Legalisir',
 
 ];

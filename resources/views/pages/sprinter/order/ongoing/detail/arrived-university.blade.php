@@ -6,8 +6,8 @@
     <div class="py-3">
         <form method="POST" action="{{route('sprinter.order.ongoing.legal.process',\Illuminate\Support\Facades\Route::current()->parameters)}}">
             @csrf
-            <x-form.button isSubmit fullWidth type="{{\App\View\Components\Form\Button::TYPE_SUCCESS}}">
-                {{__('messages.sprinter.form.submit.legal_process_done')}}
+            <x-form.button isSubmit fullWidth type="{{\App\View\Components\Form\Button::TYPE_INFO}}">
+                {{__('messages.sprinter.form.submit.legal_process')}}
             </x-form.button>
         </form>
     </div>

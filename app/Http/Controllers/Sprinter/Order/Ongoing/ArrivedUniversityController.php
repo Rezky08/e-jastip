@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Sprinter\Order\Ongoing;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Transaction\Order\SprinterPrintDocument;
-use App\Jobs\Transaction\Order\SprinterUpdateOrderStatus;
-use App\Jobs\Transaction\Order\UpdateOrderStatus;
+use App\Jobs\Transaction\Order\SprinterArrivedUniversity;
+use App\Jobs\Transaction\Order\SprinterToUniversity;
 use App\Models\Master\Sprinter;
 use App\Models\Transaction\Order;
 use App\Supports\Notification\ToastSupport;
@@ -13,7 +12,7 @@ use App\Supports\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PrintController extends Controller
+class ArrivedUniversityController extends Controller
 {
     public AuthRepository $authRepository;
 
@@ -46,7 +45,7 @@ class PrintController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Order $order)
     {
@@ -54,14 +53,14 @@ class PrintController extends Controller
             try {
                 /** @var Sprinter $user */
                 $user = $this->authRepository->getUser();
-                $job = new SprinterPrintDocument($user,$order);
+                $job = new SprinterArrivedUniversity($user,$order);
                 $this->dispatch($job);
             } catch (\Exception $e) {
                 ToastSupport::add($e->getMessage(),__('messages.sprinter.order.ongoing'));
                 throw $e;
             }
         });
-        ToastSupport::add(__('messages.sprinter.form.submit.printed'),__('messages.sprinter.order.ongoing'));
+        ToastSupport::add(__('messages.sprinter.form.submit.arrived_university'),__('messages.sprinter.order.ongoing'));
         return redirect()->back();
 
     }
@@ -69,7 +68,7 @@ class PrintController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -80,7 +79,7 @@ class PrintController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -91,8 +90,8 @@ class PrintController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -103,7 +102,7 @@ class PrintController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

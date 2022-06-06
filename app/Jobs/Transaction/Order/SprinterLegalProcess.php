@@ -8,7 +8,7 @@ use App\Models\Transaction\Order;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SprinterPrintDocument
+class SprinterLegalProcess
 {
     use Dispatchable, SerializesModels;
 
@@ -25,7 +25,7 @@ class SprinterPrintDocument
     {
         $this->sprinter = $sprinter;
         $this->order = $order;
-        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_TAKEN,Order::ORDER_STATUS_PRINT);
+        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_ARRIVED_UNIVERSITY,Order::ORDER_STATUS_LEGAL_PROCESS);
     }
 
     /**
