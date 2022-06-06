@@ -42,6 +42,10 @@ class SettingSeeder extends Seeder
                 'key'=> Setting::KEY_MAX_SPRINTER_ORDER_TAKEN,
                 'value' => 3
             ],
+            [
+                'key'=> Setting::KEY_MAX_SPRINTER_UPLOAD_PROOF,
+                'value' => 3
+            ],
 
         ];
     }

@@ -14,9 +14,12 @@
             const inputId = "<?=$id?>"
             $(`#${inputId}`).on("change", function (e) {
                 const files = Array.from(e.currentTarget.files)
-                const file = files.shift()
-                const fileSize = helper.file.getSize(file)
-                $(e.currentTarget).parent().find("label").text(`${file.name} (${fileSize})`)
+                let remarks = "";
+                files.map((file)=>{
+                    const fileSize = helper.file.getSize(file)
+                    remarks += `${file.name} (${fileSize})`
+                })
+                $(e.currentTarget).parent().find("label").text(remarks)
             })
         })
     </script>

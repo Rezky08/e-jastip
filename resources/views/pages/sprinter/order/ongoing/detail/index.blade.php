@@ -10,8 +10,10 @@
 @section("actions")
     <div class="py-3">
         <x-modal.document-modal :isServerSide="true" name="documentTable" attachmentUri="sprinter.attachment">
-            <form method="POST" action="{{route('sprinter.order.ongoing.print',\Illuminate\Support\Facades\Route::current()->parameters)}}">
+            <form method="POST" action="{{route('sprinter.order.ongoing.print',\Illuminate\Support\Facades\Route::current()->parameters)}}" enctype="multipart/form-data">
                 @csrf
+                <x-form.file id="file" name="file[]" label="Bukti Cetak Dokumen" isGroup isMultiple/>
+                <x-form.text-area name="remark" label="Catatan" isGroup/>
                 <x-form.button isSubmit fullWidth outline>
                     {{__('messages.sprinter.form.submit.printed')}}
                 </x-form.button>

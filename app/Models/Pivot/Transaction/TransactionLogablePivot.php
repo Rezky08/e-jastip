@@ -7,10 +7,12 @@ use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Jalameta\Attachments\Concerns\Attachable;
+use Jalameta\Attachments\Contracts\AttachableContract;
 
-class TransactionLogablePivot extends MorphPivot
+class TransactionLogablePivot extends MorphPivot implements AttachableContract
 {
-    use HasFactory, HasTable;
+    use HasFactory, HasTable, Attachable;
 
     public $incrementing = true;
 

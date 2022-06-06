@@ -8,14 +8,16 @@ use App\Traits\HasTable;
 use App\Traits\TransactionLogable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Jalameta\Attachments\Concerns\Attachable;
+use Jalameta\Attachments\Contracts\AttachableContract;
 
 /**
  * @property Transaction $transaction
  * @property int $status
  */
-class Order extends Model implements TransactionLogableContract
+class Order extends Model implements TransactionLogableContract,AttachableContract
 {
-    use HasFactory, HasTable,TransactionLogable;
+    use HasFactory, HasTable,TransactionLogable,Attachable;
 
     protected $table = "t_orders";
 

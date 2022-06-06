@@ -1,4 +1,4 @@
-<x-wrapper.modal :name="$name">
+<x-wrapper.modal :name="$name" title="{{__('messages.sprinter.form.submit.print')}}">
     @php
         $options = [
               "initComplete"=> $name.'DataTableCallback',

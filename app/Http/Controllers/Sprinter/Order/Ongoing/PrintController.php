@@ -50,11 +50,11 @@ class PrintController extends Controller
      */
     public function store(Request $request, Order $order)
     {
-        DB::transaction(function () use ($order) {
+        DB::transaction(function () use ($order,$request) {
             try {
                 /** @var Sprinter $user */
                 $user = $this->authRepository->getUser();
-                $job = new SprinterPrintDocument($user,$order);
+                $job = new SprinterPrintDocument($user,$order,$request->all());
                 $this->dispatch($job);
             } catch (\Exception $e) {
                 ToastSupport::add($e->getMessage(),__('messages.sprinter.order.ongoing'));
