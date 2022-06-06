@@ -29,7 +29,9 @@ class Table extends Component
         $this->name = "table-{$name}";
         $this->columns = $columns;
         $this->isLocalhost = $isLocalhost;
-        $this->url = empty($url) ? "/" . Route::current()->uri : $url;
+        $routeName = Route::current()->getName();
+        $currentRouteCompiled = $routeName ? \route($routeName,Route::current()->parameters) : Route::current()->uri;
+        $this->url = empty($url) ? $currentRouteCompiled: $url;
         $this->action = $action;
         $this->isServerSide = $isServerSide;
         $this->options = $options;

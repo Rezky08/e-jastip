@@ -2,15 +2,10 @@
 @include('layouts.sprinter.script')
 @section("payment")
 @endsection
-@section("destination-address")
-@endsection
-@section("courier")
-@endsection
-
 @section("actions")
     <div class="py-3">
-        <x-form.button fullWidth data-toggle="modal" data-target="#documentTable">
-            {{__('messages.sprinter.form.submit.print')}}
+        <x-form.button fullWidth type="{{\App\View\Components\Form\Button::TYPE_INFO}}">
+            {{__('messages.sprinter.form.submit.to_university')}}
         </x-form.button>
     </div>
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\Tranasction\Order;
+namespace App\Events\Transaction\Order;
 
 use App\Models\Transaction\Order;
 use Illuminate\Broadcasting\InteractsWithSockets;

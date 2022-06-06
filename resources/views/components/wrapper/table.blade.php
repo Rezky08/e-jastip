@@ -28,7 +28,7 @@
             const isServerSide = <?=json_encode($isServerSide)?>;
             const columns = <?=json_encode($columns)?>;
             const options = <?=json_encode($options)?> ?? {};
-            const requestUrl = isLocalhost ? `${window.location.origin}${url}` : url;
+            const requestUrl = url;
 
             const mappedColumns = Object.entries(columns)?.map(([columnName, keyValue]) => (helper.lodash.isObject(keyValue) ? keyValue : {data: keyValue}))
             const serverSideOptions = {
@@ -44,6 +44,7 @@
                 responsive: true,
                 ...(isServerSide && serverSideOptions),
                 ...options,
+                ...(options?.initComplete && {initComplete: eval(options?.initComplete)}),
                 "columns": mappedColumns,
                 columnDefs: [
                     {

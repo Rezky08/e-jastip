@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Transaction\Order;
 
-use App\Events\Tranasction\Order\OrderStatusUpdated;
+use App\Events\Transaction\Order\OrderStatusUpdated;
 use App\Models\Transaction\Order;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;

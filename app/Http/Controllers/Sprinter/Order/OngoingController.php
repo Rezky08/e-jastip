@@ -85,14 +85,25 @@ class OngoingController extends Controller
      *
      * @param Request $request
      * @param Order $order
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|JsonResponse|LengthAwarePaginator|Response
      */
     public function show(Request $request, Order $order)
     {
         $transaction = $order->transaction;
         $form = TransactionDetailResource::make($transaction)->toArray($request);
+        if ($request->expectsJson()) {
+            $query = $transaction->documents()->getQuery();
+            return $this->withPagination($query,null, Response::PAGINATOR_TYPE_DATA_TABLE);
+        }
         FormSupport::storeFormData($form);
-        return view('pages.sprinter.order.incoming.detail.index');
+        switch ($order->status){
+            case Order::ORDER_STATUS_TAKEN :
+                return view('pages.sprinter.order.ongoing.detail.index');
+            case Order::ORDER_STATUS_PRINT :
+                return view('pages.sprinter.order.ongoing.detail.print');
+            default:
+                return view('pages.sprinter.order.ongoing.detail.index');
+        }
     }
 
     /**

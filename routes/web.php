@@ -116,10 +116,17 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
             Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('logout');
         });
 
+        Route::group(['prefix' => '/attachment'], function () {
+            Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"])->name('attachment');
+        });
+
+
         Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
             Route::group(['prefix' => '/ongoing'], function () {
                 Route::group(['prefix' => '/{order}', 'as' => 'ongoing.'], function () {
                     Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "show"])->name("detail");
+
+                    Route::post("/print", [\App\Http\Controllers\Sprinter\Order\Ongoing\PrintController::class, "store"])->name("print");
                 });
                 Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "index"])->name("ongoing");
             });

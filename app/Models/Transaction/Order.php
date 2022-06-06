@@ -23,11 +23,15 @@ class Order extends Model implements TransactionLogableContract
 
     const ORDER_STATUS_TAKEN = 1;
     const ORDER_STATUS_PRINT = 2;
-    const ORDER_STATUS_LEGAL_PROCESS = 3;
-    const ORDER_STATUS_SHIPPING_PREP = 4;
-    const ORDER_STATUS_SHIPPING = 5;
-    const ORDER_STATUS_RECEIVED = 6;
-    const ORDER_STATUS_ARRIVED = 7;
+    const ORDER_STATUS_TO_UNIVERSITY = 3;
+    const ORDER_STATUS_ARRIVED_UNIVERSITY = 4;
+    const ORDER_STATUS_LEGAL_PROCESS = 5;
+    const ORDER_STATUS_LEGAL_PROCESS_DONE = 6;
+    const ORDER_STATUS_SHIPPING_PREP = 7;
+    const ORDER_STATUS_SHIPPING_PREP_DONE = 8;
+    const ORDER_STATUS_SHIPPING = 9;
+    const ORDER_STATUS_RECEIVED = 10;
+    const ORDER_STATUS_ARRIVED = 11;
 
     public function transaction(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -42,13 +46,17 @@ class Order extends Model implements TransactionLogableContract
     static public function getAvailableStatus(): array
     {
         return [
-            self::ORDER_STATUS_TAKEN => __('statuses.order.' . self::ORDER_STATUS_TAKEN),
-            self::ORDER_STATUS_PRINT => __('statuses.order.' . self::ORDER_STATUS_PRINT),
-            self::ORDER_STATUS_LEGAL_PROCESS => __('statuses.order.' . self::ORDER_STATUS_LEGAL_PROCESS),
-            self::ORDER_STATUS_SHIPPING_PREP => __('statuses.order.' . self::ORDER_STATUS_SHIPPING_PREP),
-            self::ORDER_STATUS_SHIPPING => __('statuses.order.' . self::ORDER_STATUS_SHIPPING),
-            self::ORDER_STATUS_RECEIVED => __('statuses.order.' . self::ORDER_STATUS_RECEIVED),
-            self::ORDER_STATUS_ARRIVED => __('statuses.order.' . self::ORDER_STATUS_ARRIVED),
+            self::ORDER_STATUS_TAKEN => 'Pesanan Diambil',
+            self::ORDER_STATUS_PRINT => "Pesanan Dicetak",
+            self::ORDER_STATUS_TO_UNIVERSITY => "Sprinter Menuju Universitas",
+            self::ORDER_STATUS_ARRIVED_UNIVERSITY => "Sprinter Sampai di Universitas",
+            self::ORDER_STATUS_LEGAL_PROCESS => "Pesanan dalam proses Legalisasi",
+            self::ORDER_STATUS_LEGAL_PROCESS_DONE => "Pesanan selesai proses Legalisasi",
+            self::ORDER_STATUS_SHIPPING_PREP => "Pesanan dalam persiapan pengiriman",
+            self::ORDER_STATUS_SHIPPING_PREP_DONE => "Pesanan selesai persiapan pengiriman",
+            self::ORDER_STATUS_SHIPPING => "Pesanan dalam pengiriman",
+            self::ORDER_STATUS_RECEIVED => "Pesanan diterima",
+            self::ORDER_STATUS_ARRIVED => "Pesanan telah sampai ditujuan",
         ];
     }
 }
