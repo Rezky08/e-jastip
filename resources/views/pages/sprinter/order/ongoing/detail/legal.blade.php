@@ -4,7 +4,7 @@
 @endsection
 @section("actions")
     <div class="py-3">
-        <form method="POST" action="{{route('sprinter.order.ongoing.legal.done',\Illuminate\Support\Facades\Route::current()->parameters)}}">
+        <form method="POST" action="{{route('sprinter.order.ongoing.legal.done',\Illuminate\Support\Facades\Route::current()->parameters)}}" enctype="multipart/form-data">
             @csrf
             <x-form.file id="file" name="file[]" label="Bukti Legalisir" isGroup isMultiple/>
             <x-form.text-area name="remark" label="Catatan" isGroup/>

@@ -115,6 +115,8 @@ class OngoingController extends Controller
                 return view('pages.sprinter.order.ongoing.detail.packed');
             case Order::ORDER_STATUS_TO_SHIPMENT_PARTNER :
                 return view('pages.sprinter.order.ongoing.detail.to-shipment-partner');
+            case Order::ORDER_STATUS_SHIPPING :
+                return view('pages.sprinter.order.ongoing.detail.shipping');
             default:
                 return view('pages.sprinter.order.ongoing.detail.index');
         }
