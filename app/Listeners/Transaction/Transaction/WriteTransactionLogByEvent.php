@@ -9,6 +9,7 @@ use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
 use App\Events\Transaction\Order\OrderPackedBySprinter;
 use App\Events\Transaction\Order\OrderPackingBySprinter;
+use App\Events\Transaction\Order\OrderShippedBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
@@ -144,6 +145,19 @@ class WriteTransactionLogByEvent
                 $sprinter = $event->sprinter;
                 $statusRemark = Order::getAvailableStatus()[$order->status];
                 $message = __('logs.order.to', ['sprinter_name' => $sprinter->name, 'name' => strtoupper($transaction->partner_shipment_code)]);
+                $data = [
+                    'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
+                ];
+                $job = new WriteTransactionLog($order->transaction, $order, $data);
+                dispatch($job);
+                break;
+            case $event instanceof OrderShippedBySprinter:
+                /** @var Order $order */
+                $order = $event->order;
+                /** @var Transaction $transaction */
+                $transaction = $event->order->transaction;
+                $statusRemark = Order::getAvailableStatus()[$order->status];
+                $message = __('logs.order.shipping', ['name' => strtoupper($transaction->partner_shipment_code)]);
                 $data = [
                     'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
                 ];
