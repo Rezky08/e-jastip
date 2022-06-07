@@ -58,10 +58,11 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property District $destinationDistrict
  * @property Collection $invoices
  * @property Invoice $invoice
+ * @property TransactionLogablePivot $logs
  */
 class Transaction extends Model implements InvoiceableContract, AttachableContract, TransactionLogableContract
 {
-    use HasFactory, Invoiceable, HasTable, Attachable,TransactionLogable;
+    use HasFactory, Invoiceable, HasTable, Attachable, TransactionLogable;
 
     protected $table = "t_transactions";
 
@@ -212,7 +213,7 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
 
     public function order(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Order::class,'transaction_id','id');
+        return $this->hasOne(Order::class, 'transaction_id', 'id');
     }
 
     public function orderLogs(): \Illuminate\Database\Eloquent\Relations\MorphToMany
@@ -226,6 +227,11 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
     public function transactionLogable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(TransactionLogablePivot::class, 'transaction_id', 'id')->latest();
     }
 
 

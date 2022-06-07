@@ -55,13 +55,17 @@ Route::middleware(['auth.guard:web'])->group(function () {
                 Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
             });
         });
-
+        Route::group(['prefix' => '/check', 'as' => 'check.'], function () {
+            Route::get('/status', [\App\Http\Controllers\Check\StatusController::class, 'index'])->name('list');
+        });
         Route::group(['prefix' => '/riwayat', 'as' => 'riwayat.'], function () {
             Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'index'])->name('list');
             Route::group(['prefix' => '/{transaction}'], function () {
                 Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'show'])->name('detail');
+                Route::get('/log', [\App\Http\Controllers\Riwayat\LogController::class, 'show'])->name('log');
             });
         });
+
 
     });
 });

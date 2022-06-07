@@ -26,12 +26,12 @@ return [
                         ],
                     ]
                 ],
-                [
-                    'code' => 'CKS',
-                    'title' => 'Cek Status',
-                    'url' => '/cek-status',
-                    'children' => []
-                ],
+//                [
+//                    'code' => 'CKS',
+//                    'title' => 'Cek Status',
+//                    'url' => '/cek-status',
+//                    'children' => []
+//                ],
                 [
                     'code' => 'RPJ',
                     'title' => 'Riwayat Pengajuan',

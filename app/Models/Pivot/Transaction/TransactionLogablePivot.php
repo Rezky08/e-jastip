@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Jalameta\Attachments\Concerns\Attachable;
 use Jalameta\Attachments\Contracts\AttachableContract;
 
+/**
+ * @property string $remark
+ */
 class TransactionLogablePivot extends MorphPivot implements AttachableContract
 {
     use HasFactory, HasTable, Attachable;
@@ -37,7 +40,6 @@ class TransactionLogablePivot extends MorphPivot implements AttachableContract
         'transaction_logable_type',
         'transaction_id',
         'created_at',
-        'updated_at',
     ];
 
     /**

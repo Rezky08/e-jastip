@@ -8,6 +8,9 @@ return [
     'invoice.payment.confirmation.title' => 'Konfirmasi Pembayaran',
     'invoice.payment.confirmation' => 'Apakah anda ingin melakukan konfirmasi pembayaran invoice <span class="font-weight-bold">#:invoice</span> ?',
     'data.empty' => 'Maaf, tidak ada data yang ditemukan',
+
+    'button.show.log' => 'Lihat Catatan',
+
     'sprinter.order.incoming' => 'Incoming Order',
     'sprinter.order.ongoing' => 'Ongoing Order',
     'sprinter.form.submit.print' => 'Cetak Dokumen',
