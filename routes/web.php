@@ -134,6 +134,7 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
                     Route::post("/packing", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackingController::class, "store"])->name("packing");
                     Route::post("/packed", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackedController::class, "store"])->name("packed");
                     Route::post("/to-shipment", [\App\Http\Controllers\Sprinter\Order\Ongoing\ToShipmentPartnerController::class, "store"])->name("to.shipment");
+                    Route::post("/shipping", [\App\Http\Controllers\Sprinter\Order\Ongoing\ShippingController::class, "store"])->name("shipping");
                 });
                 Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "index"])->name("ongoing");
             });

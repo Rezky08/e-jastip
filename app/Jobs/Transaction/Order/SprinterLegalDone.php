@@ -6,6 +6,7 @@ use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
 use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
 use App\Models\Master\Sprinter;
+use App\Models\Pivot\Transaction\TransactionLogablePivot;
 use App\Models\Transaction\Order;
 use App\Supports\TransactionLogSupport;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -50,6 +51,11 @@ class SprinterLegalDone
         $this->attributes['remark'] = TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $this->attributes['remark']);
         $this->jobWriteLog = new WriteTransactionLog($this->transaction, $this->order, $this->attributes);
         dispatch($this->jobWriteLog);
+
+        /** @var TransactionLogablePivot $log */
+        $log = $this->jobWriteLog->transactionLogable->transactionLogs()->latest()->first()->pivot;
+        $uploadJob = new SprinterUploadDocumentPrintProof($log, $this->attributes);
+        dispatch($uploadJob);
 
         if ($this->order->wasChanged()){
             event(new OrderLegalDoneBySprinter($this->sprinter,$this->order));

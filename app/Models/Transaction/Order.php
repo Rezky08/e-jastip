@@ -14,6 +14,7 @@ use Jalameta\Attachments\Contracts\AttachableContract;
 /**
  * @property Transaction $transaction
  * @property int $status
+ * @property string $receipt
  */
 class Order extends Model implements TransactionLogableContract,AttachableContract
 {

@@ -19,5 +19,6 @@ return [
     'sprinter.form.submit.packing' => 'Proses Pengemasan',
     'sprinter.form.submit.packed' => 'Selesai Pengemasan',
     'sprinter.form.submit.to_shipment_partner' => 'Menuju Jasa Pengiriman',
+    'sprinter.form.submit.shipping' => 'Proses Pengiriman',
 
 ];

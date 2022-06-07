@@ -5,6 +5,7 @@ namespace App\Jobs\Transaction\Order;
 use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
 use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Events\Transaction\Order\OrderPackedBySprinter;
+use App\Events\Transaction\Order\OrderShippedBySprinter;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
 use App\Models\Master\Sprinter;
 use App\Models\Pivot\Transaction\TransactionLogablePivot;
@@ -12,8 +13,9 @@ use App\Models\Transaction\Order;
 use App\Supports\TransactionLogSupport;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Validator;
 
-class SprinterPacked
+class SprinterShipping
 {
     use Dispatchable, SerializesModels;
 
@@ -23,18 +25,20 @@ class SprinterPacked
     public array $attributes;
     public \App\Models\Transaction\Transaction $transaction;
     public WriteTransactionLog $jobWriteLog;
+    public UpdateOrderShipmentReceipt $jobUpdateShipmentReceipt;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Sprinter $sprinter, Order $order,$attributes=[])
+    public function __construct(Sprinter $sprinter, Order $order, $attributes = [])
     {
         $this->sprinter = $sprinter;
         $this->order = $order;
         $this->transaction = $order->transaction;
-        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_PACKING,Order::ORDER_STATUS_PACKED);
+        $this->job = new SprinterUpdateOrderStatus($this->sprinter, $this->order, Order::ORDER_STATUS_TO_SHIPMENT_PARTNER, Order::ORDER_STATUS_SHIPPING);
+        $this->jobUpdateShipmentReceipt = new UpdateOrderShipmentReceipt($this->order,$attributes);
         $this->attributes = $attributes;
     }
 
@@ -46,7 +50,8 @@ class SprinterPacked
     public function handle()
     {
         dispatch($this->job);
-        $this->order = $this->job->order;
+        dispatch($this->jobUpdateShipmentReceipt);
+        $this->order = $this->order->refresh();
 
         $statusRemark = Order::getAvailableStatus()[$this->order->status];
         $this->attributes['remark'] = TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $this->attributes['remark']);
@@ -58,9 +63,8 @@ class SprinterPacked
         $uploadJob = new SprinterUploadDocumentPrintProof($log, $this->attributes);
         dispatch($uploadJob);
 
-
-        if ($this->order->wasChanged()){
-            event(new OrderPackedBySprinter($this->sprinter,$this->order));
+        if ($this->order->wasChanged()) {
+            event(new OrderShippedBySprinter($this->sprinter, $this->order));
         }
         return $this->order->wasChanged();
     }
