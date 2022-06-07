@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Transaction\Order;
 
-use App\Events\Transaction\Order\OrderDocumentPrintedBySprinter;
+use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
 use App\Models\Master\Sprinter;
 use App\Models\Transaction\Order;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -38,7 +38,7 @@ class SprinterLegalProcess
         dispatch($this->job);
         $this->order = $this->job->order;
         if ($this->order->wasChanged()){
-            event(new OrderDocumentPrintedBySprinter($this->sprinter,$this->order));
+            event(new OrderLegalProcessBySprinter($this->sprinter,$this->order));
         }
         return $this->order->wasChanged();
     }

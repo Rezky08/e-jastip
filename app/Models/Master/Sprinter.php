@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @property string $name
+ */
 class Sprinter extends Authenticatable implements  UniversitiableContract
 {
     use HasFactory, HasTable,Universitiable;

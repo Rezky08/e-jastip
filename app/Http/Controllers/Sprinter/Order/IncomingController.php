@@ -86,6 +86,7 @@ class IncomingController extends Controller
         } catch (\Exception $e) {
             ToastSupport::add($e->getMessage(), __("messages.sprinter.order.incoming"));
         }
+        ToastSupport::add(__('logs.order.taken', ['name' => $user->name]), __("messages.sprinter.order.incoming"));
 
         return redirect()->back();
     }
