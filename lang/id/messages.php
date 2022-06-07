@@ -17,5 +17,7 @@ return [
     'sprinter.form.submit.legal_process' => 'Proses Legalisir',
     'sprinter.form.submit.legal_process_done' => 'Selesai Proses Legalisir',
     'sprinter.form.submit.packing' => 'Proses Pengemasan',
+    'sprinter.form.submit.packed' => 'Selesai Pengemasan',
+    'sprinter.form.submit.to_shipment_partner' => 'Menuju Jasa Pengiriman',
 
 ];

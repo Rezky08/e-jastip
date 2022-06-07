@@ -9,4 +9,5 @@ return [
     "order.legal_process" => 'Dokumen sedang dalam proses legalisir',
     "order.legal_done" => 'Dokumen selesai dilegalisir',
     "order.packing" => 'Dokumen dalam proses pengemasan',
+    "order.packed" => 'Dokumen selesai dikemas',
 ];

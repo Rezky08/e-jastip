@@ -132,6 +132,8 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
                     Route::post("/legal-processing", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalProcessController::class, "store"])->name("legal.process");
                     Route::post("/legal-processed", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalDoneController::class, "store"])->name("legal.done");
                     Route::post("/packing", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackingController::class, "store"])->name("packing");
+                    Route::post("/packed", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackedController::class, "store"])->name("packed");
+                    Route::post("/to-shipment", [\App\Http\Controllers\Sprinter\Order\Ongoing\ToShipmentPartnerController::class, "store"])->name("to.shipment");
                 });
                 Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "index"])->name("ongoing");
             });

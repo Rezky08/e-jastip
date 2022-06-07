@@ -3,9 +3,11 @@
 namespace App\Listeners\Transaction\Transaction;
 
 use App\Events\Transaction\Order\OrderArrivedUniversityBySprinter;
+use App\Events\Transaction\Order\OrderGoToShipmentPartnerBySprinter;
 use App\Events\Transaction\Order\OrderGoToUniversityBySprinter;
 use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
+use App\Events\Transaction\Order\OrderPackedBySprinter;
 use App\Events\Transaction\Order\OrderPackingBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
@@ -117,6 +119,31 @@ class WriteTransactionLogByEvent
                 $order = $event->order;
                 $statusRemark = Order::getAvailableStatus()[$order->status];
                 $message = __('logs.order.packing');
+                $data = [
+                    'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
+                ];
+                $job = new WriteTransactionLog($order->transaction, $order, $data);
+                dispatch($job);
+                break;
+            case $event instanceof OrderPackedBySprinter:
+                /** @var Order $order */
+                $order = $event->order;
+                $statusRemark = Order::getAvailableStatus()[$order->status];
+                $message = __('logs.order.packed');
+                $data = [
+                    'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
+                ];
+                $job = new WriteTransactionLog($order->transaction, $order, $data);
+                dispatch($job);
+                break;
+            case $event instanceof OrderGoToShipmentPartnerBySprinter:
+                /** @var Order $order */
+                $order = $event->order;
+                /** @var Transaction $transaction */
+                $transaction = $event->order->transaction;
+                $sprinter = $event->sprinter;
+                $statusRemark = Order::getAvailableStatus()[$order->status];
+                $message = __('logs.order.to', ['sprinter_name' => $sprinter->name, 'name' => strtoupper($transaction->partner_shipment_code)]);
                 $data = [
                     'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
                 ];
