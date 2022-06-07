@@ -51,6 +51,7 @@ class EventServiceProvider extends ServiceProvider
             UpdateInvoiceStatusByEvent::class,
         ],
         TransactionOrderTaken::class => [
+            UpdateTransactionStatusByEvent::class,
             WriteTransactionLogByEvent::class
         ],
         OrderGoToUniversityBySprinter::class => [
