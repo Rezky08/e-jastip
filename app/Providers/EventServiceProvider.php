@@ -10,6 +10,7 @@ use App\Events\Transaction\Order\OrderArrivedUniversityBySprinter;
 use App\Events\Transaction\Order\OrderGoToUniversityBySprinter;
 use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
+use App\Events\Transaction\Order\OrderPackingBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Jobs\Transaction\Order\SprinterToUniversity;
@@ -65,6 +66,9 @@ class EventServiceProvider extends ServiceProvider
             WriteTransactionLogByEvent::class
         ],
         OrderLegalDoneBySprinter::class => [
+            WriteTransactionLogByEvent::class
+        ],
+        OrderPackingBySprinter::class => [
             WriteTransactionLogByEvent::class
         ],
     ];

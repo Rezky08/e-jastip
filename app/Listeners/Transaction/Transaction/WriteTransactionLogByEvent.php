@@ -6,6 +6,7 @@ use App\Events\Transaction\Order\OrderArrivedUniversityBySprinter;
 use App\Events\Transaction\Order\OrderGoToUniversityBySprinter;
 use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
+use App\Events\Transaction\Order\OrderPackingBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
@@ -105,6 +106,17 @@ class WriteTransactionLogByEvent
                 $order = $event->order;
                 $statusRemark = Order::getAvailableStatus()[$order->status];
                 $message = __('logs.order.legal_done');
+                $data = [
+                    'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
+                ];
+                $job = new WriteTransactionLog($order->transaction, $order, $data);
+                dispatch($job);
+                break;
+            case $event instanceof OrderPackingBySprinter:
+                /** @var Order $order */
+                $order = $event->order;
+                $statusRemark = Order::getAvailableStatus()[$order->status];
+                $message = __('logs.order.packing');
                 $data = [
                     'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
                 ];

@@ -129,8 +129,9 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
                     Route::post("/print", [\App\Http\Controllers\Sprinter\Order\Ongoing\PrintController::class, "store"])->name("print");
                     Route::post("/to-university", [\App\Http\Controllers\Sprinter\Order\Ongoing\ToUniversityController::class, "store"])->name("to.university");
                     Route::post("/arrived-university", [\App\Http\Controllers\Sprinter\Order\Ongoing\ArrivedUniversityController::class, "store"])->name("arrived.university");
-                    Route::post("/legal-process", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalProcessController::class, "store"])->name("legal.process");
-                    Route::post("/legal-done", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalDoneController::class, "store"])->name("legal.done");
+                    Route::post("/legal-processing", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalProcessController::class, "store"])->name("legal.process");
+                    Route::post("/legal-processed", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalDoneController::class, "store"])->name("legal.done");
+                    Route::post("/packing", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackingController::class, "store"])->name("packing");
                 });
                 Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "index"])->name("ongoing");
             });

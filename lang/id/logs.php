@@ -8,4 +8,5 @@ return [
     "order.arrived" => 'Sprinter :sprinter_name sampai di :name',
     "order.legal_process" => 'Dokumen sedang dalam proses legalisir',
     "order.legal_done" => 'Dokumen selesai dilegalisir',
+    "order.packing" => 'Dokumen dalam proses pengemasan',
 ];

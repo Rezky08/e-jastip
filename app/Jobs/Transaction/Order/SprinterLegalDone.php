@@ -32,7 +32,7 @@ class SprinterLegalDone
         $this->sprinter = $sprinter;
         $this->order = $order;
         $this->transaction = $order->transaction;
-        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_LEGAL_PROCESS,Order::ORDER_STATUS_LEGAL_PROCESS_DONE);
+        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_LEGAL_PROCESSING,Order::ORDER_STATUS_LEGAL_PROCESSED);
         $this->attributes = $attributes;
     }
 

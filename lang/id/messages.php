@@ -16,5 +16,6 @@ return [
     'sprinter.form.submit.arrived_university' => 'Sampai Universitas',
     'sprinter.form.submit.legal_process' => 'Proses Legalisir',
     'sprinter.form.submit.legal_process_done' => 'Selesai Proses Legalisir',
+    'sprinter.form.submit.packing' => 'Proses Pengemasan',
 
 ];

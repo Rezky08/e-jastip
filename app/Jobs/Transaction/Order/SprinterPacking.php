@@ -3,18 +3,25 @@
 namespace App\Jobs\Transaction\Order;
 
 use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
+use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
+use App\Events\Transaction\Order\OrderPackingBySprinter;
+use App\Jobs\Transaction\Transaction\WriteTransactionLog;
 use App\Models\Master\Sprinter;
 use App\Models\Transaction\Order;
+use App\Supports\TransactionLogSupport;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SprinterLegalProcess
+class SprinterPacking
 {
     use Dispatchable, SerializesModels;
 
     public Sprinter $sprinter;
     public Order $order;
     public SprinterUpdateOrderStatus $job;
+    public array $attributes;
+    public \App\Models\Transaction\Transaction $transaction;
+    public WriteTransactionLog $jobWriteLog;
 
     /**
      * Create a new job instance.
@@ -25,7 +32,8 @@ class SprinterLegalProcess
     {
         $this->sprinter = $sprinter;
         $this->order = $order;
-        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_ARRIVED_UNIVERSITY,Order::ORDER_STATUS_LEGAL_PROCESSING);
+        $this->transaction = $order->transaction;
+        $this->job = new SprinterUpdateOrderStatus($this->sprinter,$this->order,Order::ORDER_STATUS_LEGAL_PROCESSED,Order::ORDER_STATUS_PACKING);
     }
 
     /**
@@ -37,8 +45,9 @@ class SprinterLegalProcess
     {
         dispatch($this->job);
         $this->order = $this->job->order;
+
         if ($this->order->wasChanged()){
-            event(new OrderLegalProcessBySprinter($this->sprinter,$this->order));
+            event(new OrderPackingBySprinter($this->sprinter,$this->order));
         }
         return $this->order->wasChanged();
     }
