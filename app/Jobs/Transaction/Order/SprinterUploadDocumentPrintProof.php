@@ -28,19 +28,20 @@ class SprinterUploadDocumentPrintProof
     public $disk = 'print-proof';
     public Order $order;
     private MorphPivot $log;
+    private TransactionLogablePivot $transactionLogablePivot;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Order $order, $attributes = [])
+    public function __construct(TransactionLogablePivot $transactionLogablePivot, $attributes = [])
     {
         $this->attributes = Validator::make($attributes, [
             'file' => ['required','filled','max:3'],
             'file.*' => ['required', 'filled', 'file', 'image', 'max:5000'],
         ])->validate();
-        $this->order = $order;
+        $this->transactionLogablePivot = $transactionLogablePivot;
     }
 
     /**
@@ -61,8 +62,8 @@ class SprinterUploadDocumentPrintProof
 
             throw_if(!($attachment instanceof Attachment), ValidationException::withMessages(['file' => 'Gagal Melakukan Upload File']));
 
-            $this->order->attachments()->attach($attachment);
-            $this->order->save();
+            $this->transactionLogablePivot->attachments()->attach($attachment);
+            $this->transactionLogablePivot->save();
 
         };
     }

@@ -52,9 +52,10 @@ class SprinterPrintDocument
         $this->jobWriteLog = new WriteTransactionLog($this->transaction, $this->order, $this->attributes);
         dispatch($this->jobWriteLog);
 
-        $this->jobUploadProof = new SprinterUploadDocumentPrintProof($this->order, $this->attributes);
+        /** @var TransactionLogablePivot $log */
+        $log = $this->jobWriteLog->transactionLogable->transactionLogs()->latest()->first()->pivot;
+        $this->jobUploadProof = new SprinterUploadDocumentPrintProof($log, $this->attributes);
         dispatch($this->jobUploadProof);
-
 
         if ($this->order->wasChanged()) {
             event(new OrderDocumentPrintedBySprinter($this->sprinter, $this->order));

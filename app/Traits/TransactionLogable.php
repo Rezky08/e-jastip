@@ -11,7 +11,7 @@ trait TransactionLogable
     public function transactionLogs(): MorphToMany
     {
         $model_class = Transaction::class;
-        return $this->morphToMany($model_class, 'transaction_logable', 't_transaction_logables', 'transaction_logable_id')->withPivot(['remark'])->withTimestamps();
+        return $this->morphToMany($model_class, 'transaction_logable', 't_transaction_logables', 'transaction_logable_id')->using(TransactionLogablePivot::class)->withPivot(['id','remark'])->withTimestamps();
     }
 
     public function transactionLog(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
