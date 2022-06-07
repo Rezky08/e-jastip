@@ -6,5 +6,7 @@
 
 
 <x-wrapper.modal :name="$name">
-    <img src="{{$src}}" alt="{{$alt}}" {{$attributes->class(['img-fluid',$classes])}}/>
+    <div class="text-center">
+        <img src="{{$src}}" alt="{{$alt}}" {{$attributes->class(['img-fluid',$classes])}}/>
+    </div>
 </x-wrapper.modal>
