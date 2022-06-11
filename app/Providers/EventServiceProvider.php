@@ -6,6 +6,7 @@ use App\Events\Master\User\UserCreated;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmationUploaded;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmed;
 use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
+use App\Events\Transaction\Order\DocumentReceivedByUser;
 use App\Events\Transaction\Order\OrderArrivedUniversityBySprinter;
 use App\Events\Transaction\Order\OrderGoToShipmentPartnerBySprinter;
 use App\Events\Transaction\Order\OrderGoToUniversityBySprinter;
@@ -17,6 +18,7 @@ use App\Events\Transaction\Order\OrderShippedBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Jobs\Transaction\Order\SprinterToUniversity;
+use App\Jobs\Transaction\Transaction\UpdateTransactionStatus;
 use App\Listeners\Master\User\UpdateOrCreateUserDetailByEvent;
 use App\Listeners\Transaction\Invoice\GenerateInvoice;
 use App\Listeners\Transaction\Invoice\UpdateInvoiceStatusByEvent;
@@ -81,6 +83,10 @@ class EventServiceProvider extends ServiceProvider
             WriteTransactionLogByEvent::class
         ],
         OrderShippedBySprinter::class => [
+            UpdateTransactionStatusByEvent::class,
+            WriteTransactionLogByEvent::class,
+        ],
+        DocumentReceivedByUser::class => [
             UpdateTransactionStatusByEvent::class,
             WriteTransactionLogByEvent::class,
         ]

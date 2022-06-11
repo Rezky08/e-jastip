@@ -64,6 +64,9 @@ Route::middleware(['auth.guard:web'])->group(function () {
                 Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'show'])->name('detail');
                 Route::get('/log', [\App\Http\Controllers\Riwayat\LogController::class, 'show'])->name('log');
             });
+            Route::group(['prefix'=>'{order}','as'=>'order.'],function (){
+                Route::get('/receive', [\App\Http\Controllers\Riwayat\ReceiveController::class, 'store'])->name('receive');
+            });
         });
 
 

@@ -11,4 +11,5 @@ return [
     "order.packing" => 'Dokumen dalam proses pengemasan',
     "order.packed" => 'Dokumen selesai dikemas',
     "order.shipping" => 'Dokumen sedang dalam pengiriman oleh :name',
+    "order.received" => 'Dokumen telah diterima oleh :name',
 ];

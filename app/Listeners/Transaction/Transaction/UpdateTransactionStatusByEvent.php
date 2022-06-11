@@ -5,6 +5,7 @@ namespace App\Listeners\Transaction\Transaction;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmationUploaded;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmed;
 use App\Events\Transaction\Invoice\InvoicePaymentMethodUpdated;
+use App\Events\Transaction\Order\DocumentReceivedByUser;
 use App\Events\Transaction\Order\OrderShippedBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Jobs\Transaction\Transaction\UpdateTransactionStatus;
@@ -66,6 +67,13 @@ class UpdateTransactionStatusByEvent
                 $order = $event->order;
                 $transaction = $order->transaction;
                 $job = new UpdateTransactionStatus($transaction, Transaction::TRANSACTION_STATUS_IN_SHIPPING);
+                dispatch($job);
+                break;
+            case $event instanceof DocumentReceivedByUser:
+                /** @var Order $order */
+                $order = $event->order;
+                $transaction = $order->transaction;
+                $job = new UpdateTransactionStatus($transaction, Transaction::TRANSACTION_STATUS_ARRIVED);
                 dispatch($job);
                 break;
 

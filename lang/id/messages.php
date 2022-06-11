@@ -11,6 +11,7 @@ return [
     'data.empty' => 'Maaf, tidak ada data yang ditemukan',
 
     'button.show.log' => 'Lihat Catatan',
+    'button.show.received' => 'Pesanan diterima',
 
     'sprinter.order.incoming' => 'Incoming Order',
     'sprinter.order.ongoing' => 'Ongoing Order',
@@ -27,6 +28,8 @@ return [
 
     'form.label.status' => 'Status :name',
     'form.label.last_update' => 'Perubahan Terakhir',
-    'form.label.receipt' => 'Nomor Resi'
+    'form.label.receipt' => 'Nomor Resi',
+
+    'title.history' => 'Riwayat',
 
 ];

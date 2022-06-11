@@ -8,6 +8,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Rezky\LaravelResponseFormatter\Exception\Error;
+use Rezky\LaravelResponseFormatter\Http\Response;
 
 class UpdateOrderStatus
 {
@@ -15,6 +17,8 @@ class UpdateOrderStatus
 
     public array $attributes;
     public Order $order;
+    private int $prevStatus;
+    private int $nextStatus;
 
     /**
      * Create a new job instance.
@@ -23,10 +27,21 @@ class UpdateOrderStatus
      * @param $status
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function __construct(Order $order, $status)
+    public function __construct(Order $order, $prevStatus=Order::ORDER_STATUS_TAKEN,$nextStatus=Order::ORDER_STATUS_PRINT)
     {
         $this->order = $order;
-        $this->attributes = Validator::make(['status' => $status], ['status' => Rule::in(array_keys(Order::getAvailableStatus()))])->validate();
+        $this->attributes = Validator::make(['status' => $nextStatus], ['status' => Rule::in(array_keys(Order::getAvailableStatus()))])->validate();
+        $this->prevStatus = $prevStatus;
+        $this->nextStatus = $nextStatus;
+        $statusRemark = Order::getAvailableStatus()[$this->prevStatus];
+        throw_if($order->status !== $this->prevStatus, Error::make(
+            Response::CODE_ERROR_INVALID_DATA,
+            [],
+            __('validation.order.status.invalid', [
+                'current_status' => Order::getAvailableStatus()[$order->status],
+                'status' => $statusRemark
+            ])
+        ));
     }
 
     /**

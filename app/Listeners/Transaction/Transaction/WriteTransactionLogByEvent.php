@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Transaction\Transaction;
 
+use App\Events\Transaction\Order\DocumentReceivedByUser;
 use App\Events\Transaction\Order\OrderArrivedUniversityBySprinter;
 use App\Events\Transaction\Order\OrderGoToShipmentPartnerBySprinter;
 use App\Events\Transaction\Order\OrderGoToUniversityBySprinter;
@@ -158,6 +159,19 @@ class WriteTransactionLogByEvent
                 $transaction = $event->order->transaction;
                 $statusRemark = Order::getAvailableStatus()[$order->status];
                 $message = __('logs.order.shipping', ['name' => strtoupper($transaction->partner_shipment_code)]);
+                $data = [
+                    'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
+                ];
+                $job = new WriteTransactionLog($order->transaction, $order, $data);
+                dispatch($job);
+                break;
+            case $event instanceof DocumentReceivedByUser:
+                /** @var Order $order */
+                $order = $event->order;
+                /** @var Transaction $transaction */
+                $transaction = $event->order->transaction;
+                $statusRemark = Order::getAvailableStatus()[$order->status];
+                $message = __('logs.order.received', ['name' => strtoupper($transaction->user->detail->name)]);
                 $data = [
                     'remark' => TransactionLogSupport::generateLogMessage(Order::class, $statusRemark, $message)
                 ];

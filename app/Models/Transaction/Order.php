@@ -35,7 +35,7 @@ class Order extends Model implements TransactionLogableContract,AttachableContra
     const ORDER_STATUS_TO_SHIPMENT_PARTNER = 9;
     const ORDER_STATUS_SHIPPING = 10;
     const ORDER_STATUS_RECEIVED = 11;
-    const ORDER_STATUS_ARRIVED = 12;
+    const ORDER_STATUS_DONE = 12;
 
     public function transaction(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -61,7 +61,7 @@ class Order extends Model implements TransactionLogableContract,AttachableContra
             self::ORDER_STATUS_TO_SHIPMENT_PARTNER => "Menuju Jasa Pengiriman",
             self::ORDER_STATUS_SHIPPING => "Dalam Pengiriman",
             self::ORDER_STATUS_RECEIVED => "Pesanan diterima",
-            self::ORDER_STATUS_ARRIVED => "Pesanan telah sampai ditujuan",
+            self::ORDER_STATUS_DONE => "Pesanan telah sampai ditujuan",
         ];
     }
 }

@@ -29,7 +29,7 @@ class OrderStatus extends Badge
                 Order::ORDER_STATUS_LEGAL_PROCESSED,
                 Order::ORDER_STATUS_PACKED,
                 Order::ORDER_STATUS_RECEIVED,
-                Order::ORDER_STATUS_ARRIVED
+                Order::ORDER_STATUS_DONE
             ]):
                 $this->type = self::TYPE_SUCCESS;
                 break;
