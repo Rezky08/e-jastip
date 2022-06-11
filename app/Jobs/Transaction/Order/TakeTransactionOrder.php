@@ -43,13 +43,13 @@ class TakeTransactionOrder
                 'required',
                 'filled',
                 function ($attribute, $value, $fail) {
-                    $isMaxTaken = $this->sprinter->orders()->count() >= SettingSupport::getSettingByKey(Setting::KEY_MAX_SPRINTER_ORDER_TAKEN);
+                    $isMaxTaken = $this->sprinter->orders()->where('status', '<', Order::ORDER_STATUS_SHIPPING)->count() >= SettingSupport::getSettingByKey(Setting::KEY_MAX_SPRINTER_ORDER_TAKEN);
                     if ($isMaxTaken) {
                         $fail(__('validation.order.transaction.max'));
                     }
                 },
                 function ($attribute, $value, $fail) {
-                    $isAlreadyTaken = $this->sprinter->orders()->where('transaction_id', $value)->exists();
+                    $isAlreadyTaken = Order::query()->where('transaction_id', $value)->exists();
                     if ($isAlreadyTaken) {
                         $fail(__('validation.order.transaction.taken', ['id' => $this->transaction->token]));
                     }
