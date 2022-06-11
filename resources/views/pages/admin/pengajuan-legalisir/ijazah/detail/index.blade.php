@@ -213,6 +213,51 @@
 
                     </div>
                 @endif
+                @if(!empty(\App\Supports\FormSupport::getFormData('order')))
+                    <div>
+                        <hr/>
+                        <x-wrapper.form isRow>
+                            <x-wrapper.column>
+                                <span class="font-weight-bold text-lg">{{ucfirst(__('messages.order'))}}</span>
+                            </x-wrapper.column>
+                        </x-wrapper.form>
+
+                        <x-wrapper.form isRow>
+                            <x-wrapper.column>
+                                <x-form.display-text name="order_status"
+                                                     label="{{__('messages.form.label.status',['name'=>ucfirst(__('messages.order'))])}}"
+                                                     isGroup>
+                                    <x-badges.order-status
+                                        status="{{\App\Supports\FormSupport::getFormData('order.status')}}"/>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                            <x-wrapper.column>
+                                <x-form.display-text name="order_last_update"
+                                                     label="{{__('messages.form.label.last_update')}}" isGroup>
+                                    <x-display.date-time
+                                        value="{{\App\Supports\FormSupport::getFormData('order.updated_at')}}"/>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                        </x-wrapper.form>
+
+                        <x-wrapper.form isRow>
+                            <x-wrapper.column>
+                                <x-form.display-text name="sprinter" label="Nama Sprinter" isGroup>
+                                    <span>{{\App\Supports\FormSupport::getFormData('order.sprinter.name')}}</span>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                            @if(!empty(\App\Supports\FormSupport::getFormData('order.receipt')))
+                                <x-wrapper.column>
+                                    <x-form.display-text name="order_receipt"
+                                                         label="{{__('messages.form.label.receipt')}}" isGroup>
+                                        <span>{{\App\Supports\FormSupport::getFormData('order.receipt')}}</span>
+                                    </x-form.display-text>
+                                </x-wrapper.column>
+                            @endif
+                        </x-wrapper.form>
+
+                    </div>
+                @endif
             @show
             @section("actions")
                 <div class="d-flex flex-column" style="gap: 1rem">

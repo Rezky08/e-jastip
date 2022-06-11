@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'order' => 'pesanan',
     'form.submit.cancel' => 'Batal',
     'form.submit.confirm' => 'Konfirmasi',
     'notification.submit.success' => 'Sukses melakukan :title <span class="font-weight-bold">:id</span>',
@@ -23,5 +24,9 @@ return [
     'sprinter.form.submit.packed' => 'Selesai Pengemasan',
     'sprinter.form.submit.to_shipment_partner' => 'Menuju Jasa Pengiriman',
     'sprinter.form.submit.shipping' => 'Proses Pengiriman',
+
+    'form.label.status' => 'Status :name',
+    'form.label.last_update' => 'Perubahan Terakhir',
+    'form.label.receipt' => 'Nomor Resi'
 
 ];

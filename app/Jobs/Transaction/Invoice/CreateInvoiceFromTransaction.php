@@ -6,6 +6,7 @@ use App\Contracts\InvoiceableContract;
 use App\Models\Setting\Setting;
 use App\Models\Transaction\Invoice\Detail;
 use App\Models\Transaction\Invoice\Invoice;
+use App\Supports\InvoiceSupport;
 use App\Supports\SettingSupport;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -52,8 +53,21 @@ class CreateInvoiceFromTransaction
 
         // Get biaya layanan dari m_settings
         $settingService = SettingSupport::getSettingByKey(Setting::KEY_BIAYA_LAYANAN);
-        $serviceFee = Detail::getAvailableType()[Detail::INVOICE_DETAIL_TYPE_SERVICE];
-        $serviceFee['price'] = $settingService;
+
+        // Get biaya aplikasi dari m_settings
+        $settingAppFeePercentage = SettingSupport::getSettingByKey(Setting::KEY_BIAYA_APP_PERCENTAGE);
+        $appFee = Detail::getAvailableType()[Setting::KEY_BIAYA_APP_PERCENTAGE];
+        $appFee['price'] = InvoiceSupport::getCalculatePercentageValue($settingService, $settingAppFeePercentage);
+
+        // Get biaya jastip dari m_settings
+        $settingJastipFeePercentage = SettingSupport::getSettingByKey(Setting::KEY_BIAYA_JASTIP_PERCENTAGE);
+        $jastipFee = Detail::getAvailableType()[Setting::KEY_BIAYA_JASTIP_PERCENTAGE];
+        $jastipFee['price'] = InvoiceSupport::getCalculatePercentageValue($settingService, $settingJastipFeePercentage);
+
+        // Get biaya ops dari m_settings
+        $settingOpsFeePercentage = SettingSupport::getSettingByKey(Setting::KEY_BIAYA_OPS_PERCENTAGE);
+        $opsFee = Detail::getAvailableType()[Setting::KEY_BIAYA_OPS_PERCENTAGE];
+        $opsFee['price'] = InvoiceSupport::getCalculatePercentageValue($settingService, $settingOpsFeePercentage);
 
         // Get biaya kirim dari invoiceable
         /** @var Model $transaction */
@@ -61,7 +75,7 @@ class CreateInvoiceFromTransaction
         $deliveryFee = Detail::getAvailableType()[Detail::INVOICE_DETAIL_TYPE_SHIPMENT];
         $deliveryFee['price'] = $transaction->partner_shipment_price;
 
-        $data = [$serviceFee, $deliveryFee];
+        $data = [$appFee, $jastipFee, $opsFee, $deliveryFee];
 
         // Store Invoice Detail Item
         $details = new Collection();
