@@ -21,4 +21,10 @@ class InvoiceSupport
         ];
         return $invoiceDetails;
     }
+
+    static public function getCalculatePercentageValue($amount = 0, $percentage = 0)
+    {
+        $percentage = bcdiv($percentage, 100,2);
+        return bcmul($amount, $percentage);
+    }
 }

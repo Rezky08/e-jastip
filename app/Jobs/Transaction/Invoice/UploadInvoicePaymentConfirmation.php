@@ -19,6 +19,7 @@ class UploadInvoicePaymentConfirmation
     public array $attributes;
     public Invoice $invoice;
     public Attachment $attachment;
+    public $disk = 'invoice';
 
     /**
      * Create a new job instance.
@@ -44,7 +45,10 @@ class UploadInvoicePaymentConfirmation
     {
         /** @var UploadedFile $file */
         $file = $this->attributes['file'];
-        $this->attachment = $this->create($file, ['title' => $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension()]);
+        $this->attachment = $this->create($file, [
+            'title' => $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension(),
+            'disk' => $this->disk
+        ]);
         $pivot = new InvoiceAttachment();
         $pivot->holder_name = $this->attributes['holder_name'];
         $pivot->invoice()->associate($this->invoice);

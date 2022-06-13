@@ -1,4 +1,8 @@
 @section("script")
+
+    <script src="{{asset("/js/manifest.js")}}"></script>
+    {{--        <script src="{{asset("/js/vendor.js")}}"></script>--}}
+    <script src="{{asset("/js/app.js")}}" defer></script>
     <script type="text/javascript">window.laravel = @json($laravelJs);</script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>
@@ -12,9 +16,9 @@
     <script src="{{asset("js/select2.min.js")}}"></script>
     <script src="{{asset("js/datatables.min.js")}}"></script>
     <script src="{{asset("js/clipboard.min.js")}}"></script>
-{{--    <script src="{{asset("js/plugins/piexif.js")}}" type="text/javascript"></script>--}}
-{{--    <script src="{{asset("js/plugins/sortable.js")}}" type="text/javascript"></script>--}}
-{{--    <script src="{{asset("js/fileinput.js")}}" type="text/javascript"></script>--}}
+    {{--    <script src="{{asset("js/plugins/piexif.js")}}" type="text/javascript"></script>--}}
+    {{--    <script src="{{asset("js/plugins/sortable.js")}}" type="text/javascript"></script>--}}
+    {{--    <script src="{{asset("js/fileinput.js")}}" type="text/javascript"></script>--}}
 
 
     <!-- Page level plugins -->
@@ -32,6 +36,7 @@
     </script>
     <script>
         const phpJsonVar = "<?=json_encode($json ?? [])?>"
+        window.csrf = "<?=csrf_token()?>";
     </script>
 
     <script>
@@ -77,10 +82,10 @@
         });
     </script>
 
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            // initialize plugin with defaults--}}
-{{--            $("input[type=file]").fileinput();--}}
-{{--        })--}}
-{{--    </script>--}}
+    {{--    <script>--}}
+    {{--        $(document).ready(function () {--}}
+    {{--            // initialize plugin with defaults--}}
+    {{--            $("input[type=file]").fileinput();--}}
+    {{--        })--}}
+    {{--    </script>--}}
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class UniversitySeeder extends Seeder
 {
+    public static int $defaultId = 139;
     /**
      * Run the database seeds.
      *

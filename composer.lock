@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "b3f78c7585caaf36bd087e971c15b3d1",
+=======
+    "content-hash": "27f427fb7ed119076f00f60eaca6b729",
+>>>>>>> 81ae18486b69724d73e5859573745c998e112436
     "packages": [
         {
             "name": "brick/math",
@@ -1022,16 +1026,16 @@
         },
         {
             "name": "jalameta/jps-attachments",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rezky08/jps-attachments.git",
-                "reference": "84dc8e65d7d03a6b39e037b467c238ceb37cecb4"
+                "reference": "4893d8d7a13bc08e3e109681b585d88d5df3fdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rezky08/jps-attachments/zipball/84dc8e65d7d03a6b39e037b467c238ceb37cecb4",
-                "reference": "84dc8e65d7d03a6b39e037b467c238ceb37cecb4",
+                "url": "https://api.github.com/repos/Rezky08/jps-attachments/zipball/4893d8d7a13bc08e3e109681b585d88d5df3fdac",
+                "reference": "4893d8d7a13bc08e3e109681b585d88d5df3fdac",
                 "shasum": ""
             },
             "require": {
@@ -1071,9 +1075,9 @@
             ],
             "description": "Easy attachment library to attach your media files into something attachable.",
             "support": {
-                "source": "https://github.com/Rezky08/jps-attachments/tree/v2.0.3"
+                "source": "https://github.com/Rezky08/jps-attachments/tree/v2.0.4"
             },
-            "time": "2022-04-18T04:23:26+00:00"
+            "time": "2022-05-27T11:43:50+00:00"
         },
         {
             "name": "laravel-lang/lang",
@@ -1572,6 +1576,67 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.7.2"
             },
             "time": "2022-03-23T12:38:24+00:00"
+        },
+        {
+            "name": "laravel/ui",
+            "version": "v3.4.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "65ec5c03f7fee2c8ecae785795b829a15be48c2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/65ec5c03f7fee2c8ecae785795b829a15be48c2c",
+                "reference": "65ec5c03f7fee2c8ecae785795b829a15be48c2c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^8.42|^9.0",
+                "illuminate/filesystem": "^8.42|^9.0",
+                "illuminate/support": "^8.82|^9.0",
+                "illuminate/validation": "^8.42|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.23|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/",
+                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/ui/tree/v3.4.6"
+            },
+            "time": "2022-05-20T13:38:08+00:00"
         },
         {
             "name": "league/commonmark",
@@ -3324,16 +3389,16 @@
         },
         {
             "name": "rezky/laravel-response-formatter",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rezky08/laravel-response-formatter.git",
-                "reference": "8ba6a62770d25ce315469253e3c8677f8894e742"
+                "reference": "a5ed6b872a512ff2ba6065312375b30613fe0565"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/8ba6a62770d25ce315469253e3c8677f8894e742",
-                "reference": "8ba6a62770d25ce315469253e3c8677f8894e742",
+                "url": "https://api.github.com/repos/Rezky08/laravel-response-formatter/zipball/a5ed6b872a512ff2ba6065312375b30613fe0565",
+                "reference": "a5ed6b872a512ff2ba6065312375b30613fe0565",
                 "shasum": ""
             },
             "require": {
@@ -3358,9 +3423,9 @@
             "description": "result api formatter",
             "support": {
                 "issues": "https://github.com/Rezky08/laravel-response-formatter/issues",
-                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.2.0"
+                "source": "https://github.com/Rezky08/laravel-response-formatter/tree/1.2.1"
             },
-            "time": "2022-05-11T06:42:12+00:00"
+            "time": "2022-05-27T11:48:28+00:00"
         },
         {
             "name": "rezky/rajaongkir",

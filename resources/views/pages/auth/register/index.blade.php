@@ -24,6 +24,8 @@
                                 <form class="user" method="POST">
                                     @csrf
                                     <div class="d-flex flex-column" style="gap:1rem">
+                                        @section("additional-fields")
+                                        @show
                                         <x-form.input name="name" placeholder="Nama Lengkap" rounded/>
                                         <x-form.input type="email" name="email" placeholder="Masukan Email" rounded/>
                                         <x-form.input type="password" name="password" placeholder="Masukan Password"

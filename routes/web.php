@@ -55,13 +55,20 @@ Route::middleware(['auth.guard:web'])->group(function () {
                 Route::post("/", [\App\Http\Controllers\PengajuanLegalisir\IjazahController::class, "store"]);
             });
         });
-
+        Route::group(['prefix' => '/check', 'as' => 'check.'], function () {
+            Route::get('/status', [\App\Http\Controllers\Check\StatusController::class, 'index'])->name('list');
+        });
         Route::group(['prefix' => '/riwayat', 'as' => 'riwayat.'], function () {
             Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'index'])->name('list');
             Route::group(['prefix' => '/{transaction}'], function () {
                 Route::get('/', [\App\Http\Controllers\RiwayatController::class, 'show'])->name('detail');
+                Route::get('/log', [\App\Http\Controllers\Riwayat\LogController::class, 'show'])->name('log');
+            });
+            Route::group(['prefix'=>'{order}','as'=>'order.'],function (){
+                Route::get('/receive', [\App\Http\Controllers\Riwayat\ReceiveController::class, 'store'])->name('receive');
             });
         });
+
 
     });
 });
@@ -99,6 +106,7 @@ Route::middleware(['auth.guard:admin'])->group(function () {
 
     });
 });
+<<<<<<< HEAD
 
 //google
 Route::get("auth/google", [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('google.login');
@@ -107,3 +115,54 @@ Route::get("auth/googlecallback", [\App\Http\Controllers\GoogleController::class
 //facebook
 Route::get("auth/facebook", [\App\Http\Controllers\FacebookController::class, 'redirectToFacbook'])->name('faceook.login');
 Route::get("auth/facebookcallback", [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback'])->name('facebook.callback');
+=======
+Route::middleware(['auth.guard:sprinter'])->group(function () {
+    Route::group(['middleware' => ['guest:sprinter'], 'prefix' => '/sprinter', 'as' => 'sprinter.'], function () {
+        Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
+            Route::get("/login", [\App\Http\Controllers\Auth\LoginController::class, "index"])->name('login');
+            Route::post("/login", [\App\Http\Controllers\Auth\LoginController::class, "store"]);
+            Route::get("/register", [\App\Http\Controllers\Auth\RegisterController::class, "index"])->name('register');
+            Route::post("/register", [\App\Http\Controllers\Auth\RegisterController::class, "store"]);
+
+        });
+    });
+
+    Route::group(['middleware' => ['auth:sprinter'], 'prefix' => '/sprinter', 'as' => 'sprinter.'], function () {
+
+        Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
+            Route::get("/logout", [\App\Http\Controllers\Auth\LoginController::class, "destroy"])->name('logout');
+        });
+
+        Route::group(['prefix' => '/attachment'], function () {
+            Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"])->name('attachment');
+        });
+
+
+        Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
+            Route::group(['prefix' => '/ongoing'], function () {
+                Route::group(['prefix' => '/{order}', 'as' => 'ongoing.'], function () {
+                    Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "show"])->name("detail");
+
+                    Route::post("/print", [\App\Http\Controllers\Sprinter\Order\Ongoing\PrintController::class, "store"])->name("print");
+                    Route::post("/to-university", [\App\Http\Controllers\Sprinter\Order\Ongoing\ToUniversityController::class, "store"])->name("to.university");
+                    Route::post("/arrived-university", [\App\Http\Controllers\Sprinter\Order\Ongoing\ArrivedUniversityController::class, "store"])->name("arrived.university");
+                    Route::post("/legal-processing", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalProcessController::class, "store"])->name("legal.process");
+                    Route::post("/legal-processed", [\App\Http\Controllers\Sprinter\Order\Ongoing\LegalDoneController::class, "store"])->name("legal.done");
+                    Route::post("/packing", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackingController::class, "store"])->name("packing");
+                    Route::post("/packed", [\App\Http\Controllers\Sprinter\Order\Ongoing\PackedController::class, "store"])->name("packed");
+                    Route::post("/to-shipment", [\App\Http\Controllers\Sprinter\Order\Ongoing\ToShipmentPartnerController::class, "store"])->name("to.shipment");
+                    Route::post("/shipping", [\App\Http\Controllers\Sprinter\Order\Ongoing\ShippingController::class, "store"])->name("shipping");
+                });
+                Route::get("/", [\App\Http\Controllers\Sprinter\Order\OngoingController::class, "index"])->name("ongoing");
+            });
+            Route::group(['prefix' => '/incoming'], function () {
+                Route::get("/", [\App\Http\Controllers\Sprinter\Order\IncomingController::class, "index"])->name("incoming");
+
+                Route::group(['prefix' => '/{transaction}'], function () {
+                    Route::post("/", [\App\Http\Controllers\Sprinter\Order\IncomingController::class, "store"])->name("incoming.take");
+                });
+            });
+        });
+    });
+});
+>>>>>>> 81ae18486b69724d73e5859573745c998e112436

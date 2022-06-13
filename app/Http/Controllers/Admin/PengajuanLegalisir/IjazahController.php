@@ -10,6 +10,7 @@ use App\Models\Transaction\Transaction;
 use App\Supports\FormSupport;
 use App\Supports\Repositories\AuthRepository;
 use App\Supports\Repositories\TransactionRepository;
+use App\Traits\DataSearchResourceable;
 use App\Traits\usePagination;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +18,7 @@ use Rezky\LaravelResponseFormatter\Http\Response;
 
 class IjazahController extends Controller
 {
-    use usePagination;
+    use usePagination,DataSearchResourceable;
 
     public TransactionRepository $transactionRepository;
     public AuthRepository $authRepository;
@@ -38,7 +39,10 @@ class IjazahController extends Controller
     {
         if ($request->expectsJson()) {
             $query = $this->transactionRepository->queries();
-            return $this->withPagination($query, TransactionResource::class, Response::PAGINATOR_TYPE_DATA_TABLE);
+            $searchFields = [
+                'token,student_id,name,faculty.name,faculty.code,studyProgram.name' => 'search.value',
+            ];
+            return $this->search($request, $query, $searchFields, ['id'], TransactionResource::class, Response::PAGINATOR_TYPE_DATA_TABLE);
         }
         $data = [
             'tables' => [
@@ -46,9 +50,9 @@ class IjazahController extends Controller
                     'Token' => 'token',
                     'NIM' => 'user.student_id',
                     'Nama' => 'user.name',
-                    'Fakultas' => 'faculty.name',
-                    'Program Studi' => 'study_program.name',
-                    'Status' => 'status_label',
+                    'Fakultas' => ['data' => 'faculty.name', 'name' => 'faculty_id'],
+                    'Program Studi' => ['data' => 'study_program.name', 'name' => 'study_program_id'],
+                    'Status' => ['data' => 'status_label', 'name' => 'status'],
                     'Aksi' => null,
                 ],
                 'documentsTable' => [

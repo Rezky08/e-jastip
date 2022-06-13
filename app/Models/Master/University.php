@@ -2,12 +2,13 @@
 
 namespace App\Models\Master;
 
+use App\Contracts\PaymentMethodAccountableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
-use App\Models\Pivot\Master\AdminUniversity;
 use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
+use App\Traits\PaymentMethodAccountable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,9 +25,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $zip_code
  * @property string $address
  */
-class University extends Model
+class University extends Model implements PaymentMethodAccountableContract
 {
-    use HasFactory, HasTable;
+    use HasFactory, HasTable, PaymentMethodAccountable;
 
     protected $table = 'm_universities';
 
@@ -61,8 +62,13 @@ class University extends Model
         return $this->hasMany(Transaction::class, 'university_id', 'id');
     }
 
-    public function admins(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function sprinters(): \Illuminate\Database\Eloquent\Relations\MorphToMany
     {
-        return $this->belongsToMany(Admin::class, AdminUniversity::getTableName())->using(AdminUniversity::class);
+        return $this->morphedByMany(Sprinter::class, 'universitiable', 'm_universitiables', 'university_id', 'universitiable_id');
+    }
+
+    public function admins(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphedByMany(Admin::class, 'universitiable', 'm_universitiables', 'university_id', 'universitiable_id');
     }
 }

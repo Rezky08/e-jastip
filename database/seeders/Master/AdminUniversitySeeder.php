@@ -18,7 +18,7 @@ class AdminUniversitySeeder extends Seeder
     {
         /** @var Admin $admin */
         $admin = Admin::query()->first();
-        $university = University::query()->find(139);
+        $university = University::query()->findOrFail(UniversitySeeder::$defaultId);
         $admin->universities()->attach($university);
         $admin->save();
     }

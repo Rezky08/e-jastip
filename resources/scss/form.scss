@@ -1,9 +1,12 @@
-.form{
-    &-control{
+.form {
+    &-control {
         &-rounded {
-            border-radius: 10rem;
-            //font-size: .8rem;
-            padding: 1.5rem 1rem;
+            border-radius: 10rem !important;
+
+            &:not(.select2-selection) {
+                //font-size: .8rem;
+                padding: 1.5rem 1rem !important;
+            }
         }
     }
 }

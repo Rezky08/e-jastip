@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'admin',
         ],
+        'sprinter' => [
+            'driver' => 'session',
+            'provider' => 'sprinter',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Master\Admin::class,
+        ],
+        'sprinter' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Master\Sprinter::class,
         ],
 
         // 'users' => [
@@ -102,7 +110,13 @@ return [
             'throttle' => 60,
         ],
         'admin' => [
-            'provider' => 'users',
+            'provider' => 'admin',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'sprinter' => [
+            'provider' => 'sprinter',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

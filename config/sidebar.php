@@ -26,12 +26,12 @@ return [
                         ],
                     ]
                 ],
-                [
-                    'code' => 'CKS',
-                    'title' => 'Cek Status',
-                    'url' => '/cek-status',
-                    'children' => []
-                ],
+//                [
+//                    'code' => 'CKS',
+//                    'title' => 'Cek Status',
+//                    'url' => '/cek-status',
+//                    'children' => []
+//                ],
                 [
                     'code' => 'RPJ',
                     'title' => 'Riwayat Pengajuan',
@@ -58,6 +58,26 @@ return [
                             'children' => []
                         ],
                     ]
+                ],
+            ]
+        ],
+    ],
+    \App\Supports\Repositories\AuthRepository::GUARD_SPRINTER => [
+        [
+            'code' => 'SOR',
+            'title' => 'Order',
+            'children' => [
+                [
+                    'code' => 'SOI',
+                    'title' => 'Incoming',
+                    'routeName' => 'sprinter.order.incoming',
+                    'children' => []
+                ],
+                [
+                    'code' => 'SOO',
+                    'title' => 'Ongoing',
+                    'routeName' => 'sprinter.order.ongoing',
+                    'children' => []
                 ],
             ]
         ],

@@ -19,7 +19,7 @@ class Query
     {
         return Transaction::query()->whereHas('university', function (Builder $query) {
             $query->whereHas('admins', function (Builder $query) {
-                $query->where('admin_id', $this->admin->id);
+                $query->where(Admin::getTableName().'.'.Admin::getInstance()->getKeyName(), $this->admin->id);
             });
         });
     }

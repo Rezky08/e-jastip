@@ -26,7 +26,11 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        return view("pages.auth.register.index");
+        if ($this->repository->isSprinter()){
+            return view("pages.sprinter.auth.register.index");
+        }else{
+            return view("pages.auth.register.index");
+        }
     }
 
     /**

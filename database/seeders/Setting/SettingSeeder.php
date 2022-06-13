@@ -35,8 +35,28 @@ class SettingSeeder extends Seeder
                 'value' => 399 // Semarang Kota
             ],
             [
+                'key'=> Setting::KEY_BIAYA_APP_PERCENTAGE,
+                'value' => 20 // in percentage
+            ],
+            [
+                'key'=> Setting::KEY_BIAYA_OPS_PERCENTAGE,
+                'value' => 10 // in percentage
+            ],
+            [
+                'key'=> Setting::KEY_BIAYA_JASTIP_PERCENTAGE,
+                'value' => 70 // in percentage
+            ],
+            [
                 'key'=> Setting::KEY_MAX_TRANSACTION_ATTACHMENT,
                 'value' => 1
+            ],
+            [
+                'key'=> Setting::KEY_MAX_SPRINTER_ORDER_TAKEN,
+                'value' => 3
+            ],
+            [
+                'key'=> Setting::KEY_MAX_SPRINTER_UPLOAD_PROOF,
+                'value' => 3
             ],
 
         ];

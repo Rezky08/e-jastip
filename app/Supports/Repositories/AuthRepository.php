@@ -3,6 +3,7 @@
 namespace App\Supports\Repositories;
 
 use App\Models\Master\Admin;
+use App\Models\Master\Sprinter;
 use App\Models\Master\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -21,6 +22,7 @@ class AuthRepository
 
     const GUARD_WEB = 'web';
     const GUARD_ADMIN = 'admin';
+    const GUARD_SPRINTER = 'sprinter';
 
 
     public function __construct(\Closure $requestCallback)
@@ -33,7 +35,8 @@ class AuthRepository
     {
         return [
             self::GUARD_ADMIN,
-            self::GUARD_WEB
+            self::GUARD_WEB,
+            self::GUARD_SPRINTER,
         ];
     }
 
@@ -58,12 +61,14 @@ class AuthRepository
     {
         if ($this->isAdmin()) {
             return Admin::class;
+        } elseif ($this->isSprinter()) {
+            return Sprinter::class;
         } else {
             return User::class;
         }
     }
 
-    public function getUser(): User|Admin|null
+    public function getUser(): User|Admin|Sprinter|null
     {
 
         $user = $this->scopedAuth->user();
@@ -75,12 +80,31 @@ class AuthRepository
         return $this->scopedGuard === self::GUARD_ADMIN;
     }
 
+    public function isSprinter(): bool
+    {
+        return $this->scopedGuard === self::GUARD_SPRINTER;
+    }
+
     public function getRouteHome()
     {
         if ($this->isAdmin()) {
             return route('admin.pengajuan-legalisir.ijazah');
+        } elseif ($this->isSprinter()) {
+            return route('sprinter.order.incoming');
         } else {
             return route('profile');
+
+        }
+    }
+
+    public function getRouteLogin()
+    {
+        if ($this->isAdmin()) {
+            return route('admin.auth.login');
+        } elseif ($this->isSprinter()) {
+            return route('sprinter.auth.login');
+        } else {
+            return route('auth.login');
 
         }
     }
@@ -105,6 +129,11 @@ class AuthRepository
 
             // add verify for user later
             if ($this->getUser() instanceof User and !(Str::startsWith($name, 'admin'))) {
+                return true;
+            }
+
+            // add verify for user later
+            if ($this->getUser() instanceof Sprinter and (Str::startsWith($name, 'sprinter'))) {
                 return true;
             }
 

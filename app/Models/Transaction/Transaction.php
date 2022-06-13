@@ -3,6 +3,7 @@
 namespace App\Models\Transaction;
 
 use App\Contracts\InvoiceableContract;
+use App\Contracts\TransactionLogableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
@@ -10,8 +11,10 @@ use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
 use App\Models\Master\University;
 use App\Models\Master\User\User;
+use App\Models\Pivot\Transaction\TransactionLogablePivot;
 use App\Models\Transaction\Invoice\Invoice;
 use App\Traits\Invoiceable;
+use App\Traits\TransactionLogable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\HasTable;
@@ -26,6 +29,7 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property int $university_id
  * @property int $faculty_id
  * @property string $study_program_id
+ * @property string $token
  * @property int $origin_province_id
  * @property int $origin_city_id
  * @property int $origin_district_id
@@ -54,10 +58,11 @@ use Jalameta\Attachments\Entities\Attachment;
  * @property District $destinationDistrict
  * @property Collection $invoices
  * @property Invoice $invoice
+ * @property TransactionLogablePivot $logs
  */
-class Transaction extends Model implements InvoiceableContract, AttachableContract
+class Transaction extends Model implements InvoiceableContract, AttachableContract, TransactionLogableContract
 {
-    use HasFactory, Invoiceable, HasTable, Attachable;
+    use HasFactory, Invoiceable, HasTable, Attachable, TransactionLogable;
 
     protected $table = "t_transactions";
 
@@ -204,6 +209,29 @@ class Transaction extends Model implements InvoiceableContract, AttachableContra
     public function documents()
     {
         return $this->hasMany(\App\Models\Transaction\Transaction\Attachment::class, 'transaction_id', 'id');
+    }
+
+    public function order(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Order::class, 'transaction_id', 'id');
+    }
+
+    public function orderLogs(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphedByMany(Order::class, 'transaction_logable', TransactionLogablePivot::getTableName())
+            ->withPivot('id', 'remark')
+            ->withTimestamps()
+            ->using(TransactionLogablePivot::class);
+    }
+
+    public function transactionLogable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    {
+        return $this->morphTo();
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(TransactionLogablePivot::class, 'transaction_id', 'id')->latest();
     }
 
 

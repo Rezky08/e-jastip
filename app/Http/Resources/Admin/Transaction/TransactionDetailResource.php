@@ -37,6 +37,10 @@ class TransactionDetailResource extends JsonResource
             'destinationDistrict',
             'user.detail',
             'invoice',
+            'invoice.account',
+            'invoice.account.paymentMethod',
+            'order',
+            'order.sprinter',
         ]);
 
         $transaction->invoice->append('calculated');

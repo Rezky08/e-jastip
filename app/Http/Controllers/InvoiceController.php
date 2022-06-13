@@ -64,14 +64,7 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        /** @var User $user */
-        $user = $this->repository->getUser();
-        /** @var \App\Models\Master\User\Detail $detail */
-        $detail = $user->detail;
-        /** @var Faculty $faculty */
-        $faculty = $detail->faculty;
-
-        $paymentMethodAccounts = PaymentMethodSupport::getPaymentMethodListByFaculty($faculty);
+        $paymentMethodAccounts = PaymentMethodSupport::getPaymentMethodListByGeneral();
         $data = [
             'paymentMethods' => $paymentMethodAccounts->toArray(),
             'invoice' => $invoice,

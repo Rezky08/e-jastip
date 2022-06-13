@@ -20,6 +20,10 @@ class TransactionResource extends JsonResource
         $user = $data->user->detail;
         $faculty = $data->faculty;
         $studyProgram = $data->studyProgram;
+        $university = $data->university;
+        $invoice = $data->invoice;
+        $order = $data->order;
+        $invoice->append('calculated');
         $documents = $data->documents;
         $data->unsetRelations();
         return array_merge($data->toArray(), [
@@ -27,7 +31,10 @@ class TransactionResource extends JsonResource
             'user' => $user,
             'faculty' => $faculty,
             'study_program' => $studyProgram,
-            'documents' => $documents
+            'documents' => $documents,
+            'invoice' => $invoice,
+            'university' => $university,
+            'order' => $order
         ]);
     }
 }
