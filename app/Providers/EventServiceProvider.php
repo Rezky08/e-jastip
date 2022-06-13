@@ -22,6 +22,7 @@ use App\Jobs\Transaction\Transaction\UpdateTransactionStatus;
 use App\Listeners\Master\User\UpdateOrCreateUserDetailByEvent;
 use App\Listeners\Transaction\Invoice\GenerateInvoice;
 use App\Listeners\Transaction\Invoice\UpdateInvoiceStatusByEvent;
+use App\Listeners\Transaction\Order\UpdateOrderStatusByEvent;
 use App\Listeners\Transaction\Transaction\UpdateTransactionStatusByEvent;
 use App\Listeners\Transaction\Transaction\WriteTransactionLogByEvent;
 use Illuminate\Auth\Events\Registered;
@@ -88,6 +89,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         DocumentReceivedByUser::class => [
             UpdateTransactionStatusByEvent::class,
+            UpdateOrderStatusByEvent::class,
             WriteTransactionLogByEvent::class,
         ]
     ];

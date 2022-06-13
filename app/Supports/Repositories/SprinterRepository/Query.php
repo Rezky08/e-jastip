@@ -3,6 +3,7 @@
 namespace App\Supports\Repositories\SprinterRepository;
 
 use App\Models\Master\Sprinter;
+use App\Models\Transaction\Order;
 use App\Models\Transaction\Transaction;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -35,6 +36,7 @@ class Query
     {
         return $this->query->whereHas('order', function (Builder $query) {
             $query->where('sprinter_id', $this->sprinter->id);
+            $query->where('status','!=', Order::ORDER_STATUS_DONE);
         });
     }
 }
