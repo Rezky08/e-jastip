@@ -99,3 +99,11 @@ Route::middleware(['auth.guard:admin'])->group(function () {
 
     });
 });
+
+//google
+Route::get("auth/google", [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get("auth/googlecallback", [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+//facebook
+Route::get("auth/facebook", [\App\Http\Controllers\FacebookController::class, 'redirectToFacbook'])->name('faceook.login');
+Route::get("auth/facebookcallback", [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback'])->name('facebook.callback');
