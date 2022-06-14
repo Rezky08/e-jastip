@@ -42,6 +42,7 @@ class OngoingController extends Controller
         $query = $this->transactionRepository->queries();
         $query = $query->getOngoingTransaction();
 
+
         /** @var LengthAwarePaginator $transactions */
         $transactions = $this->withPagination($query, TransactionResource::class, Response::PAGINATOR_TYPE_DEFAULT, 5);
         if ($request->expectsJson()) {

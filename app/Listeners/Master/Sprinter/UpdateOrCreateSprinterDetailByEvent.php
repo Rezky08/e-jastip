@@ -31,7 +31,7 @@ class UpdateOrCreateSprinterDetailByEvent
     {
         if ($event instanceof SprinterCreated) {
             /** @var Sprinter $user */
-            $user = $event->user;
+            $user = $event->sprinter;
 //            dd($user->only('name'));
             $job = new UpdateOrCreateSprinterDetail($user->only('name'), $user);
             dispatch($job);
