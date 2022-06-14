@@ -9,10 +9,12 @@ use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Master\User\User;
 use App\Supports\Repositories\AuthRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthAction
 {
@@ -22,6 +24,34 @@ class AuthAction
     public function __construct(AuthRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function socialLogin($driver = User::SOCIAL_LOGIN_DRIVER_GOOGLE)
+    {
+        $model = $this->repository->getModel();
+        $user = Socialite::driver($driver)->user();
+        $driverKey = $model::getSocialLoginKey($driver);
+        $finduser = $model::where($driverKey, $user->getId())->orWhere('email', 'ILIKE', $user->getEmail())->first();
+        if ($finduser) {
+            if (empty($finduser->$driverKey)) {
+                $finduser->$driverKey = $user->getId();
+                $finduser->save();
+            }
+
+            $this->repository->scopedAuth->login($finduser);
+            return redirect($this->repository->getRouteHome());
+        } else {
+            $defaultPassword = env('SOCIAL_DEFAULT_PASSWORD');
+            $credentials = [
+                'name' => $user->getName(),
+                'username' => $user->getEmail(),
+                'email' => $user->getEmail(),
+                $driverKey => $user->getId(),
+                'password' => $defaultPassword,
+                'password_confirmation' => $defaultPassword,
+            ];
+            return $this->register($credentials);
+        }
     }
 
     public function login($credentials = ['email' => null, 'password' => null]): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse

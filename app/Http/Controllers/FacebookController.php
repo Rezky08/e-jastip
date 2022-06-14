@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Actions\AuthAction;
+use App\Contracts\SocialLoginContract;
 use Laravel\Socialite\Facades\Socialite;
-use PhpParser\Node\Stmt\TryCatch;
 
 class FacebookController extends Controller
 {
     public function redirectToFacebook(){
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver(SocialLoginContract::SOCIAL_LOGIN_DRIVER_FACEBOOK)->redirect();
     }
 
     public function handleFacebookCallback(){
-        try {
-            $user = Socialite::driver('faceook')->user();
-            dd($user);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        $authAction = new AuthAction($this->authRepository);
+        return $authAction->socialLogin(SocialLoginContract::SOCIAL_LOGIN_DRIVER_FACEBOOK);
     }
 }

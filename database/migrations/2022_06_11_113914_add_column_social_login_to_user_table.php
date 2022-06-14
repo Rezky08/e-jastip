@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,8 +12,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('m_users', function (Blueprint $table) {
-            $table->string('google_id')->after('email')->nullable();
+        Schema::table(\App\Models\Master\User\User::getTableName(), function (Blueprint $table) {
+            foreach (\App\Models\Master\User\User::getAvailableSocialLoginDrivers() as $key) {
+                $table->string($key)->after('email')->nullable();
+            }
         });
     }
 
@@ -25,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table(\App\Models\Master\User\User::getTableName(), function (Blueprint $table) {
             $table->dropColumn('google_id');
         });
     }

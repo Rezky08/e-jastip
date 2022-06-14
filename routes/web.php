@@ -106,16 +106,7 @@ Route::middleware(['auth.guard:admin'])->group(function () {
 
     });
 });
-<<<<<<< HEAD
 
-//google
-Route::get("auth/google", [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('google.login');
-Route::get("auth/googlecallback", [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
-
-//facebook
-Route::get("auth/facebook", [\App\Http\Controllers\FacebookController::class, 'redirectToFacbook'])->name('faceook.login');
-Route::get("auth/facebookcallback", [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback'])->name('facebook.callback');
-=======
 Route::middleware(['auth.guard:sprinter'])->group(function () {
     Route::group(['middleware' => ['guest:sprinter'], 'prefix' => '/sprinter', 'as' => 'sprinter.'], function () {
         Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
@@ -164,9 +155,17 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
         });
 
         Route::group(['prefix'=>'/config','as'=>'config.'],function(){
-           Route::get('/',[\App\Http\Controllers\Sprinter\Config\GeneralController::class,'create'])->name('general');
-           Route::post('/',[\App\Http\Controllers\Sprinter\Config\GeneralController::class,'store'])->name('general');
+            Route::get('/',[\App\Http\Controllers\Sprinter\Config\GeneralController::class,'create'])->name('general');
+            Route::post('/',[\App\Http\Controllers\Sprinter\Config\GeneralController::class,'store'])->name('general');
         });
     });
 });
->>>>>>> 81ae18486b69724d73e5859573745c998e112436
+
+
+//google
+Route::get("auth/google", [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get("auth/googlecallback", [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+//facebook
+Route::get("auth/facebook", [\App\Http\Controllers\FacebookController::class, 'redirectToFacebook'])->name('faceook.login');
+Route::get("auth/facebookcallback", [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback'])->name('facebook.callback');

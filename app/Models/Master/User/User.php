@@ -2,10 +2,12 @@
 
 namespace App\Models\Master\User;
 
+use App\Contracts\SocialLoginContract;
 use App\Models\Master\Faculty;
 use App\Models\Master\StudyProgram;
 use App\Models\Master\University;
 use App\Models\Transaction\Transaction;
+use App\Traits\HasSocialLogin;
 use App\Traits\HasTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,9 +26,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Faculty $faculty
  * @property StudyProgram $studyProgram
  */
-class User extends Authenticatable
+class User extends Authenticatable implements SocialLoginContract
 {
-    use HasApiTokens, HasFactory, Notifiable, HasTable;
+    use HasApiTokens, HasFactory, Notifiable, HasTable,HasSocialLogin;
 
     protected $table = "m_users";
 

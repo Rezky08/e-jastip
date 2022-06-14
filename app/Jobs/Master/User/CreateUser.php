@@ -24,11 +24,18 @@ class CreateUser
      */
     public function __construct($attributes = [])
     {
-        $this->attributes = Validator::make($attributes, [
+        $socialLoginValidator = [];
+        foreach (User::getAvailableSocialLoginDrivers() as $key) {
+            $socialLoginValidator[$key] = ['filled', 'unique:' . User::getTableName() . ',' . $key];
+        }
+
+        $validator = [
             'name' => ['required', 'filled'],
             'email' => ['required', 'filled', 'email', 'unique:' . User::getTableName() . ',email'],
             'password' => ['required', 'filled', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
-        ])->validate();
+        ];
+        $validator = array_merge($validator, $socialLoginValidator);
+        $this->attributes = Validator::make($attributes, $validator)->validate();
     }
 
     /**
