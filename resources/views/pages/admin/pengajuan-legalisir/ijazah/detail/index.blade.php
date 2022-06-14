@@ -246,15 +246,23 @@
                                     <span>{{\App\Supports\FormSupport::getFormData('order.sprinter.name')}}</span>
                                 </x-form.display-text>
                             </x-wrapper.column>
-                            @if(!empty(\App\Supports\FormSupport::getFormData('order.receipt')))
+                            <x-wrapper.column>
+                                <x-form.display-text name="sprinter_phone"
+                                                     label="Nomor HP" isGroup>
+                                    <span>{{\App\Supports\FormSupport::getFormData('order.sprinter.detail.phone')}}</span>
+                                </x-form.display-text>
+                            </x-wrapper.column>
+                        </x-wrapper.form>
+                        @if(!empty(\App\Supports\FormSupport::getFormData('order.receipt')))
+                        <x-wrapper.form isRow>
                                 <x-wrapper.column>
                                     <x-form.display-text name="order_receipt"
                                                          label="{{__('messages.form.label.receipt')}}" isGroup>
                                         <span>{{\App\Supports\FormSupport::getFormData('order.receipt')}}</span>
                                     </x-form.display-text>
                                 </x-wrapper.column>
-                            @endif
                         </x-wrapper.form>
+                        @endif
 
                     </div>
                 @endif

@@ -41,6 +41,7 @@ class TransactionDetailResource extends JsonResource
             'invoice.account.paymentMethod',
             'order',
             'order.sprinter',
+            'order.sprinter.detail',
         ]);
 
         $transaction->invoice->append('calculated');
