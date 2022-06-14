@@ -6,6 +6,7 @@ use App\Contracts\PaymentMethodAccountableContract;
 use App\Models\Geo\City;
 use App\Models\Geo\District;
 use App\Models\Geo\Province;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Transaction;
 use App\Traits\HasTable;
 use App\Traits\PaymentMethodAccountable;

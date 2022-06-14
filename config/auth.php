@@ -78,7 +78,7 @@ return [
         ],
         'sprinter' => [
             'driver' => 'eloquent',
-            'model' => \App\Models\Master\Sprinter::class,
+            'model' => \App\Models\Master\Sprinter\Sprinter::class,
         ],
 
         // 'users' => [

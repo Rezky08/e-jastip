@@ -3,7 +3,7 @@
 namespace App\Models\Transaction;
 
 use App\Contracts\TransactionLogableContract;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Traits\HasTable;
 use App\Traits\TransactionLogable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

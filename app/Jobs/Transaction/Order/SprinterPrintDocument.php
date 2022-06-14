@@ -4,7 +4,7 @@ namespace App\Jobs\Transaction\Order;
 
 use App\Events\Transaction\Order\OrderDocumentPrintedBySprinter;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Pivot\Transaction\TransactionLogablePivot;
 use App\Models\Transaction\Order;
 use App\Supports\TransactionLogSupport;

@@ -4,7 +4,7 @@ namespace App\Jobs\Master\Sprinter;
 
 use App\Events\Master\Sprinter\SprinterCreated;
 use App\Jobs\Master\University\AttachUniversitiable;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Master\University;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;

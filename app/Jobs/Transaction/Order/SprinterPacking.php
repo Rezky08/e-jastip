@@ -2,13 +2,10 @@
 
 namespace App\Jobs\Transaction\Order;
 
-use App\Events\Transaction\Order\OrderLegalProcessBySprinter;
-use App\Events\Transaction\Order\OrderLegalDoneBySprinter;
 use App\Events\Transaction\Order\OrderPackingBySprinter;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Order;
-use App\Supports\TransactionLogSupport;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

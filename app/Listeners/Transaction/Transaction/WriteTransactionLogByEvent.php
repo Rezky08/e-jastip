@@ -14,7 +14,7 @@ use App\Events\Transaction\Order\OrderShippedBySprinter;
 use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Jobs\Transaction\Transaction\WriteTransactionLog;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Order;
 use App\Models\Transaction\Transaction;
 use App\Supports\TransactionLogSupport;

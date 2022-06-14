@@ -3,13 +3,9 @@
 namespace App\Jobs\Master\Sprinter;
 
 use App\Events\Master\Sprinter\SprinterAttachedUniversity;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Master\University;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 class AttachSprinterUniversity

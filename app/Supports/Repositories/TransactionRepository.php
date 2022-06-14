@@ -3,7 +3,7 @@
 namespace App\Supports\Repositories;
 
 use App\Models\Master\Admin;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Master\User\User;
 use App\Supports\Repositories\AdminRepository\Query as AdminQuery;
 use App\Supports\Repositories\SprinterRepository\Query as SprinterQuery;

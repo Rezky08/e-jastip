@@ -2,7 +2,7 @@
 
 namespace App\Supports\Repositories\SprinterRepository;
 
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Order;
 use App\Models\Transaction\Transaction;
 use Illuminate\Database\Eloquent\Builder;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Sprinter\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Transaction\TransactionResource;
 use App\Jobs\Transaction\Order\TakeTransactionOrder;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Transaction;
 use App\Supports\Notification\ToastSupport;
 use App\Supports\Repositories\AuthRepository;

@@ -81,5 +81,17 @@ return [
                 ],
             ]
         ],
+        [
+            'code' => 'SCN',
+            'title' => 'Config',
+            'children' => [
+                [
+                    'code' => 'SCG',
+                    'title' => 'General',
+                    'routeName' => 'sprinter.config.general',
+                    'children' => []
+                ],
+            ]
+        ]
     ]
 ];

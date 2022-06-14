@@ -3,8 +3,7 @@
 namespace App\Jobs\Transaction\Order;
 
 use App\Events\Transaction\Order\OrderArrivedUniversityBySprinter;
-use App\Events\Transaction\Order\OrderDocumentPrintedBySprinter;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Order;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;

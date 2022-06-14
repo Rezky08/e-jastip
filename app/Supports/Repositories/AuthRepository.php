@@ -3,15 +3,13 @@
 namespace App\Supports\Repositories;
 
 use App\Models\Master\Admin;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Master\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Rezky\LaravelResponseFormatter\Exception\Error;
-use Rezky\LaravelResponseFormatter\Http\Code;
 
 class AuthRepository
 {

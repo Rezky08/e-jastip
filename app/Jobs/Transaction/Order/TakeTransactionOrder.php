@@ -3,7 +3,7 @@
 namespace App\Jobs\Transaction\Order;
 
 use App\Events\Transaction\Order\TransactionOrderTaken;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Setting\Setting;
 use App\Models\Transaction\Order;
 use App\Models\Transaction\Transaction;
@@ -11,9 +11,6 @@ use App\Supports\SettingSupport;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Rezky\LaravelResponseFormatter\Exception\Error;
-use Rezky\LaravelResponseFormatter\Http\Response;
 
 class TakeTransactionOrder
 {

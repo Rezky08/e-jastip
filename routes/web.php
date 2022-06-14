@@ -127,7 +127,6 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
             Route::get("/{attachment}", [\Jalameta\Attachments\Controllers\AttachmentController::class, "file"])->name('attachment');
         });
 
-
         Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
             Route::group(['prefix' => '/ongoing'], function () {
                 Route::group(['prefix' => '/{order}', 'as' => 'ongoing.'], function () {
@@ -152,6 +151,11 @@ Route::middleware(['auth.guard:sprinter'])->group(function () {
                     Route::post("/", [\App\Http\Controllers\Sprinter\Order\IncomingController::class, "store"])->name("incoming.take");
                 });
             });
+        });
+
+        Route::group(['prefix'=>'/config','as'=>'config.'],function(){
+           Route::get('/',[\App\Http\Controllers\Sprinter\Config\GeneralController::class,'create'])->name('general');
+           Route::post('/',[\App\Http\Controllers\Sprinter\Config\GeneralController::class,'store'])->name('general');
         });
     });
 });

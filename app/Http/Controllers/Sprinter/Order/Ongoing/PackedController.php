@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Sprinter\Order\Ongoing;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Transaction\Order\SprinterArrivedUniversity;
-use App\Jobs\Transaction\Order\SprinterLegalProcess;
-use App\Jobs\Transaction\Order\SprinterLegalDone;
 use App\Jobs\Transaction\Order\SprinterPacked;
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use App\Models\Transaction\Order;
 use App\Supports\Notification\ToastSupport;
 use App\Supports\Repositories\AuthRepository;

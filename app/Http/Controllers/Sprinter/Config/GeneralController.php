@@ -1,25 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Sprinter\Order\Ongoing;
+namespace App\Http\Controllers\Sprinter\Config;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Transaction\Order\SprinterToUniversity;
-use App\Models\Master\Sprinter\Sprinter;
-use App\Models\Transaction\Order;
-use App\Supports\Notification\ToastSupport;
-use App\Supports\Repositories\AuthRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ToUniversityController extends Controller
+class GeneralController extends Controller
 {
-    public AuthRepository $authRepository;
-
-    public function __construct(AuthRepository $authRepository)
-    {
-        $this->authRepository = $authRepository;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -37,32 +24,20 @@ class ToUniversityController extends Controller
      */
     public function create()
     {
-        //
+        return view('components.sprinter.config.general.index');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Order $order)
+    public function store(Request $request)
     {
-        DB::transaction(function () use ($order) {
-            try {
-                /** @var Sprinter $user */
-                $user = $this->authRepository->getUser();
-                $job = new SprinterToUniversity($user,$order);
-                $this->dispatch($job);
-            } catch (\Exception $e) {
-                ToastSupport::add($e->getMessage(),__('messages.sprinter.order.ongoing'));
-                throw $e;
-            }
-        });
-        ToastSupport::add(__('messages.sprinter.form.submit.to_university'),__('messages.sprinter.order.ongoing'));
-        return redirect()->back();
-
+        //
     }
+
     /**
      * Display the specified resource.
      *

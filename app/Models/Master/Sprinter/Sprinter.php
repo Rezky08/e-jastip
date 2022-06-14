@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Master;
+namespace App\Models\Master\Sprinter;
 
 use App\Contracts\UniversitiableContract;
 use App\Models\Transaction\Order;

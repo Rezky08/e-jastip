@@ -2,7 +2,7 @@
 
 namespace App\Events\Master\Sprinter;
 
-use App\Models\Master\Sprinter;
+use App\Models\Master\Sprinter\Sprinter;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
