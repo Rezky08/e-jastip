@@ -31,5 +31,6 @@ return [
     'form.label.receipt' => 'Nomor Resi',
 
     'title.history' => 'Riwayat',
+    'title.config.general' => 'General Configuration',
 
 ];

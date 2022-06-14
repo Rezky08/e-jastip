@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 /**
  * @property string $name
+ * @property Detail $detail
  */
 class Sprinter extends Authenticatable implements  UniversitiableContract
 {
@@ -55,6 +56,11 @@ class Sprinter extends Authenticatable implements  UniversitiableContract
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Order::class,'sprinter_id','id');
+    }
+
+    public function detail(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Detail::class, 'sprinter_id', 'id');
     }
 
 }

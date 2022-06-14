@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\Master\Sprinter\SprinterCreated;
 use App\Events\Master\User\UserCreated;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmationUploaded;
 use App\Events\Transaction\Invoice\InvoicePaymentConfirmed;
@@ -19,6 +20,7 @@ use App\Events\Transaction\Order\TransactionOrderTaken;
 use App\Events\Transaction\Transaction\TransactionCreated;
 use App\Jobs\Transaction\Order\SprinterToUniversity;
 use App\Jobs\Transaction\Transaction\UpdateTransactionStatus;
+use App\Listeners\Master\Sprinter\UpdateOrCreateSprinterDetailByEvent;
 use App\Listeners\Master\User\UpdateOrCreateUserDetailByEvent;
 use App\Listeners\Transaction\Invoice\GenerateInvoice;
 use App\Listeners\Transaction\Invoice\UpdateInvoiceStatusByEvent;
@@ -46,6 +48,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserCreated::class => [
             UpdateOrCreateUserDetailByEvent::class
+        ],
+        SprinterCreated::class => [
+            UpdateOrCreateSprinterDetailByEvent::class
         ],
         InvoicePaymentMethodUpdated::class => [
             UpdateTransactionStatusByEvent::class,
