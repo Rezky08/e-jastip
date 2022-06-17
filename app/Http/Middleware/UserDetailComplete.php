@@ -31,6 +31,7 @@ class UserDetailComplete
         // check if user detail complete
         try {
             Validator::make($detail->toArray(), [
+                'university_id' => ['required', 'filled'],
                 'student_id' => ['required', 'filled'],
                 'faculty_id' => ['required', 'filled'],
                 'study_program_id' => ['required', 'filled'],
