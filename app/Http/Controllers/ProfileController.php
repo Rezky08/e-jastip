@@ -46,6 +46,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+
         $job = new UpdateOrCreateUserDetail($request->all(), auth()->user());
         $this->dispatch($job);
         return redirect(route('profile'));
